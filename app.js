@@ -2,7 +2,7 @@ const snapshot = {
   date: "2026-08-07",
   time: "2026-08-07",
   timelineEnd: "2026-08-07",
-  stars: 1925,
+  stars: 1927,
   forks: 256,
   watchers: 151,
   createdAt: "2025-08-09",
@@ -177,9 +177,9 @@ const nonZeroDailyCounts = [
   ["2026-08-02", 20],
   ["2026-08-03", 12],
   ["2026-08-04", 17],
-  ["2026-08-05", 3],
-  ["2026-08-06", 20],
-  ["2026-08-07", 21]
+  ["2026-08-05", 22],
+  ["2026-08-06", 21],
+  ["2026-08-07", 4]
 ];
 
 const phases = [
@@ -223,7 +223,7 @@ const phases = [
     label: "5 月至今：稳定扩散",
     start: "2026-05-01",
     end: "2026-08-07",
-    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增。6/13 后逐日数据改用 Trendshift 活动流补齐，8/6-8/7 使用 GitHub 总量差补齐，顶部总量仍以 GitHub 当前公开计数为准。"
+    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增。6/13 后逐日数据改用 Trendshift 活动流补齐，8/5-8/7 使用 GitHub 总量差补齐，顶部总量仍以 GitHub 当前公开计数为准。"
   }
 ];
 
@@ -254,7 +254,7 @@ const benchmarkRepos = [
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 1925,
+    stars: 1927,
     forks: 256,
     color: "#e3a008",
     note: "当前看板目标仓库。"
@@ -307,6 +307,7 @@ function buildDailyCounts(start, end, nonZeroRows) {
   return rows;
 }
 
+const chartStartDate = "2025-12-31";
 const dailyCounts = buildDailyCounts("2025-09-03", snapshot.timelineEnd, nonZeroDailyCounts);
 const data = dailyCounts.map(([date, stars], index) => {
   const cumulative = dailyCounts.slice(0, index + 1).reduce((sum, item) => sum + item[1], 0);
@@ -318,6 +319,7 @@ const data = dailyCounts.map(([date, stars], index) => {
     actions: byDateActions[date] || []
   };
 });
+const chartData = data.filter((item) => item.date >= chartStartDate);
 
 let calendarMonth = dailyCounts.at(-1)[0].slice(0, 7);
 
@@ -399,14 +401,8 @@ function renderSummary() {
   const maxDay = data.reduce((max, item) => (item.stars > max.stars ? item : max), data[0]);
   const august = sumRange("2026-08-01", snapshot.timelineEnd);
   const lastSeven = data.slice(-7).reduce((sum, item) => sum + item.stars, 0);
-  const sourceGap = data.at(-1).cumulative - snapshot.stars;
-  const gapNote =
-    sourceGap === 0
-      ? "与 GitHub 当前公开总量一致。"
-      : `较 GitHub 当前公开总量${sourceGap > 0 ? "高" : "低"} ${formatNumber(Math.abs(sourceGap))}，属来源口径差异。`;
   const cards = [
     ["当前 stars", formatNumber(snapshot.stars), `${snapshot.time} GitHub API 快照；forks ${snapshot.forks}，watchers ${snapshot.watchers}。`],
-    ["活动流累计", formatNumber(data.at(-1).cumulative), `${data[0].date} 到 ${snapshot.timelineEnd}；6/13 后来自 Trendshift，${gapNote}`],
     ["8 月新增", formatNumber(august), `8/1 到 ${snapshot.timelineEnd}；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
     ["最高单日", `${maxDay.stars}`, `${maxDay.date}，位于 4 月内容矩阵放大阶段。`]
   ];
@@ -416,15 +412,15 @@ function renderSummary() {
 }
 
 function renderTrendChart() {
-  const width = Math.max(1120, data.length * 5.2);
-  const height = 460;
-  const margin = { top: 30, right: 66, bottom: 56, left: 50 };
+  const width = Math.max(1120, chartData.length * 5.2);
+  const height = 360;
+  const margin = { top: 28, right: 66, bottom: 46, left: 70 };
   const chartW = width - margin.left - margin.right;
   const chartH = height - margin.top - margin.bottom;
-  const maxStars = Math.max(55, ...data.map((item) => item.stars));
-  const maxCum = data.at(-1).cumulative;
-  const x = (i) => margin.left + (i / (data.length - 1)) * chartW;
-  const barW = Math.max(3, chartW / data.length - 2);
+  const maxStars = Math.max(55, ...chartData.map((item) => item.stars));
+  const maxCum = chartData.at(-1).cumulative;
+  const x = (i) => margin.left + (i / (chartData.length - 1)) * chartW;
+  const barW = Math.max(3, chartW / chartData.length - 2);
   const yStars = (v) => margin.top + chartH - (v / maxStars) * chartH;
   const yCum = (v) => margin.top + chartH - (v / maxCum) * chartH;
   const gridTicks = [0, 10, 20, 30, 40, 50];
@@ -436,38 +432,41 @@ function renderTrendChart() {
       const startIndex = data.findIndex((item) => item.date === phase.start);
       const endIndex = data.findIndex((item) => item.date === phase.end);
       if (startIndex < 0 || endIndex < 0) return "";
-      const bx = x(startIndex) - barW / 2;
-      const bw = x(endIndex) - x(startIndex) + barW;
+      const chartStartIndex = chartData.findIndex((item) => item.date === phase.start);
+      const chartEndIndex = chartData.findIndex((item) => item.date === phase.end);
+      if (chartStartIndex < 0 || chartEndIndex < 0) return "";
+      const bx = x(chartStartIndex) - barW / 2;
+      const bw = x(chartEndIndex) - x(chartStartIndex) + barW;
       return `<rect class="phase-band" x="${bx}" y="${margin.top}" width="${bw}" height="${chartH}" opacity="0.55"></rect>
         <text class="phase-label" x="${bx + 8}" y="${margin.top + 18}">${phase.label}</text>`;
     })
     .join("");
-  const bars = data
+  const bars = chartData
     .map((item, i) => {
       const bx = x(i) - barW / 2;
       const by = yStars(item.stars);
-      const cls = item.stars >= 20 ? "bar hot" : "bar";
+      const cls = item.stars >= 50 ? "bar hot" : "bar";
       return `<rect class="${cls}" x="${bx}" y="${by}" width="${barW}" height="${margin.top + chartH - by}" rx="2"></rect>`;
     })
     .join("");
-  const line = data.map((item, i) => `${x(i)},${yCum(item.cumulative)}`).join(" ");
-  const pins = data
+  const line = chartData.map((item, i) => `${x(i)},${yCum(item.cumulative)}`).join(" ");
+  const pins = chartData
     .filter((item) => item.actions.length)
     .map((item) => {
-      const i = data.indexOf(item);
+      const i = chartData.indexOf(item);
       return `<circle class="action-pin" cx="${x(i)}" cy="${yStars(Math.max(item.stars, 2)) - 9}" r="4"><title>${item.date}: ${item.actions.map((a) => a.title).join(" / ")}</title></circle>`;
     })
     .join("");
-  const monthLabels = data
-    .filter((item) => item.date.endsWith("-01") || item.date === data[0].date)
+  const monthLabels = chartData
+    .filter((item) => item.date === chartData[0].date || (item.date.endsWith("-01") && item.date !== "2026-01-01"))
     .map((item) => {
-      const i = data.indexOf(item);
+      const i = chartData.indexOf(item);
       return `<text class="chart-label" x="${x(i) - 18}" y="${height - 24}">${item.date.slice(5)}</text>`;
     })
     .join("");
-  const hoverZones = data
+  const hoverZones = chartData
     .map((item, i) => {
-      const zoneW = Math.max(7, chartW / data.length);
+      const zoneW = Math.max(7, chartW / chartData.length);
       return `<rect class="hover-zone" x="${x(i) - zoneW / 2}" y="${margin.top}" width="${zoneW}" height="${chartH}" data-date="${item.date}" data-stars="${item.stars}" data-cumulative="${item.cumulative}"></rect>`;
     })
     .join("");
@@ -483,7 +482,7 @@ function renderTrendChart() {
       <line x1="${margin.left}" y1="${margin.top + chartH}" x2="${width - margin.right}" y2="${margin.top + chartH}" stroke="#cbd5e1"></line>
       ${monthLabels}
       <text class="chart-label" x="${width - margin.right + 8}" y="${yCum(maxCum) + 4}">${formatNumber(maxCum)}</text>
-      <text class="axis-title" x="20" y="${margin.top + 14}" transform="rotate(-90 20 ${margin.top + 14})">Daily stars</text>
+      <text class="axis-title" x="${margin.left - 52}" y="${margin.top - 10}">Daily stars</text>
     </svg>`;
   bindChartTooltip();
 }
