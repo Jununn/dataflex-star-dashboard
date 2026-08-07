@@ -1,0 +1,6 @@
+data/.curl-gh-config
+data/github-cache/
+favicon-original.png
+favicon-before-transparent.png
+favicon.svg
+.DS_Store

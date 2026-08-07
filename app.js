@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-08-05",
-  time: "2026-08-05 03:40 UTC",
-  timelineEnd: "2026-08-05",
-  stars: 1884,
-  forks: 250,
-  watchers: 147,
+  date: "2026-08-07",
+  time: "2026-08-07",
+  timelineEnd: "2026-08-07",
+  stars: 1925,
+  forks: 256,
+  watchers: 151,
   createdAt: "2025-08-09",
   pushedAt: "2026-06-17",
   description:
@@ -177,7 +177,9 @@ const nonZeroDailyCounts = [
   ["2026-08-02", 20],
   ["2026-08-03", 12],
   ["2026-08-04", 17],
-  ["2026-08-05", 3]
+  ["2026-08-05", 3],
+  ["2026-08-06", 20],
+  ["2026-08-07", 21]
 ];
 
 const phases = [
@@ -220,8 +222,8 @@ const phases = [
     id: "steady",
     label: "5 月至今：稳定扩散",
     start: "2026-05-01",
-    end: "2026-08-05",
-    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增。6/13 后逐日数据改用 Trendshift 活动流补齐，顶部总量仍以 GitHub 当前公开计数为准。"
+    end: "2026-08-07",
+    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增。6/13 后逐日数据改用 Trendshift 活动流补齐，8/6-8/7 使用 GitHub 总量差补齐，顶部总量仍以 GitHub 当前公开计数为准。"
   }
 ];
 
@@ -252,8 +254,8 @@ const benchmarkRepos = [
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 1884,
-    forks: 250,
+    stars: 1925,
+    forks: 256,
     color: "#e3a008",
     note: "当前看板目标仓库。"
   },
@@ -317,14 +319,80 @@ const data = dailyCounts.map(([date, stars], index) => {
   };
 });
 
+let calendarMonth = dailyCounts.at(-1)[0].slice(0, 7);
+
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(value);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function addMonths(month, delta) {
+  const [year, monthIndex] = month.split("-").map(Number);
+  const date = new Date(Date.UTC(year, monthIndex - 1 + delta, 1));
+  return date.toISOString().slice(0, 7);
+}
+
+function getMonthBounds(month) {
+  const [year, monthIndex] = month.split("-").map(Number);
+  const start = new Date(Date.UTC(year, monthIndex - 1, 1));
+  const end = new Date(Date.UTC(year, monthIndex, 0));
+  return {
+    start,
+    end,
+    startDate: start.toISOString().slice(0, 10),
+    endDate: end.toISOString().slice(0, 10)
+  };
+}
+
+function getChannelClass(channel) {
+  const normalized = channel.toLowerCase();
+  if (normalized.includes("hugging")) return "channel-hf";
+  if (channel.includes("公众号")) return "channel-wechat";
+  if (channel.includes("Release")) return "channel-release";
+  if (channel.includes("README")) return "channel-docs";
+  if (channel.includes("X")) return "channel-social";
+  return "channel-default";
 }
 
 function sumRange(start, end) {
   return data
     .filter((item) => item.date >= start && item.date <= end)
     .reduce((sum, item) => sum + item.stars, 0);
+}
+
+function monthAverageLabel(month) {
+  const rows = data.filter((item) => item.date.startsWith(month));
+  const total = rows.reduce((sum, item) => sum + item.stars, 0);
+  const average = rows.length ? total / rows.length : 0;
+  return `${Number(month.slice(5))} 月 (${average.toFixed(1)}/d)`;
+}
+
+function buildTrendBands() {
+  const bands = [
+    { start: "2025-09-03", end: "2025-11-30", label: "9-11 月" },
+    { start: "2025-12-01", end: "2025-12-31", label: "12 月" },
+    { start: "2026-01-01", end: "2026-03-31", label: "1-3 月" }
+  ];
+  let month = "2026-04";
+  const lastMonth = snapshot.timelineEnd.slice(0, 7);
+  while (month <= lastMonth) {
+    const bounds = getMonthBounds(month);
+    bands.push({
+      start: bounds.startDate,
+      end: bounds.endDate < snapshot.timelineEnd ? bounds.endDate : snapshot.timelineEnd,
+      label: monthAverageLabel(month)
+    });
+    month = addMonths(month, 1);
+  }
+  return bands;
 }
 
 function renderSummary() {
@@ -349,8 +417,8 @@ function renderSummary() {
 
 function renderTrendChart() {
   const width = Math.max(1120, data.length * 5.2);
-  const height = 520;
-  const margin = { top: 34, right: 70, bottom: 64, left: 54 };
+  const height = 460;
+  const margin = { top: 30, right: 66, bottom: 56, left: 50 };
   const chartW = width - margin.left - margin.right;
   const chartH = height - margin.top - margin.bottom;
   const maxStars = Math.max(55, ...data.map((item) => item.stars));
@@ -363,16 +431,15 @@ function renderTrendChart() {
   const grid = gridTicks
     .map((tick) => `<line class="grid-line" x1="${margin.left}" y1="${yStars(tick)}" x2="${width - margin.right}" y2="${yStars(tick)}"></line><text class="chart-label" x="16" y="${yStars(tick) + 4}">${tick}</text>`)
     .join("");
-  const bands = phases
+  const bands = buildTrendBands()
     .map((phase) => {
       const startIndex = data.findIndex((item) => item.date === phase.start);
       const endIndex = data.findIndex((item) => item.date === phase.end);
       if (startIndex < 0 || endIndex < 0) return "";
       const bx = x(startIndex) - barW / 2;
       const bw = x(endIndex) - x(startIndex) + barW;
-      const label = bw >= phase.label.length * 12 ? `<text class="phase-label" x="${bx + 8}" y="${margin.top + 18}">${phase.label}</text>` : "";
       return `<rect class="phase-band" x="${bx}" y="${margin.top}" width="${bw}" height="${chartH}" opacity="0.55"></rect>
-        ${label}`;
+        <text class="phase-label" x="${bx + 8}" y="${margin.top + 18}">${phase.label}</text>`;
     })
     .join("");
   const bars = data
@@ -502,33 +569,47 @@ function renderPhaseCards() {
 
 function renderBenchmark() {
   const sorted = benchmarkRepos.slice().sort((a, b) => b.stars - a.stars);
+  const dataFlex = sorted.find((repo) => repo.name === "OpenDCAI/DataFlex");
   document.getElementById("benchmarkCards").innerHTML = sorted
-    .map((repo) => `<a class="benchmark-card" href="https://github.com/${repo.name}" target="_blank" rel="noreferrer">
-      <i style="background:${repo.color}"></i><strong>${repo.name}</strong><em>${formatNumber(repo.stars)}</em><small>${repo.note} Forks ${formatNumber(repo.forks)}</small>
-    </a>`)
+    .map((repo, index) => {
+      const ratio = dataFlex && repo.name !== dataFlex.name ? repo.stars / dataFlex.stars : 1;
+      const ratioText = repo.name === dataFlex?.name ? "目标仓库" : `${ratio.toFixed(ratio >= 10 ? 0 : 1)}x DataFlex`;
+      return `<a class="benchmark-card${repo.name === "OpenDCAI/DataFlex" ? " is-target" : ""}" href="https://github.com/${repo.name}" target="_blank" rel="noreferrer">
+      <i style="background:${repo.color}"></i>
+      <span class="benchmark-rank">#${index + 1}</span>
+      <strong>${repo.name}</strong>
+      <em>${formatNumber(repo.stars)}</em>
+      <small>${ratioText} · forks ${formatNumber(repo.forks)}</small>
+      <b>${repo.note}</b>
+    </a>`;
+    })
     .join("");
 
   const width = 1180;
-  const rowH = 54;
-  const height = sorted.length * rowH + 52;
-  const margin = { top: 24, right: 170, bottom: 24, left: 250 };
+  const rowH = 46;
+  const height = sorted.length * rowH + 58;
+  const margin = { top: 20, right: 210, bottom: 28, left: 252 };
   const max = Math.sqrt(sorted[0].stars);
   const chartW = width - margin.left - margin.right;
   const bars = sorted
     .map((repo, index) => {
       const y = margin.top + index * rowH;
       const w = (Math.sqrt(repo.stars) / max) * chartW;
-      const label = repo.name === "OpenDCAI/DataFlex" ? "benchmark-label" : "benchmark-meta";
+      const target = repo.name === "OpenDCAI/DataFlex";
+      const label = target ? "benchmark-label is-target" : "benchmark-label";
+      const ratio = dataFlex && !target ? repo.stars / dataFlex.stars : 1;
+      const ratioText = target ? "target" : `${ratio.toFixed(ratio >= 10 ? 0 : 1)}x`;
       return `<text class="${label}" x="24" y="${y + 25}">${repo.name}</text>
-        <rect class="benchmark-bar" x="${margin.left}" y="${y + 8}" width="${w}" height="22" rx="5" fill="${repo.color}"></rect>
-        <text class="benchmark-label" x="${margin.left + w + 10}" y="${y + 24}">${formatNumber(repo.stars)}</text>
-        <text class="benchmark-meta" x="${margin.left + w + 10}" y="${y + 40}">forks ${formatNumber(repo.forks)}</text>`;
+        <rect class="benchmark-track" x="${margin.left}" y="${y + 10}" width="${chartW}" height="16" rx="5"></rect>
+        <rect class="benchmark-bar" x="${margin.left}" y="${y + 10}" width="${w}" height="16" rx="5" fill="${repo.color}"></rect>
+        <text class="benchmark-value" x="${margin.left + w + 10}" y="${y + 23}">${formatNumber(repo.stars)}</text>
+        <text class="benchmark-meta" x="${width - 132}" y="${y + 23}">${ratioText} · ${formatNumber(repo.forks)} forks</text>`;
     })
     .join("");
   document.getElementById("benchmarkChart").innerHTML = `
     <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Related repository star benchmark">
       ${bars}
-      <text class="chart-label" x="${margin.left}" y="${height - 8}">Square-root scale, snapshot ${snapshot.date}</text>
+      <text class="chart-label" x="${margin.left}" y="${height - 10}">Square-root scale · snapshot ${snapshot.date}</text>
     </svg>`;
 }
 
@@ -556,8 +637,105 @@ function renderTable(filter = "all") {
   document.getElementById("dailyTable").innerHTML = rows;
 }
 
+function renderActionCalendar() {
+  const calendar = document.getElementById("actionCalendar");
+  const monthLabel = document.getElementById("calendarMonthLabel");
+  if (!calendar || !monthLabel) return;
+
+  const { start, end, startDate, endDate } = getMonthBounds(calendarMonth);
+  const firstOffset = start.getUTCDay();
+  const daysInMonth = end.getUTCDate();
+  const rowsByDate = new Map(data.map((item) => [item.date, item]));
+  const cells = [];
+  const totalCells = Math.ceil((firstOffset + daysInMonth) / 7) * 7;
+  const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
+
+  for (let index = 0; index < totalCells; index += 1) {
+    const day = index - firstOffset + 1;
+    if (day < 1 || day > daysInMonth) {
+      cells.push(`<div class="calendar-cell is-empty"></div>`);
+      continue;
+    }
+
+    const date = `${calendarMonth}-${String(day).padStart(2, "0")}`;
+    const item = rowsByDate.get(date);
+    const actions = item?.actions || [];
+    const isWeekend = index % 7 === 0 || index % 7 === 6;
+    const stars = item?.stars ?? 0;
+    const countClass = stars >= 20 ? "count-hot" : "";
+    const actionsHtml = actions.length
+      ? actions
+          .map(
+            (action) =>
+              `<a class="calendar-action ${getChannelClass(action.channel)}" href="${escapeHtml(action.url)}" target="_blank" rel="noreferrer" title="${escapeHtml(`${date} · ${action.channel} · ${action.title}`)}" data-date="${date}" data-channel="${escapeHtml(action.channel)}" data-title="${escapeHtml(action.title)}" data-url="${escapeHtml(action.url)}"><span>${escapeHtml(action.channel)}</span>${escapeHtml(action.title)}</a>`
+          )
+          .join("")
+      : "";
+
+    cells.push(`<article class="calendar-cell${isWeekend ? " is-weekend" : ""}">
+      <div class="calendar-date">
+        <strong>${day}</strong>
+      </div>
+      <div class="calendar-metrics">
+        <span class="${countClass}">+${stars}</span>
+        <em>${item ? formatNumber(item.cumulative) : "-"}</em>
+      </div>
+      <div class="calendar-actions">${actionsHtml}</div>
+    </article>`);
+  }
+
+  monthLabel.textContent = `${calendarMonth.replace("-", " 年 ")} 月`;
+  calendar.innerHTML = `
+    <div id="calendarTooltip" class="chart-tooltip calendar-tooltip" hidden></div>
+    <div class="calendar-weekdays">${weekdays.map((day) => `<span>${day}</span>`).join("")}</div>
+    <div class="calendar-grid">${cells.join("")}</div>`;
+  bindCalendarActionTooltip();
+
+  const minMonth = data[0].date.slice(0, 7);
+  const maxMonth = data.at(-1).date.slice(0, 7);
+  document.getElementById("calendarPrev").disabled = startDate.slice(0, 7) <= minMonth;
+  document.getElementById("calendarNext").disabled = endDate.slice(0, 7) >= maxMonth;
+}
+
+function bindCalendarActionTooltip() {
+  const wrap = document.getElementById("actionCalendar");
+  const tooltip = document.getElementById("calendarTooltip");
+  if (!wrap || !tooltip) return;
+
+  wrap.querySelectorAll(".calendar-action").forEach((action) => {
+    action.addEventListener("click", (event) => {
+      const url = action.dataset.url;
+      if (!url || url === "#") return;
+      event.preventDefault();
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+    action.addEventListener("mousemove", (event) => {
+      const rect = wrap.getBoundingClientRect();
+      tooltip.hidden = false;
+      tooltip.style.left = `${event.clientX - rect.left + wrap.scrollLeft}px`;
+      tooltip.style.top = `${event.clientY - rect.top + wrap.scrollTop}px`;
+      tooltip.innerHTML = `<strong>${action.dataset.title}</strong><span>日期：${action.dataset.date}</span><span>渠道：${action.dataset.channel}</span><span>${action.dataset.url}</span>`;
+    });
+    action.addEventListener("mouseleave", () => {
+      tooltip.hidden = true;
+    });
+  });
+}
+
+function initCalendar() {
+  document.getElementById("calendarPrev")?.addEventListener("click", () => {
+    calendarMonth = addMonths(calendarMonth, -1);
+    renderActionCalendar();
+  });
+  document.getElementById("calendarNext")?.addEventListener("click", () => {
+    calendarMonth = addMonths(calendarMonth, 1);
+    renderActionCalendar();
+  });
+}
+
 function initFilter() {
   const select = document.getElementById("phaseFilter");
+  if (!select) return;
   phases.forEach((phase) => {
     const option = document.createElement("option");
     option.value = phase.id;
@@ -574,4 +752,5 @@ renderMomentum();
 renderPhaseCards();
 renderBenchmark();
 initFilter();
-renderTable();
+initCalendar();
+renderActionCalendar();
