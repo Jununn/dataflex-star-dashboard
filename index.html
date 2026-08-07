@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Star Growth &amp; Actions Dashboard</title>
+    <link rel="stylesheet" href="./styles.css?v=20260807-panel" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">OpenDCAI/DataFlex</p>
+        <h1>Star Growth &amp; Actions Dashboard</h1>
+        <p class="subhead">
+          以 GitHub stargazer 时间线为底，叠加 Trendshift 活动流、公开传播节点、阶段性趋势和外部趋势页入口；GitHub 总量快照为 2026-08-05 03:40 UTC，当前公开 star 总量 1,884，逐日趋势补齐到 2026-08-05。
+        </p>
+      </div>
+      <nav class="source-links" aria-label="Source links">
+        <a href="https://github.com/OpenDCAI/DataFlex" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://opendcai.github.io/DataFlex-Doc/" target="_blank" rel="noreferrer">Docs</a>
+        <a href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">Trendshift</a>
+        <a href="https://www.star-history.com/#OpenDCAI/DataFlex&Date" target="_blank" rel="noreferrer">Star History</a>
+        <a href="https://huggingface.co/papers/2603.26164" target="_blank" rel="noreferrer">HF Paper</a>
+        <span class="live-status">本地快照</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="summary-grid" id="summary"></section>
+
+      <section class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>每日新增与累计趋势</h2>
+            <p>柱状为 UTC 日增 stars；折线为累计 stars。高亮区间对应阶段性传播判断；6/13 后使用 Trendshift repository activity 补齐。</p>
+          </div>
+          <div class="legend">
+            <span><i class="legend-dot daily"></i>日增</span>
+            <span><i class="legend-dot cumulative"></i>累计</span>
+            <span><i class="legend-dot action"></i>公开节点</span>
+          </div>
+        </div>
+        <div id="mainChart" class="chart-wrap" aria-label="Daily stars and cumulative stars chart"></div>
+      </section>
+
+      <section class="two-col">
+        <article class="panel">
+          <div class="panel-heading compact">
+            <div>
+              <h2>阶段归因</h2>
+              <p>把增长拆成更容易复盘的阶段：先看数据拐点，再对齐公开节点。</p>
+            </div>
+          </div>
+          <div id="phaseCards" class="phase-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading compact">
+            <div>
+              <h2>来源页聚合</h2>
+              <p>Trendshift 与 Star History 作为外部校验入口；下方月柱和动量卡用于观察阶段扩散。</p>
+            </div>
+          </div>
+          <div class="source-stack">
+            <a class="source-card" href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">
+              <strong>Trendshift repository page</strong>
+              <span>查看第三方 last 60 days activity，补齐 GitHub API 难以稳定抓取的近期日增。</span>
+            </a>
+            <a class="source-card" href="https://www.star-history.com/#OpenDCAI/DataFlex&Date" target="_blank" rel="noreferrer">
+              <strong>Star History</strong>
+              <span>查看仓库总 star 的长期累计趋势，和本地日增口径互相校验。</span>
+            </a>
+          </div>
+          <div id="monthlyChart" class="mini-chart" aria-label="Monthly added stars chart"></div>
+          <div id="momentumGrid" class="momentum-grid"></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>DataFlex 相关项目对比</h2>
+            <p>对比项目使用 2026-08-05 GitHub 公开计数快照。LLaMA-Factory 量级远高，因此横向条形图使用平方根刻度，避免其它项目被压扁。</p>
+          </div>
+          <a class="inline-source" href="https://www.star-history.com/#hiyouga/LlamaFactory&OpenDCAI/DataFlow&OpenDCAI/DataFlex&princeton-nlp/LESS&sangmichaelxie/doremi&ZifanL/TSDS&Date" target="_blank" rel="noreferrer">打开 Star History</a>
+        </div>
+        <div id="benchmarkCards" class="benchmark-grid"></div>
+        <div id="benchmarkChart" class="benchmark-chart" aria-label="Related repository star benchmark chart"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>公开节点与日增对齐表</h2>
+            <p>表格显示每日新增、累计、阶段标签和已记录公开动作。最近日增来自 Trendshift 活动流，顶部总量仍以 GitHub 当前公开计数为准。</p>
+          </div>
+          <div class="table-tools">
+            <label for="phaseFilter">阶段</label>
+            <select id="phaseFilter">
+              <option value="all">全部</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>日增</th>
+                <th>累计</th>
+                <th>阶段</th>
+                <th>公开节点</th>
+              </tr>
+            </thead>
+            <tbody id="dailyTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js?v=20260805"></script>
+  </body>
+</html>
