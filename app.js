@@ -309,16 +309,22 @@ function buildDailyCounts(start, end, nonZeroRows) {
 
 const chartStartDate = "2025-12-31";
 const dailyCounts = buildDailyCounts("2025-09-03", snapshot.timelineEnd, nonZeroDailyCounts);
-const data = dailyCounts.map(([date, stars], index) => {
-  const cumulative = dailyCounts.slice(0, index + 1).reduce((sum, item) => sum + item[1], 0);
+let runningStars = 0;
+const rawData = dailyCounts.map(([date, stars]) => {
+  runningStars += stars;
   return {
     date,
     stars,
-    cumulative,
+    cumulative: runningStars,
     phase: phases.find((phase) => date >= phase.start && date <= phase.end),
     actions: byDateActions[date] || []
   };
 });
+const cumulativeOffset = snapshot.stars - rawData.at(-1).cumulative;
+const data = rawData.map((item) => ({
+  ...item,
+  cumulative: item.cumulative + cumulativeOffset
+}));
 const chartData = data.filter((item) => item.date >= chartStartDate);
 
 let calendarMonth = dailyCounts.at(-1)[0].slice(0, 7);
