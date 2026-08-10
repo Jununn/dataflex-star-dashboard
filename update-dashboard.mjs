@@ -6,16 +6,18 @@ const root = dirname(fileURLToPath(import.meta.url));
 const appPath = join(root, "app.js");
 const indexPath = join(root, "index.html");
 const repoName = "OpenDCAI/DataFlex";
-const recalculationWindowDays = 7;
+const dailyCountsStartDate = "2025-12-31";
 
 function utcDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
-function addDays(date, days) {
-  const next = new Date(`${date}T00:00:00Z`);
-  next.setUTCDate(next.getUTCDate() + days);
-  return utcDate(next);
+function datesBetween(start, end) {
+  const out = [];
+  for (let d = new Date(`${start}T00:00:00Z`), last = new Date(`${end}T00:00:00Z`); d <= last; d.setUTCDate(d.getUTCDate() + 1)) {
+    out.push(utcDate(d));
+  }
+  return out;
 }
 
 function formatNumber(value) {
@@ -32,6 +34,12 @@ function readConstObject(source, name) {
   const match = source.match(new RegExp(`const ${name} = (\\{[\\s\\S]*?\\n\\};)`));
   if (!match) throw new Error(`Cannot find ${name}`);
   return Function(`return ${match[1]}`)();
+}
+
+function readConstString(source, name) {
+  const match = source.match(new RegExp(`(?:const|let) ${name} = "([^"]+)";`));
+  if (!match) throw new Error(`Cannot find ${name}`);
+  return match[1];
 }
 
 function renderRows(rows) {
@@ -61,11 +69,76 @@ function replaceSnapshot(source, snapshot) {
   return source.replace(/const snapshot = \{[\s\S]*?\n\};/, `const snapshot = ${renderSnapshot(snapshot)};`);
 }
 
-function updateBenchmarkTarget(source, snapshot) {
-  return source.replace(
-    /(name: "OpenDCAI\/DataFlex",\n\s+stars: )\d+(,\n\s+forks: )\d+/,
-    `$1${snapshot.stars}$2${snapshot.forks}`
-  );
+function renderSnapshotMap(snapshots) {
+  const body = Object.entries(snapshots)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, totals]) => `  "${date}": {\n${Object.entries(totals).map(([name, total]) => `    "${name}": ${total}`).join(",\n")}\n  }`)
+    .join(",\n");
+  return `{\n${body}\n}`;
+}
+
+function renderPoints(points) {
+  return `[\n${points.map(([date, value]) => `      ["${date}", ${value}]`).join(",\n")}\n    ]`;
+}
+
+function renderBenchmarkRepos(repos) {
+  const body = repos.map((repo) => `  {
+    name: "${repo.name}",
+    stars: ${repo.stars},
+    forks: ${repo.forks},
+    recentChange: ${repo.recentChange ?? 0},
+    color: "${repo.color}",
+    note: "${repo.note}",
+    points: ${renderPoints(repo.points || [])}
+  }`).join(",\n");
+  return `[\n${body}\n]`;
+}
+
+function replaceConstObject(source, name, object) {
+  return source.replace(new RegExp(`const ${name} = \\{[\\s\\S]*?\\n\\};`), `const ${name} = ${renderSnapshotMap(object)};`);
+}
+
+function replaceConstString(source, name, value) {
+  return source.replace(new RegExp(`((?:const|let) ${name} = ")[^"]+(";)`), `$1${value}$2`);
+}
+
+function replaceBenchmarkRepos(source, repos) {
+  return source.replace(/const benchmarkRepos = \[[\s\S]*?\n\];\n\nconst byDateActions =/, `const benchmarkRepos = ${renderBenchmarkRepos(repos)};\n\nconst byDateActions =`);
+}
+
+async function updateBenchmarkRepos(source, currentDate) {
+  const benchmarkRepos = readConstArray(source, "benchmarkRepos");
+  const benchmarkSnapshots = readConstObject(source, "benchmarkSnapshots");
+  const previousDate = Object.keys(benchmarkSnapshots).filter((date) => date < currentDate).sort().at(-1)
+    || readConstString(source, "benchmarkPreviousSnapshotDate");
+  const previousTotals = benchmarkSnapshots[previousDate] || {};
+  const nextSnapshots = { ...benchmarkSnapshots, [currentDate]: {} };
+  const nextRepos = [];
+
+  for (const repo of benchmarkRepos) {
+    const info = await github(`/repos/${repo.name}`);
+    nextSnapshots[currentDate][repo.name] = info.stargazers_count;
+    const hasPreviousTotal = Object.hasOwn(previousTotals, repo.name);
+    const previousTotal = hasPreviousTotal ? previousTotals[repo.name] : repo.stars;
+    const points = new Map(repo.points || []);
+    if (hasPreviousTotal && !points.has(previousDate) && Number.isFinite(previousTotal)) {
+      points.set(previousDate, previousTotal);
+    }
+    points.set(currentDate, info.stargazers_count);
+    nextRepos.push({
+      ...repo,
+      stars: info.stargazers_count,
+      forks: info.forks_count,
+      recentChange: info.stargazers_count - previousTotal,
+      points: [...points.entries()].sort(([a], [b]) => a.localeCompare(b))
+    });
+  }
+
+  source = replaceConstString(source, "benchmarkSnapshotDate", currentDate);
+  source = replaceConstString(source, "benchmarkPreviousSnapshotDate", previousDate);
+  source = replaceConstObject(source, "benchmarkSnapshots", nextSnapshots);
+  source = replaceBenchmarkRepos(source, nextRepos);
+  return source;
 }
 
 async function github(path, options = {}) {
@@ -85,37 +158,34 @@ async function github(path, options = {}) {
   return res.json();
 }
 
-async function recentDailyCounts(totalStars, startDate, endDate) {
-  const counts = new Map();
+async function stargazersSince(totalStars, startDate) {
   const maxPage = Math.ceil(totalStars / 100);
+  const startTimestamp = `${startDate}T00:00:00Z`;
+  const rows = [];
   for (let page = maxPage; page >= 1; page -= 1) {
-    const rows = await github(`/repos/${repoName}/stargazers?per_page=100&page=${page}`, {
+    const pageRows = await github(`/repos/${repoName}/stargazers?per_page=100&page=${page}`, {
       headers: { Accept: "application/vnd.github.star+json" }
     });
-    if (!rows.length) break;
-
-    let shouldStop = false;
-    for (const row of rows) {
-      const date = row.starred_at?.slice(0, 10);
-      if (!date) continue;
-      if (date >= startDate && date <= endDate) {
-        counts.set(date, (counts.get(date) || 0) + 1);
-      }
-      if (date < startDate) shouldStop = true;
-    }
-    if (shouldStop) break;
+    if (!pageRows.length) break;
+    rows.push(...pageRows.filter((item) => item?.starred_at && item.starred_at >= startTimestamp));
+    const oldest = pageRows
+      .map((item) => item?.starred_at)
+      .filter(Boolean)
+      .sort()[0];
+    if (oldest && oldest < startTimestamp) break;
   }
-  return counts;
+  return rows;
 }
 
-function mergeDailyCounts(existingRows, freshCounts, startDate, endDate) {
-  const merged = new Map(existingRows);
-  for (let date = startDate; date <= endDate; date = addDays(date, 1)) {
-    merged.delete(date);
-    const count = freshCounts.get(date) || 0;
-    if (count > 0) merged.set(date, count);
+function dailyRowsFromStargazers(stargazers, startDate, endDate) {
+  const byDay = new Map();
+  for (const item of stargazers) {
+    const day = item.starred_at.slice(0, 10);
+    byDay.set(day, (byDay.get(day) || 0) + 1);
   }
-  return [...merged.entries()].sort(([a], [b]) => a.localeCompare(b));
+  return datesBetween(startDate, endDate)
+    .map((date) => [date, byDay.get(date) || 0])
+    .filter(([, count]) => count > 0);
 }
 
 function fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot) {
@@ -153,16 +223,14 @@ async function main() {
   let index = readFileSync(indexPath, "utf8");
   const previousSnapshot = readConstObject(app, "snapshot");
   const existingRows = readConstArray(app, "nonZeroDailyCounts");
-  const endDate = utcDate(new Date());
-  const previousLastDate = existingRows.at(-1)?.[0] || previousSnapshot.timelineEnd;
-  const recalculationStart = addDays(previousLastDate, -recalculationWindowDays + 1);
+  const currentUtcDate = utcDate(new Date());
 
   const repo = await github(`/repos/${repoName}`);
   const currentSnapshot = {
     ...previousSnapshot,
-    date: endDate,
-    time: endDate,
-    timelineEnd: endDate,
+    date: currentUtcDate,
+    time: currentUtcDate,
+    timelineEnd: [currentUtcDate, previousSnapshot.timelineEnd].sort().at(-1),
     stars: repo.stargazers_count,
     forks: repo.forks_count,
     watchers: repo.subscribers_count ?? previousSnapshot.watchers,
@@ -172,28 +240,30 @@ async function main() {
 
   let dailyRows;
   try {
-    const freshCounts = await recentDailyCounts(currentSnapshot.stars, recalculationStart, endDate);
-    dailyRows = mergeDailyCounts(existingRows, freshCounts, recalculationStart, endDate);
+    const stargazers = await stargazersSince(currentSnapshot.stars, dailyCountsStartDate);
+    const latestStarDate = stargazers.map((item) => item.starred_at.slice(0, 10)).sort().at(-1);
+    currentSnapshot.timelineEnd = [currentSnapshot.timelineEnd, latestStarDate || dailyCountsStartDate].sort().at(-1);
+    dailyRows = dailyRowsFromStargazers(stargazers, dailyCountsStartDate, currentSnapshot.timelineEnd);
   } catch (error) {
     console.warn(`Detailed stargazer fetch failed; preserving daily bars: ${error.message}`);
     dailyRows = fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot);
   }
 
-  const cacheVersion = process.env.VERSION || `${endDate}-dashboard-update`;
+  const cacheVersion = process.env.VERSION || `${currentSnapshot.timelineEnd}-dashboard-update`;
   app = replaceSnapshot(app, currentSnapshot);
   app = replaceConstArray(app, "nonZeroDailyCounts", dailyRows);
-  app = updateBenchmarkTarget(app, currentSnapshot);
+  app = await updateBenchmarkRepos(app, currentSnapshot.time);
   index = updateIndex(index, currentSnapshot, dailyRows, cacheVersion);
 
   if (process.env.DRY_RUN === "1") {
-    console.log(`Dry run: ${repoName}: ${formatNumber(currentSnapshot.stars)} stars through ${endDate}`);
+    console.log(`Dry run: ${repoName}: ${formatNumber(currentSnapshot.stars)} stars through ${currentSnapshot.timelineEnd}`);
     console.log(`Dry run: ${dailyRows.length} non-zero daily rows`);
     return;
   }
 
   writeFileSync(appPath, app);
   writeFileSync(indexPath, index);
-  console.log(`Updated ${repoName}: ${formatNumber(currentSnapshot.stars)} stars through ${endDate}`);
+  console.log(`Updated ${repoName}: ${formatNumber(currentSnapshot.stars)} stars through ${currentSnapshot.timelineEnd}`);
 }
 
 main().catch((error) => {

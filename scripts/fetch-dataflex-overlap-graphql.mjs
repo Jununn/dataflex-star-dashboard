@@ -10,9 +10,9 @@ const cacheDir = path.join(dataDir, "github-cache");
 const outputPath = path.join(dataDir, "dataflex-overlap.json");
 const curlConfigPath = path.join(dataDir, ".curl-gh-config");
 const repo = "OpenDCAI/DataFlex";
-const months = ["2026-08", "2026-07"];
+const months = (process.env.MONTHS || "2026-08,2026-07").split(",").map((month) => month.trim()).filter(Boolean);
 const perUserStarLimit = 200;
-const batchSize = 20;
+const batchSize = Number(process.env.BATCH_SIZE || 8);
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || (await readGhToken());
 
 if (!token) {
@@ -75,8 +75,6 @@ async function graphql(query) {
                 "-sS",
                 "--connect-timeout",
                 "20",
-                "--resolve",
-                "api.github.com:443:140.82.112.6",
                 "--retry",
                 "4",
             "--retry-delay",
@@ -299,10 +297,14 @@ const allUsers = [...new Map(months.flatMap((month) => usersByMonth.get(month).m
 console.log(`target users: ${allUsers.length}`);
 await fetchStarredForUsers(allUsers);
 
+const previousOutput = (await readJson(outputPath)) || {};
 const output = {
   generatedAt: new Date().toISOString(),
   repo,
-  months: Object.fromEntries(await Promise.all(months.map(async (month) => [month, await summarizeMonth(month, usersByMonth.get(month))])))
+  months: {
+    ...(previousOutput.months || {}),
+    ...Object.fromEntries(await Promise.all(months.map(async (month) => [month, await summarizeMonth(month, usersByMonth.get(month))])))
+  }
 };
 await writeJson(outputPath, output);
 console.log(`wrote ${outputPath}`);

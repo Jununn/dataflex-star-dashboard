@@ -225,8 +225,8 @@ const phases = [
     id: "steady",
     label: "5 月至今：稳定扩散",
     start: "2026-05-01",
-    end: "2026-08-07",
-    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增。6/13 后逐日数据改用 Trendshift 活动流补齐，8/5-8/7 使用 GitHub 总量差补齐，顶部总量仍以 GitHub 当前公开计数为准。"
+    end: snapshot.timelineEnd,
+    note: "5 月日增大多稳定在 7-16 区间；6 月下旬和 7 月下旬各有一次抬升，6/28、7/31 分别到达 37、30 stars。8 月初仍保持稳定新增；自动更新时逐日数据按 GitHub stargazers API 的 starred_at UTC 日期聚合，顶部总量以 GitHub 当前公开计数为准。"
   }
 ];
 
@@ -240,55 +240,194 @@ const actions = [
   ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
+let benchmarkSnapshotDate = "2026-08-10";
+let benchmarkPreviousSnapshotDate = "2026-08-05";
+
+const benchmarkSnapshots = {
+  "2026-08-05": {
+    "hiyouga/LlamaFactory": 73760
+  },
+  "2026-08-10": {
+    "hiyouga/LlamaFactory": 73949,
+    "huggingface/trl": 19031,
+    "openrlhf/openrlhf": 9900,
+    "verl-project/verl": 22888,
+    "axolotl-ai-cloud/axolotl": 12331,
+    "OpenDCAI/DataFlex": 1978
+  }
+};
+
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 73760,
-    forks: 9022,
-    color: "#2563eb",
-    note: "DataFlex 的训练底座生态参照。"
+    stars: 73949,
+    forks: 9049,
+    recentChange: 189,
+    color: "#5b8def",
+    note: "DataFlex 的训练底座生态参照。",
+    points: [
+      ["2025-01-01", 35805],
+      ["2025-01-31", 37895],
+      ["2025-02-28", 41284],
+      ["2025-03-31", 44534],
+      ["2025-04-30", 46845],
+      ["2025-05-31", 50077],
+      ["2025-06-30", 52078],
+      ["2025-07-31", 54207],
+      ["2025-08-31", 55967],
+      ["2025-09-30", 58611],
+      ["2025-10-31", 60542],
+      ["2025-11-30", 62450],
+      ["2025-12-31", 63939],
+      ["2026-01-31", 65987],
+      ["2026-02-28", 67085],
+      ["2026-03-31", 68831],
+      ["2026-04-30", 70465],
+      ["2026-05-31", 71570],
+      ["2026-06-30", 72799],
+      ["2026-07-31", 73651],
+      ["2026-08-10", 73949]
+    ]
   },
   {
-    name: "OpenDCAI/DataFlow",
-    stars: 7197,
-    forks: 981,
-    color: "#16a34a",
-    note: "DataFlex 上游数据准备搭档。"
+    name: "verl-project/verl",
+    stars: 22888,
+    forks: 4365,
+    recentChange: 0,
+    color: "#2a9d8f",
+    note: "RLHF / post-training 工程生态参照。",
+    points: [
+      ["2025-01-01", 459],
+      ["2025-01-31", 1498],
+      ["2025-02-28", 3804],
+      ["2025-03-31", 5792],
+      ["2025-04-30", 7264],
+      ["2025-05-31", 8599],
+      ["2025-06-30", 9965],
+      ["2025-07-31", 11446],
+      ["2025-08-31", 12599],
+      ["2025-09-30", 13694],
+      ["2025-10-31", 14749],
+      ["2025-11-30", 16712],
+      ["2025-12-31", 17728],
+      ["2026-01-31", 18671],
+      ["2026-02-28", 19300],
+      ["2026-03-31", 20222],
+      ["2026-04-30", 20950],
+      ["2026-05-31", 21630],
+      ["2026-06-30", 22230],
+      ["2026-07-31", 22746],
+      ["2026-08-10", 22888]
+    ]
+  },
+  {
+    name: "huggingface/trl",
+    stars: 19031,
+    forks: 2898,
+    recentChange: 0,
+    color: "#d94f70",
+    note: "Hugging Face 训练与 RLHF 工具链参照。",
+    points: [
+      ["2025-01-01", 10202],
+      ["2025-01-31", 10639],
+      ["2025-02-28", 11808],
+      ["2025-03-31", 12670],
+      ["2025-04-30", 13253],
+      ["2025-05-31", 13717],
+      ["2025-06-30", 14124],
+      ["2025-07-31", 14597],
+      ["2025-08-31", 15068],
+      ["2025-09-30", 15476],
+      ["2025-10-31", 15874],
+      ["2025-11-30", 16266],
+      ["2025-12-31", 16645],
+      ["2026-01-31", 17061],
+      ["2026-02-28", 17335],
+      ["2026-03-31", 17734],
+      ["2026-04-30", 18121],
+      ["2026-05-31", 18447],
+      ["2026-06-30", 18715],
+      ["2026-07-31", 18975],
+      ["2026-08-10", 19031]
+    ]
+  },
+  {
+    name: "openrlhf/openrlhf",
+    stars: 9900,
+    forks: 996,
+    recentChange: 0,
+    color: "#6b7280",
+    note: "开源 RLHF 训练框架参照。",
+    points: [
+      ["2025-01-01", 3322],
+      ["2025-01-31", 4043],
+      ["2025-02-28", 5020],
+      ["2025-03-31", 5862],
+      ["2025-04-30", 6368],
+      ["2025-05-31", 6763],
+      ["2025-06-30", 7092],
+      ["2025-07-31", 7421],
+      ["2025-08-31", 7674],
+      ["2025-09-30", 7927],
+      ["2025-10-31", 8179],
+      ["2025-11-30", 8385],
+      ["2025-12-31", 8593],
+      ["2026-01-31", 8831],
+      ["2026-02-28", 8982],
+      ["2026-03-31", 9223],
+      ["2026-04-30", 9398],
+      ["2026-05-31", 9550],
+      ["2026-06-30", 9709],
+      ["2026-07-31", 9867],
+      ["2026-08-10", 9900]
+    ]
+  },
+  {
+    name: "axolotl-ai-cloud/axolotl",
+    stars: 12331,
+    forks: 1399,
+    recentChange: 0,
+    color: "#d58a2a",
+    note: "LLM fine-tuning / post-training 工具链参照。",
+    points: [
+      ["2025-01-01", 7990],
+      ["2025-01-31", 8239],
+      ["2025-02-28", 8552],
+      ["2025-03-31", 8789],
+      ["2025-04-30", 9055],
+      ["2025-05-31", 9303],
+      ["2025-06-30", 9620],
+      ["2025-07-31", 9912],
+      ["2025-08-31", 10151],
+      ["2025-09-30", 10358],
+      ["2025-10-31", 10577],
+      ["2025-11-30", 10742],
+      ["2025-12-31", 10903],
+      ["2026-01-31", 11085],
+      ["2026-02-28", 11275],
+      ["2026-03-31", 11481],
+      ["2026-04-30", 11743],
+      ["2026-05-31", 11963],
+      ["2026-06-30", 12118],
+      ["2026-07-31", 12291],
+      ["2026-08-10", 12331]
+    ]
   },
   {
     name: "OpenDCAI/DataFlex",
     stars: 1978,
     forks: 263,
-    color: "#e3a008",
-    note: "当前看板目标仓库。"
-  },
-  {
-    name: "princeton-nlp/LESS",
-    stars: 532,
-    forks: 47,
-    color: "#dc2626",
-    note: "Influential data selection 代表项目。"
-  },
-  {
-    name: "sangmichaelxie/doremi",
-    stars: 357,
-    forks: 35,
-    color: "#7c3aed",
-    note: "Data mixture 权重优化代表实现。"
-  },
-  {
-    name: "ZifanL/TSDS",
-    stars: 19,
-    forks: 2,
-    color: "#0f766e",
-    note: "Task-specific data selection 实现。"
-  },
-  {
-    name: "alon-albalak/online-data-mixing",
-    stars: 14,
-    forks: 5,
-    color: "#f97316",
-    note: "Online data mixing 相关实现。"
+    recentChange: 75,
+    color: "#635bff",
+    note: "当前看板目标仓库。",
+    points: [
+      ["2026-04-01", 140],
+      ["2026-04-30", 517],
+      ["2026-05-31", 855],
+      ["2026-06-30", 1285],
+      ["2026-07-31", 1818],
+      ["2026-08-10", 1978]
+    ]
   }
 ];
 
@@ -311,7 +450,7 @@ function buildDailyCounts(start, end, nonZeroRows) {
 }
 
 const chartStartDate = "2025-12-31";
-const dailyCounts = buildDailyCounts("2025-09-03", snapshot.timelineEnd, nonZeroDailyCounts);
+const dailyCounts = buildDailyCounts(chartStartDate, snapshot.timelineEnd, nonZeroDailyCounts);
 let runningStars = 0;
 const rawData = dailyCounts.map(([date, stars]) => {
   runningStars += stars;
@@ -334,6 +473,12 @@ let calendarMonth = dailyCounts.at(-1)[0].slice(0, 7);
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(value);
+}
+
+function renderLastUpdatedBadge() {
+  const badge = document.getElementById("lastUpdatedBadge");
+  if (!badge) return;
+  badge.textContent = `上次更新 ${snapshot.time}`;
 }
 
 function escapeHtml(value) {
@@ -454,7 +599,9 @@ function renderTrendChart() {
     .map((item, i) => {
       const bx = x(i) - barW / 2;
       const by = yStars(item.stars);
-      const cls = item.stars >= 50 ? "bar hot" : "bar";
+      const day = new Date(`${item.date}T00:00:00Z`).getUTCDay();
+      const isWeekend = day === 0 || day === 6;
+      const cls = item.stars >= 50 ? "bar hot" : isWeekend ? "bar weekend" : "bar";
       return `<rect class="${cls}" x="${bx}" y="${by}" width="${barW}" height="${margin.top + chartH - by}" rx="2"></rect>`;
     })
     .join("");
@@ -562,6 +709,7 @@ function renderMomentum() {
 
 function renderPhaseCards() {
   document.getElementById("phaseCards").innerHTML = phases
+    .filter((phase) => data.some((item) => item.phase?.id === phase.id))
     .map((phase) => {
       const items = data.filter((item) => item.phase?.id === phase.id);
       const total = items.reduce((sum, item) => sum + item.stars, 0);
@@ -575,50 +723,177 @@ function renderPhaseCards() {
     .join("");
 }
 
+function benchmarkMonthlyAdds(repo) {
+  const points = repo.points || [];
+  return points.slice(1).map(([date, value], index) => {
+    const previousValue = points[index][1];
+    return {
+      date,
+      label: date.slice(0, 7),
+      stars: Math.max(0, value - previousValue)
+    };
+  });
+}
+
+function benchmarkYesterdayChange(repo) {
+  if (Number.isFinite(repo.yesterdayChange)) return repo.yesterdayChange;
+  if (repo.name !== "OpenDCAI/DataFlex") return null;
+
+  const cursor = new Date(`${benchmarkSnapshotDate}T00:00:00Z`);
+  cursor.setUTCDate(cursor.getUTCDate() - 1);
+  const yesterday = cursor.toISOString().slice(0, 10);
+  return data.find((item) => item.date === yesterday)?.stars ?? null;
+}
+
 function renderBenchmark() {
   const sorted = benchmarkRepos.slice().sort((a, b) => b.stars - a.stars);
-  const dataFlex = sorted.find((repo) => repo.name === "OpenDCAI/DataFlex");
   document.getElementById("benchmarkCards").innerHTML = sorted
     .map((repo, index) => {
-      const ratio = dataFlex && repo.name !== dataFlex.name ? repo.stars / dataFlex.stars : 1;
-      const ratioText = repo.name === dataFlex?.name ? "目标仓库" : `${ratio.toFixed(ratio >= 10 ? 0 : 1)}x DataFlex`;
-      return `<a class="benchmark-card${repo.name === "OpenDCAI/DataFlex" ? " is-target" : ""}" href="https://github.com/${repo.name}" target="_blank" rel="noreferrer">
+      const monthlyAdds = benchmarkMonthlyAdds(repo);
+      const latestMonth = monthlyAdds.at(-1);
+      const dayOfMonth = Number(benchmarkSnapshotDate.slice(8, 10));
+      const dailyAverage = latestMonth ? latestMonth.stars / Math.max(1, dayOfMonth) : 0;
+      const yesterdayChange = benchmarkYesterdayChange(repo);
+      const yesterdayText = yesterdayChange === null ? "--" : `+${formatNumber(yesterdayChange)}`;
+      const targetClass = repo.name === "OpenDCAI/DataFlex" ? " is-target" : "";
+      return `<a class="benchmark-card${targetClass}" href="https://github.com/${repo.name}" target="_blank" rel="noreferrer">
       <i style="background:${repo.color}"></i>
       <span class="benchmark-rank">#${index + 1}</span>
       <strong>${repo.name}</strong>
-      <em>${formatNumber(repo.stars)}</em>
-      <small>${ratioText} · forks ${formatNumber(repo.forks)}</small>
+      <em>总数 ${formatNumber(repo.stars)}</em>
+      <small>${latestMonth?.label || benchmarkSnapshotDate.slice(0, 7)} 月增 +${formatNumber(latestMonth?.stars || 0)}，折算日均 +${dailyAverage.toFixed(1)}，昨日新增 ${yesterdayText}</small>
       <b>${repo.note}</b>
     </a>`;
     })
     .join("");
 
   const width = 1180;
-  const rowH = 46;
-  const height = sorted.length * rowH + 58;
-  const margin = { top: 20, right: 210, bottom: 28, left: 252 };
-  const max = Math.sqrt(sorted[0].stars);
+  const height = 572;
+  const margin = { top: 46, right: 220, bottom: 56, left: 64 };
   const chartW = width - margin.left - margin.right;
-  const bars = sorted
-    .map((repo, index) => {
-      const y = margin.top + index * rowH;
-      const w = (Math.sqrt(repo.stars) / max) * chartW;
-      const target = repo.name === "OpenDCAI/DataFlex";
-      const label = target ? "benchmark-label is-target" : "benchmark-label";
-      const ratio = dataFlex && !target ? repo.stars / dataFlex.stars : 1;
-      const ratioText = target ? "target" : `${ratio.toFixed(ratio >= 10 ? 0 : 1)}x`;
-      return `<text class="${label}" x="24" y="${y + 25}">${repo.name}</text>
-        <rect class="benchmark-track" x="${margin.left}" y="${y + 10}" width="${chartW}" height="16" rx="5"></rect>
-        <rect class="benchmark-bar" x="${margin.left}" y="${y + 10}" width="${w}" height="16" rx="5" fill="${repo.color}"></rect>
-        <text class="benchmark-value" x="${margin.left + w + 10}" y="${y + 23}">${formatNumber(repo.stars)}</text>
-        <text class="benchmark-meta" x="${width - 132}" y="${y + 23}">${ratioText} · ${formatNumber(repo.forks)} forks</text>`;
+  const chartH = height - margin.top - margin.bottom;
+  const series = sorted
+    .map((repo) => ({ repo, monthlyAdds: benchmarkMonthlyAdds(repo) }))
+    .filter(({ monthlyAdds }) => monthlyAdds.length);
+  const allPoints = series.flatMap(({ monthlyAdds }) => monthlyAdds);
+  const minTime = Math.min(...allPoints.map((point) => new Date(`${point.date}T00:00:00Z`).getTime()));
+  const maxTime = Math.max(...allPoints.map((point) => new Date(`${point.date}T00:00:00Z`).getTime()));
+  const maxMonthlyStars = Math.max(500, Math.ceil(Math.max(...allPoints.map((point) => point.stars)) / 500) * 500);
+  const x = (date) => {
+    if (minTime === maxTime) return margin.left + chartW;
+    return margin.left + ((new Date(`${date}T00:00:00Z`).getTime() - minTime) / (maxTime - minTime)) * chartW;
+  };
+  const y = (value) => margin.top + chartH - (value / maxMonthlyStars) * chartH;
+  const ticks = Array.from({ length: 6 }, (_, index) => Math.round((maxMonthlyStars / 5) * index));
+  const grid = ticks
+    .map((tick) => `<line class="grid-line" x1="${margin.left}" y1="${y(tick)}" x2="${width - margin.right}" y2="${y(tick)}"></line><text class="chart-label" x="18" y="${y(tick) + 4}">${formatNumber(tick)}</text>`)
+    .join("");
+  const labelDates = [...new Set(allPoints.map((point) => point.date))].sort();
+  const dateLabelRows = labelDates.reduce((labels, date, index) => {
+    if (index % 3 !== 0 && index !== labelDates.length - 1) return labels;
+    const labelX = x(date);
+    const previous = labels.at(-1);
+    if (previous && labelX - previous.x < 72) {
+      if (index === labelDates.length - 1) labels[labels.length - 1] = { date, x: labelX };
+      return labels;
+    }
+    labels.push({ date, x: labelX });
+    return labels;
+  }, []);
+  const dateLabels = dateLabelRows
+    .map(({ date, x: labelX }) => `<text class="chart-label" x="${labelX - 24}" y="${height - 22}">${date.slice(5)}</text>`)
+    .join("");
+  const labelGap = 28;
+  const minLabelY = margin.top + 16;
+  const maxLabelY = margin.top + chartH - 18;
+  const labelRows = series
+    .map(({ repo, monthlyAdds }) => ({ repo, y: y(monthlyAdds.at(-1).stars) }))
+    .sort((a, b) => a.y - b.y);
+  const placedLabels = labelRows.reduce((labels, item, index) => {
+    const previous = labels.at(-1);
+    const labelY = previous ? Math.max(item.y, previous.y + labelGap) : Math.max(item.y, minLabelY);
+    labels.push({ ...item, y: labelY });
+    return labels;
+  }, []);
+  const overflow = (placedLabels.at(-1)?.y || 0) - maxLabelY;
+  if (overflow > 0) {
+    placedLabels.forEach((item) => {
+      item.y = Math.max(minLabelY, item.y - overflow);
+    });
+  }
+  const labelPositions = new Map(placedLabels.map((item) => [item.repo.name, item]));
+  const labelRightX = width - 24;
+  const lines = series
+    .map(({ repo, monthlyAdds }) => {
+      const line = monthlyAdds.map((point) => `${x(point.date).toFixed(1)},${y(point.stars).toFixed(1)}`).join(" ");
+      const lastPoint = monthlyAdds.at(-1);
+      const labelPosition = labelPositions.get(repo.name);
+      const labelY = labelPosition?.y || y(lastPoint.stars);
+      const targetClass = repo.name === "OpenDCAI/DataFlex" ? " is-target" : "";
+      const pointRadius = repo.name === "OpenDCAI/DataFlex" ? 5.5 : 4;
+      return `<polyline class="benchmark-line${targetClass}" points="${line}" stroke="${repo.color}"></polyline>
+        ${monthlyAdds.map((point) => `<circle class="benchmark-point${targetClass}" cx="${x(point.date).toFixed(1)}" cy="${y(point.stars).toFixed(1)}" r="${pointRadius}" fill="${repo.color}" data-month="${point.label}"></circle>`).join("")}
+        <text class="benchmark-end-label${targetClass}" x="${labelRightX}" y="${labelY + 4}" fill="${repo.color}" text-anchor="end">${repo.name.split("/").at(-1)} +${formatNumber(lastPoint.stars)}</text>`;
+    })
+    .join("");
+  const hoverZones = labelDates
+    .map((date, index) => {
+      const centerX = x(date);
+      const previousX = index === 0 ? margin.left : (x(labelDates[index - 1]) + centerX) / 2;
+      const nextX = index === labelDates.length - 1 ? margin.left + chartW : (centerX + x(labelDates[index + 1])) / 2;
+      return `<rect class="benchmark-hover-zone" x="${previousX.toFixed(1)}" y="${margin.top}" width="${Math.max(4, nextX - previousX).toFixed(1)}" height="${chartH}" data-month="${date.slice(0, 7)}"></rect>`;
     })
     .join("");
   document.getElementById("benchmarkChart").innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Related repository star benchmark">
-      ${bars}
-      <text class="chart-label" x="${margin.left}" y="${height - 10}">Square-root scale · snapshot ${snapshot.date}</text>
+    <div id="benchmarkTooltip" class="chart-tooltip" hidden></div>
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Related repository monthly added stars benchmark">
+      ${grid}
+      <line x1="${margin.left}" y1="${margin.top + chartH}" x2="${width - margin.right}" y2="${margin.top + chartH}" stroke="#cbd5e1"></line>
+      <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartH}" stroke="#cbd5e1"></line>
+      ${dateLabels}
+      <text class="axis-title" x="${margin.left}" y="${margin.top - 18}">Monthly New Stars</text>
+      <text class="axis-title" x="${margin.left + chartW / 2 - 14}" y="${height - 8}">Date</text>
+      ${lines}
+      ${hoverZones}
     </svg>`;
+  bindBenchmarkTooltip();
+}
+
+function renderBenchmarkTooltipMonth(month) {
+  const rows = benchmarkRepos
+    .map((repo) => {
+      const point = benchmarkMonthlyAdds(repo).find((item) => item.label === month);
+      return {
+        name: repo.name,
+        color: repo.color,
+        stars: point?.stars ?? null
+      };
+    })
+    .sort((a, b) => (b.stars ?? -1) - (a.stars ?? -1));
+  return `<strong>${month} 月新增</strong>${rows
+    .map((row) => {
+      const value = row.stars === null ? "--" : `+${formatNumber(row.stars)}`;
+      return `<span class="benchmark-tooltip-row"><i style="background:${row.color}"></i><b>${escapeHtml(row.name.split("/").at(-1))}</b><em>${value}</em></span>`;
+    })
+    .join("")}`;
+}
+
+function bindBenchmarkTooltip() {
+  const wrap = document.getElementById("benchmarkChart");
+  const tooltip = document.getElementById("benchmarkTooltip");
+  if (!wrap || !tooltip) return;
+  wrap.querySelectorAll(".benchmark-point, .benchmark-hover-zone").forEach((target) => {
+    target.addEventListener("mousemove", (event) => {
+      const rect = wrap.getBoundingClientRect();
+      tooltip.hidden = false;
+      tooltip.style.left = `${event.clientX - rect.left + wrap.scrollLeft}px`;
+      tooltip.style.top = `${event.clientY - rect.top + wrap.scrollTop}px`;
+      tooltip.innerHTML = renderBenchmarkTooltipMonth(target.dataset.month);
+    });
+    target.addEventListener("mouseleave", () => {
+      tooltip.hidden = true;
+    });
+  });
 }
 
 function renderTable(filter = "all") {
@@ -753,6 +1028,7 @@ function initFilter() {
   select.addEventListener("change", () => renderTable(select.value));
 }
 
+renderLastUpdatedBadge();
 renderSummary();
 renderTrendChart();
 renderMonthlyChart();

@@ -6,7 +6,7 @@
     <title>Dataflex Star Dashboard</title>
     <link rel="icon" href="./favicon.png?v=20260807-tanghulu-transparent" type="image/png" />
     <link rel="apple-touch-icon" href="./favicon.png?v=20260807-tanghulu-transparent" />
-    <link rel="stylesheet" href="./styles.css?v=20260807-dataflow-header-align" />
+    <link rel="stylesheet" href="./styles.css?v=20260810-overlap-august" />
   </head>
   <body>
     <header class="page-header">
@@ -22,7 +22,7 @@
           <a href="https://github.com/OpenDCAI/DataFlex" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">Trendshift</a>
           <a href="https://www.star-history.com/#OpenDCAI/DataFlex&Date" target="_blank" rel="noreferrer">Star History</a>
-          <span class="live-status">本地快照</span>
+          <span id="lastUpdatedBadge" class="live-status">上次更新 2026-08-10</span>
         </nav>
         <nav class="source-links source-links-secondary" aria-label="Related dashboards">
           <a href="https://jununn.github.io/dataflow-star-dashboard/" target="_blank" rel="noreferrer">DataFlow Dashboard</a>
@@ -37,7 +37,7 @@
         <div class="panel-heading">
           <div>
             <h2>每日新增与累计趋势</h2>
-            <p>柱状为 UTC 日增 stars；折线为累计 stars。高亮区间对应阶段性传播判断；当前视图从 2025-12-31 开始，6/13 后使用 Trendshift repository activity 补齐，8/5-8/7 按 GitHub 总量差补齐。</p>
+            <p>柱状为 UTC 日增 stars；折线为累计 stars。高亮区间对应阶段性传播判断；当前视图从 2025-12-31 开始，自动更新时按 GitHub stargazers API 的 starred_at 精细聚合。</p>
           </div>
           <div class="legend">
             <span><i class="legend-dot daily"></i>日增</span>
@@ -84,12 +84,8 @@
       <section class="panel benchmark-panel">
         <div class="panel-heading">
           <div>
-            <h2>竞品项目 Star 趋势对比</h2>
-            <p>把 DataFlex 放进数据选择、数据混合和训练生态相关项目里看相对量级。DataFlex 使用 2026-08-07 GitHub 快照，其余项目沿用 2026-08-05 对比快照。</p>
-          </div>
-          <div class="benchmark-tools">
-            <span>平方根刻度</span>
-            <a class="inline-source" href="https://www.star-history.com/#hiyouga/LlamaFactory&OpenDCAI/DataFlow&OpenDCAI/DataFlex&princeton-nlp/LESS&sangmichaelxie/doremi&ZifanL/TSDS&Date" target="_blank" rel="noreferrer">Star History</a>
+            <h2>竞品项目月新增 Star 趋势</h2>
+            <p>把 DataFlex 放进训练与 RLHF 生态相关项目里看增长节奏；卡片标注当前总量、最新月增和按当前月进度折算的日均新增。</p>
           </div>
         </div>
         <div id="benchmarkCards" class="benchmark-grid"></div>
@@ -103,7 +99,6 @@
             <p>按月对齐 UTC 日增、累计和已知传播动作。6/13 后来自 Trendshift 活动流，8/5-8/7 按 GitHub 总量差补齐。</p>
           </div>
           <div class="table-tools">
-            <a class="inline-source" href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">Trendshift</a>
             <button id="calendarPrev" type="button" class="icon-button" aria-label="上一月">←</button>
             <strong id="calendarMonthLabel" class="calendar-month-label"></strong>
             <button id="calendarNext" type="button" class="icon-button" aria-label="下一月">→</button>
@@ -117,29 +112,113 @@
         <div class="panel-heading">
           <div>
             <h2>共同关注网络：兴趣相关度与潜在场景（8月）</h2>
-            <p>8 月新增用户已经识别，但当前 Codex 环境对 GitHub starred repos 端点解析不稳定，真实共同关注网络尚未完成抓取。</p>
+            <p>基于 8 月新增 DataFlex stargazer 的公开 starred repos 抓取结果，观察共同关注项目和潜在使用场景。</p>
           </div>
         </div>
 
         <div class="overlap-meta">
           <span>窗口：2026-08-01 到 2026-08-10</span>
-          <span>8 月新增 stargazer：160</span>
-          <span>已抓取 starred repos：0 / 160</span>
+          <span>8 月新增 stargazer：161</span>
+          <span>有效 starred repos：111 / 161</span>
+          <span>空列表/不可读：50</span>
           <span>每人最多读取最近 200 个 starred repos</span>
         </div>
 
         <div class="overlap-insights">
           <article>
-            <strong>8 月真实网络等待补抓</strong>
-            <span>目前没有把推断内容展示为真实共同关注结果。等 GitHub API 连通后，脚本会继续从缓存断点补抓 8 月用户 starred repos，并自动生成 Top 共同关注项目和兴趣分类。</span>
+            <strong>DataFlow 仍是最强共同兴趣锚点</strong>
+            <span>8 月有效样本中，OpenDCAI/DataFlow 被 110 个用户共同关注，占 99%，说明 DataFlex 的新增兴趣仍高度贴近 OpenDCAI 数据工程生态。</span>
           </article>
           <article>
-            <strong>已完成基础 stargazer 回溯</strong>
-            <span>全量 stargazer 时间线已缓存到本地，能确认 8 月窗口内新增 160 个用户；缺的是这些用户的公开 starred repos 列表。</span>
+            <strong>Agent / Workflow 场景继续高频出现</strong>
+            <span>ModelEngine-Group/nexent、Klavis-AI/klavis、EverMind-AI/EverOS 等项目靠前，暗示 DataFlex 的潜在叙事可以连接 Agent/RAG 场景中的训练数据、评测数据和任务样本治理。</span>
           </article>
         </div>
 
-        <p class="overlap-note">口径：8 月面板当前只展示真实抓取状态，不展示推断网络。继续运行 <code>node scripts/fetch-dataflex-overlap.mjs</code> 可从缓存断点补完。</p>
+        <div class="overlap-table-grid">
+          <div class="overlap-table-intro">
+            <div>
+              <h3>共同关注项目 Top 30：8 月真实抓取样本</h3>
+              <p>按 8 月已读取公开 starred repos 的用户聚合。共同用户数表示同一批 DataFlex 新增 stargazer 中也 star 了该项目的人数。</p>
+            </div>
+            <div class="overlap-scroll-actions" aria-label="横向滚动表格">
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: -640, behavior: 'smooth' })">←</button>
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: 640, behavior: 'smooth' })">→</button>
+            </div>
+          </div>
+          <div class="table-wrap overlap-table-wrap">
+            <table class="overlap-table">
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>共同用户</th>
+                  <th>样本占比</th>
+                  <th>关系</th>
+                  <th>分类</th>
+                  <th>Stars</th>
+                  <th>描述</th>
+                  <th>具体关系 / 可设计场景</th>
+                  <th>语言</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr><td><a href="https://github.com/OpenDCAI/DataFlow" target="_blank" rel="noreferrer">OpenDCAI/DataFlow</a></td><td>110</td><td>99%</td><td><span class="relation-pill complement">上游搭档</span></td><td>Data selection / dataset</td><td>7,241</td><td>Easy Data Preparation with latest LLMs-based Operators and Pipelines.</td><td>DataFlow 准备和清洗数据，DataFlex 承接训练阶段的数据选择、混合比例和 reweighting。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/ModelEngine-Group/nexent" target="_blank" rel="noreferrer">ModelEngine-Group/nexent</a></td><td>107</td><td>96%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>5,821</td><td>Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles — unified tools, skills, memory, and orchestration with built-in constraints, feedback loops, and control planes.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/Hunyuan-PromptEnhancer/PromptEnhancer" target="_blank" rel="noreferrer">Hunyuan-PromptEnhancer/PromptEnhancer</a></td><td>102</td><td>92%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,751</td><td>[CVPR 2026] PromptEnhancer is a prompt-rewriting tool, refining prompts into clearer, structured versions for better image generation.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/facebookresearch/vggt" target="_blank" rel="noreferrer">facebookresearch/vggt</a></td><td>98</td><td>88%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>14,209</td><td>[CVPR 2025 Best Paper Award] VGGT: Visual Geometry Grounded Transformer</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/Oneflow-Inc/oneflow" target="_blank" rel="noreferrer">Oneflow-Inc/oneflow</a></td><td>95</td><td>86%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>9,422</td><td>OneFlow is a deep learning framework designed to be user-friendly, scalable and efficient.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>C++</td></tr>
+                  <tr><td><a href="https://github.com/iflytek/astron-agent" target="_blank" rel="noreferrer">iflytek/astron-agent</a></td><td>95</td><td>86%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>9,242</td><td>Enterprise-grade, commercial-friendly agentic workflow platform for building next-generation SuperAgents.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Java</td></tr>
+                  <tr><td><a href="https://github.com/limix-ldm-ai/LimiX" target="_blank" rel="noreferrer">limix-ldm-ai/LimiX</a></td><td>95</td><td>86%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Data pipeline</td><td>3,919</td><td>LimiX: Unleashing Structured-Data Modeling Capability for Generalist Intelligence https://arxiv.org/abs/2509.03505</td><td>偏数据准备前置链路，适合讲 DataFlow/DataFlex 串联，而不是直接竞品叙事。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/hyperai/tvm-cn" target="_blank" rel="noreferrer">hyperai/tvm-cn</a></td><td>91</td><td>82%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,890</td><td>TVM Documentation in Chinese Simplified / TVM 中文文档</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/Klavis-AI/klavis" target="_blank" rel="noreferrer">Klavis-AI/klavis</a></td><td>88</td><td>79%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>5,786</td><td>Klavis AI:  MCP integration platforms that let AI agents use tools reliably at any scale</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/EverMind-AI/EverOS" target="_blank" rel="noreferrer">EverMind-AI/EverOS</a></td><td>84</td><td>76%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>11,945</td><td>One portable memory layer for every AI agent: local-first, Markdown-native, user-owned, and self-evolving across apps, tools, and workflows.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/HKUDS/LightRAG" target="_blank" rel="noreferrer">HKUDS/LightRAG</a></td><td>82</td><td>74%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>38,705</td><td>[EMNLP2025] &quot;LightRAG: Simple and Fast Retrieval-Augmented Generation&quot;</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/qualcomm/GenieX" target="_blank" rel="noreferrer">qualcomm/GenieX</a></td><td>82</td><td>74%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>8,312</td><td>Run frontier LLMs and VLMs locally on Qualcomm devices across NPU, GPU, and CPU with a few lines of code</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Rust</td></tr>
+                  <tr><td><a href="https://github.com/SuanmoSuanyangTechnology/MemoryBear" target="_blank" rel="noreferrer">SuanmoSuanyangTechnology/MemoryBear</a></td><td>82</td><td>74%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>5,029</td><td>MemoryBear Equip AI with human-like memory capability</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/PKU-Alignment/align-anything" target="_blank" rel="noreferrer">PKU-Alignment/align-anything</a></td><td>78</td><td>70%</td><td><span class="relation-pill downstream">典型相关</span></td><td>LLM training</td><td>4,664</td><td>Align Anything: Training All-modality Model with Feedback</td><td>训练框架用户需要把选好的样本接入 SFT、pretrain 或 alignment 流程，是 DataFlex 最直接的下游入口。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/fudan-generative-vision/hallo" target="_blank" rel="noreferrer">fudan-generative-vision/hallo</a></td><td>74</td><td>67%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>8,659</td><td>Hallo: Hierarchical Audio-Driven Visual Synthesis for Portrait Image Animation</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/Everlyn-Labs/Everlyn-1" target="_blank" rel="noreferrer">Everlyn-Labs/Everlyn-1</a></td><td>72</td><td>65%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,893</td><td>The first open autoregressive foundational video AI model.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>-</td></tr>
+                  <tr><td><a href="https://github.com/microsoft/UFO" target="_blank" rel="noreferrer">microsoft/UFO</a></td><td>71</td><td>64%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>9,454</td><td>UFO³: Weaving the Digital Agent Galaxy</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/YeQing17-2026/OmniAgent" target="_blank" rel="noreferrer">YeQing17-2026/OmniAgent</a></td><td>71</td><td>64%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,577</td><td>An agent capable of self-evolving and dynamically hardening security</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/yikart/AiToEarn" target="_blank" rel="noreferrer">yikart/AiToEarn</a></td><td>70</td><td>63%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>24,960</td><td>Let&#39;s use AI to Earn!</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/vllm-project/semantic-router" target="_blank" rel="noreferrer">vllm-project/semantic-router</a></td><td>70</td><td>63%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>5,131</td><td>A programmable Mixture-of-Models router for heterogeneous LLM inference</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Go</td></tr>
+                  <tr><td><a href="https://github.com/FxPool/FXMinerProxy" target="_blank" rel="noreferrer">FxPool/FXMinerProxy</a></td><td>70</td><td>63%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,709</td><td>🔥minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,minerproxy,矿池抽水,矿池中转,矿场运维专用</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Go</td></tr>
+                  <tr><td><a href="https://github.com/SkyworkAI/Skywork-R1V" target="_blank" rel="noreferrer">SkyworkAI/Skywork-R1V</a></td><td>68</td><td>61%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,162</td><td>Skywork-R1V is an advanced multimodal AI model series developed by Skywork AI, specializing in vision-language reasoning.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/FullAgent/fulling" target="_blank" rel="noreferrer">FullAgent/fulling</a></td><td>68</td><td>61%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,440</td><td>Fulling is an AI-powered Full-stack Engineer Agent. Built with Next.js, Claude, shadcn/ui, and PostgreSQL. Use kubernetes as infra.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/LazyAGI/LazyLLM" target="_blank" rel="noreferrer">LazyAGI/LazyLLM</a></td><td>66</td><td>59%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>3,867</td><td>Easiest and laziest way for  building multi-agent LLMs applications.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/dataelement/bisheng" target="_blank" rel="noreferrer">dataelement/bisheng</a></td><td>65</td><td>59%</td><td><span class="relation-pill downstream">典型相关</span></td><td>Data selection / dataset</td><td>11,839</td><td>BISHENG is an open LLM devops platform for next generation Enterprise AI applications. Powerful and comprehensive features include: GenAI workflow, RAG, Agent, Unified model management, Evaluation, SFT, Dataset Management, Enterprise-level System Management, Observability and more.</td><td>与 DataFlex 的核心能力最接近，可用于解释数据选择、数据混合和数据质量控制的差异化。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/FlowElement-xinliuyuansu/m_flow" target="_blank" rel="noreferrer">FlowElement-xinliuyuansu/m_flow</a></td><td>65</td><td>59%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>4,487</td><td>A bio-inspired cognitive memory engine — a new paradigm for Graph RAG.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/open-gigaai/giga-brain-0" target="_blank" rel="noreferrer">open-gigaai/giga-brain-0</a></td><td>65</td><td>59%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,560</td><td>GigaBrain-0: A World Model-Powered Vision-Language-Action Model</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/juggleim/im-server" target="_blank" rel="noreferrer">juggleim/im-server</a></td><td>64</td><td>58%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,600</td><td>IM Chat, High-performance, scalable, self-hosted instant messaging server in Go — private chat, groups, chatrooms, WebSocket and REST APIs.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Go</td></tr>
+                  <tr><td><a href="https://github.com/WildDataX/suppr-zotero-plugin" target="_blank" rel="noreferrer">WildDataX/suppr-zotero-plugin</a></td><td>64</td><td>58%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Data pipeline</td><td>2,011</td><td>Translate PDF, Word, PowerPoint, etc. | zotero翻译插件，微信扫码注册，新用户可免费翻译25万汉字或100万个英文字母。超能文献官网:suppr.wilddata.cn；</td><td>偏数据准备前置链路，适合讲 DataFlow/DataFlex 串联，而不是直接竞品叙事。</td><td>-</td></tr>
+                  <tr><td><a href="https://github.com/dindin0497/HearIt" target="_blank" rel="noreferrer">dindin0497/HearIt</a></td><td>63</td><td>57%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,842</td><td></td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Kotlin</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-wrap overlap-category-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>兴趣分类</th>
+                  <th>共现次数</th>
+                  <th>占比</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Other</td><td>12,660</td><td>59.5%</td></tr>
+                <tr><td>Agent / workflow</td><td>4,468</td><td>21.0%</td></tr>
+                <tr><td>RAG / retrieval</td><td>1,330</td><td>6.3%</td></tr>
+                <tr><td>Data pipeline</td><td>1,074</td><td>5.1%</td></tr>
+                <tr><td>LLM training</td><td>597</td><td>2.8%</td></tr>
+                <tr><td>Evaluation / alignment</td><td>592</td><td>2.8%</td></tr>
+                <tr><td>Data selection / dataset</td><td>544</td><td>2.6%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="overlap-note">口径：分析 2026-08-01 到 2026-08-10 给 OpenDCAI/DataFlex 点 star 的新增用户；当前已读取 111 / 161 个用户的非空公开 starred repos，50 个用户为空列表或不可读。每人最多最近 200 个公开 starred repos。GitHub 不提供共同 star 图谱接口，本分析由公开 stargazer 和用户 starred repos 聚合而来，适合判断兴趣相关度，不等同于真实使用关系。</p>
       </section>
 
       <details class="panel stargazer-overlap-panel overlap-archive" open>
@@ -259,6 +338,6 @@
       </details>
     </main>
 
-    <script src="./app.js?v=1-3b2fecb14cdd6bca03f260e168450164a9ede15b"></script>
+    <script src="./app.js?v=20260810-overlap-august"></script>
   </body>
 </html>

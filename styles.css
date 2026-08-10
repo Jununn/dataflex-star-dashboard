@@ -376,6 +376,10 @@ svg {
   fill: var(--accent);
 }
 
+.bar.weekend {
+  fill: rgba(99, 91, 255, 0.7);
+}
+
 .bar.hot {
   fill: #ff6b35;
 }
@@ -551,10 +555,14 @@ svg {
 
 .benchmark-card small {
   grid-column: 2 / 5;
-  color: var(--muted);
-  font-size: 11px;
+  color: var(--green);
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.35;
+}
+
+.benchmark-card small span {
+  display: block;
 }
 
 .benchmark-card b {
@@ -565,35 +573,76 @@ svg {
   line-height: 1.35;
 }
 
-.benchmark-bar {
-  fill: var(--blue);
+.benchmark-line {
+  fill: none;
+  opacity: 0.82;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
 }
 
-.benchmark-track {
-  fill: #eef2f7;
+.benchmark-line.is-target {
+  opacity: 1;
+  stroke-width: 5.2;
 }
 
-.benchmark-label {
-  fill: var(--ink);
-  font-size: 12px;
+.benchmark-point {
+  cursor: crosshair;
+  opacity: 0.88;
+  stroke: #ffffff;
+  stroke-width: 1.4;
+}
+
+.benchmark-point.is-target {
+  opacity: 1;
+  stroke-width: 2;
+}
+
+.benchmark-point:hover {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.benchmark-hover-zone {
+  cursor: crosshair;
+  fill: transparent;
+  pointer-events: all;
+}
+
+.benchmark-end-label {
+  font-size: 11px;
+  font-weight: 800;
+  opacity: 0.84;
+}
+
+.benchmark-end-label.is-target {
+  font-weight: 900;
+  opacity: 1;
+}
+
+.benchmark-tooltip-row {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 7px;
+  min-width: 190px;
+}
+
+.benchmark-tooltip-row i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.benchmark-tooltip-row b,
+.benchmark-tooltip-row em {
+  color: #475569;
+  font-style: normal;
   font-weight: 800;
 }
 
-.benchmark-label.is-target {
-  fill: var(--blue);
-  font-weight: 900;
-}
-
-.benchmark-value {
-  fill: var(--ink);
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.benchmark-meta {
-  fill: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
+.benchmark-tooltip-row em {
+  justify-self: end;
 }
 
 .table-wrap {

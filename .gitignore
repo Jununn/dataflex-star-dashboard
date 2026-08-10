@@ -1,4 +1,5 @@
 data/.curl-gh-config
+data/.graphql-*.json
 data/github-cache/
 favicon-original.png
 favicon-before-transparent.png
