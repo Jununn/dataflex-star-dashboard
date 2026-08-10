@@ -2,7 +2,7 @@ const snapshot = {
   date: "2026-08-10",
   time: "2026-08-10",
   timelineEnd: "2026-08-10",
-  stars: 1977,
+  stars: 1978,
   forks: 263,
   watchers: 159,
   createdAt: "2025-08-09",
@@ -257,7 +257,7 @@ const benchmarkRepos = [
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 1977,
+    stars: 1978,
     forks: 263,
     color: "#e3a008",
     note: "当前看板目标仓库。"
