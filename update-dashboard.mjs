@@ -35,12 +35,7 @@ function readConstObject(source, name) {
 }
 
 function renderRows(rows) {
-  const parts = rows.map(([date, count]) => `["${date}", ${count}]`);
-  const lines = [];
-  for (let index = 0; index < parts.length; index += 4) {
-    lines.push(`  ${parts.slice(index, index + 4).join(", ")}`);
-  }
-  return `[\n${lines.join(",\n")}\n]`;
+  return `[\n${rows.map(([date, count]) => `  ["${date}", ${count}]`).join(",\n")}\n]`;
 }
 
 function replaceConstArray(source, name, rows) {
@@ -64,6 +59,13 @@ function renderSnapshot(snapshot) {
 
 function replaceSnapshot(source, snapshot) {
   return source.replace(/const snapshot = \{[\s\S]*?\n\};/, `const snapshot = ${renderSnapshot(snapshot)};`);
+}
+
+function updateBenchmarkTarget(source, snapshot) {
+  return source.replace(
+    /(name: "OpenDCAI\/DataFlex",\n\s+stars: )\d+(,\n\s+forks: )\d+/,
+    `$1${snapshot.stars}$2${snapshot.forks}`
+  );
 }
 
 async function github(path, options = {}) {
@@ -116,12 +118,14 @@ function mergeDailyCounts(existingRows, freshCounts, startDate, endDate) {
   return [...merged.entries()].sort(([a], [b]) => a.localeCompare(b));
 }
 
-function fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot, endDate) {
+function fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot) {
   const delta = currentSnapshot.stars - previousSnapshot.stars;
-  if (delta <= 0) return existingRows;
-  const merged = new Map(existingRows);
-  merged.set(endDate, (merged.get(endDate) || 0) + delta);
-  return [...merged.entries()].sort(([a], [b]) => a.localeCompare(b));
+  if (delta > 0) {
+    console.warn(
+      `Leaving daily bars unchanged because detailed daily counts are unavailable; cumulative line will absorb ${delta} stars through snapshot alignment.`
+    );
+  }
+  return existingRows;
 }
 
 function sumRange(rows, start, end) {
@@ -171,13 +175,14 @@ async function main() {
     const freshCounts = await recentDailyCounts(currentSnapshot.stars, recalculationStart, endDate);
     dailyRows = mergeDailyCounts(existingRows, freshCounts, recalculationStart, endDate);
   } catch (error) {
-    console.warn(`Detailed stargazer fetch failed, falling back to total diff: ${error.message}`);
-    dailyRows = fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot, endDate);
+    console.warn(`Detailed stargazer fetch failed; preserving daily bars: ${error.message}`);
+    dailyRows = fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot);
   }
 
   const cacheVersion = process.env.VERSION || `${endDate}-dashboard-update`;
   app = replaceSnapshot(app, currentSnapshot);
   app = replaceConstArray(app, "nonZeroDailyCounts", dailyRows);
+  app = updateBenchmarkTarget(app, currentSnapshot);
   index = updateIndex(index, currentSnapshot, dailyRows, cacheVersion);
 
   if (process.env.DRY_RUN === "1") {

@@ -1,14 +1,14 @@
 const snapshot = {
-  date: "2026-08-07",
-  time: "2026-08-07",
-  timelineEnd: "2026-08-07",
-  stars: 1927,
-  forks: 256,
-  watchers: 151,
+  date: "2026-08-10",
+  time: "2026-08-10",
+  timelineEnd: "2026-08-10",
+  stars: 1977,
+  forks: 263,
+  watchers: 159,
   createdAt: "2025-08-09",
-  pushedAt: "2026-06-17",
+  pushedAt: "2026-08-09",
   description:
-    "Data-centric training framework for data selection, data mixture, and data reweighting."
+    "Data-centric LLM training with dynamic sample selection, domain mixture optimization, and example reweighting inside the LLaMA-Factory training loop."
 };
 
 const nonZeroDailyCounts = [
@@ -179,7 +179,10 @@ const nonZeroDailyCounts = [
   ["2026-08-04", 17],
   ["2026-08-05", 22],
   ["2026-08-06", 21],
-  ["2026-08-07", 4]
+  ["2026-08-07", 11],
+  ["2026-08-08", 17],
+  ["2026-08-09", 23],
+  ["2026-08-10", 3]
 ];
 
 const phases = [
@@ -254,8 +257,8 @@ const benchmarkRepos = [
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 1927,
-    forks: 256,
+    stars: 1977,
+    forks: 263,
     color: "#e3a008",
     note: "当前看板目标仓库。"
   },
