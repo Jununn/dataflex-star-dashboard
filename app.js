@@ -248,10 +248,10 @@ const benchmarkSnapshots = {
     "hiyouga/LlamaFactory": 73760
   },
   "2026-08-10": {
-    "hiyouga/LlamaFactory": 73949,
+    "hiyouga/LlamaFactory": 73956,
+    "verl-project/verl": 22891,
     "huggingface/trl": 19031,
-    "openrlhf/openrlhf": 9900,
-    "verl-project/verl": 22888,
+    "openrlhf/openrlhf": 9901,
     "axolotl-ai-cloud/axolotl": 12331,
     "OpenDCAI/DataFlex": 1978
   }
@@ -260,9 +260,9 @@ const benchmarkSnapshots = {
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 73949,
+    stars: 73956,
     forks: 9049,
-    recentChange: 189,
+    recentChange: 196,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
     points: [
@@ -286,14 +286,15 @@ const benchmarkRepos = [
       ["2026-05-31", 71570],
       ["2026-06-30", 72799],
       ["2026-07-31", 73651],
-      ["2026-08-10", 73949]
+      ["2026-08-05", 73760],
+      ["2026-08-10", 73956]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 22888,
-    forks: 4365,
-    recentChange: 0,
+    stars: 22891,
+    forks: 4366,
+    recentChange: 3,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
     points: [
@@ -317,7 +318,7 @@ const benchmarkRepos = [
       ["2026-05-31", 21630],
       ["2026-06-30", 22230],
       ["2026-07-31", 22746],
-      ["2026-08-10", 22888]
+      ["2026-08-10", 22891]
     ]
   },
   {
@@ -353,9 +354,9 @@ const benchmarkRepos = [
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9900,
+    stars: 9901,
     forks: 996,
-    recentChange: 0,
+    recentChange: 1,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
     points: [
@@ -379,7 +380,7 @@ const benchmarkRepos = [
       ["2026-05-31", 9550],
       ["2026-06-30", 9709],
       ["2026-07-31", 9867],
-      ["2026-08-10", 9900]
+      ["2026-08-10", 9901]
     ]
   },
   {
@@ -417,7 +418,7 @@ const benchmarkRepos = [
     name: "OpenDCAI/DataFlex",
     stars: 1978,
     forks: 263,
-    recentChange: 75,
+    recentChange: 0,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
