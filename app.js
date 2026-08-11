@@ -217,7 +217,8 @@ const actions = [
   ["2026-04-04", "Hugging Face", "技术报告登上 Daily Papers 当日 #1", "https://huggingface.co/papers/2603.26164"],
   ["2026-04-15", "公众号", "机器之心 - DataFlex", "https://mp.weixin.qq.com/s/QoXfElsL0UL8kAk_ThfYcw"],
   ["2026-04-20", "公众号", "Datawhale - DataFlex", "https://mp.weixin.qq.com/s/tGj9PZTHhmdo_w0ChW-O4Q"],
-  ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"]
+  ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"],
+  ["2026-08-11", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLMDevs/comments/1vldmfd/three_dynamic_data_strategies_when_compute_is/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
