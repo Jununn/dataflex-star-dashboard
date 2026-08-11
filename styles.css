@@ -894,20 +894,22 @@ td:nth-child(3) {
 
 .calendar-actions {
   display: grid;
-  gap: 5px;
+  gap: 6px;
 }
 
 .calendar-action {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid #e7e9f2;
-  border-radius: 999px;
-  background: #fff;
-  padding: 5px 8px;
-  color: var(--ink);
+  border: 1px solid #dfe5f2;
+  border-radius: 6px;
+  background: #fbfdff;
+  padding: 6px 8px;
+  color: #354052;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.3;
   text-decoration: none;
   text-overflow: ellipsis;
@@ -916,15 +918,15 @@ td:nth-child(3) {
 }
 
 .calendar-action:hover {
-  border-color: #c7cfff;
-  background: #f7f5ff;
-  color: var(--blue);
-  text-decoration: underline;
+  filter: brightness(0.985);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .calendar-action span {
-  margin-right: 5px;
+  flex: 0 0 auto;
   color: var(--accent-strong);
+  font-weight: 900;
 }
 
 .calendar-action.channel-hf {
@@ -963,6 +965,33 @@ td:nth-child(3) {
 
 .calendar-action.channel-social span {
   color: #dc2626;
+}
+
+.calendar-action.channel-reddit {
+  border-color: #fed7aa;
+  background: #fff7ed;
+}
+
+.calendar-action.channel-reddit span {
+  color: #f05a1a;
+}
+
+.calendar-action.channel-linkedin {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
+.calendar-action.channel-linkedin span {
+  color: #2563eb;
+}
+
+.calendar-action.channel-facebook {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+}
+
+.calendar-action.channel-facebook span {
+  color: #4f46e5;
 }
 
 .calendar-action.channel-default span {

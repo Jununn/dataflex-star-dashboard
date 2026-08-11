@@ -536,6 +536,9 @@ function getMonthBounds(month) {
 function getChannelClass(channel) {
   const normalized = channel.toLowerCase();
   if (normalized.includes("hugging")) return "channel-hf";
+  if (normalized.includes("reddit")) return "channel-reddit";
+  if (normalized.includes("linkedin")) return "channel-linkedin";
+  if (normalized.includes("facebook")) return "channel-facebook";
   if (channel.includes("公众号")) return "channel-wechat";
   if (channel.includes("Release")) return "channel-release";
   if (channel.includes("README")) return "channel-docs";
