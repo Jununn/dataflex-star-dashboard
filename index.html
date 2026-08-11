@@ -6,7 +6,7 @@
     <title>Dataflex Star Dashboard</title>
     <link rel="icon" href="./favicon.png?v=20260807-tanghulu-transparent" type="image/png" />
     <link rel="apple-touch-icon" href="./favicon.png?v=20260807-tanghulu-transparent" />
-    <link rel="stylesheet" href="./styles.css?v=20260810-overlap-august" />
+    <link rel="stylesheet" href="./styles.css?v=20260811-stargazer-daily-fix" />
   </head>
   <body>
     <header class="page-header">
@@ -46,6 +46,23 @@
           </div>
         </div>
         <div id="mainChart" class="chart-wrap" aria-label="Daily stars and cumulative stars chart"></div>
+      </section>
+
+      <section class="panel traffic-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>独立访客与新增 Star 对照</h2>
+            <p>把 GitHub Traffic 的每日访客、clone 与 UTC 日增 stars 对齐，观察流量规模和 star 转化是否同步。</p>
+          </div>
+          <div class="legend">
+            <span><i class="legend-dot visitors"></i>独立访客</span>
+            <span><i class="legend-dot daily"></i>新增 stars</span>
+            <span><i class="legend-dot clones"></i>Clones</span>
+            <span><i class="legend-dot cloners"></i>独立 cloners</span>
+          </div>
+        </div>
+        <div id="trafficChart" class="traffic-chart" aria-label="Traffic and daily stars comparison chart"></div>
+        <div id="trafficSummary" class="traffic-summary"></div>
       </section>
 
       <section class="two-col">
@@ -117,8 +134,8 @@
         </div>
 
         <div class="overlap-meta">
-          <span>窗口：2026-08-01 到 2026-08-11</span>
-          <span>8 月新增 stargazer：160</span>
+          <span>窗口：2026-08-01 到 2026-08-10</span>
+          <span>8 月新增 stargazer：161</span>
           <span>有效 starred repos：111 / 161</span>
           <span>空列表/不可读：50</span>
           <span>每人最多读取最近 200 个 starred repos</span>
@@ -338,6 +355,6 @@
       </details>
     </main>
 
-    <script src="./app.js?v=4-a185ad0b801cc2fcd3977f82abc9fa38e03282d3"></script>
+    <script src="./app.js?v=20260811-stargazer-daily-fix"></script>
   </body>
 </html>

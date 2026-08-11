@@ -12,6 +12,12 @@ function utcDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
+function addDays(date, delta) {
+  const cursor = new Date(`${date}T00:00:00Z`);
+  cursor.setUTCDate(cursor.getUTCDate() + delta);
+  return utcDate(cursor);
+}
+
 function datesBetween(start, end) {
   const out = [];
   for (let d = new Date(`${start}T00:00:00Z`), last = new Date(`${end}T00:00:00Z`); d <= last; d.setUTCDate(d.getUTCDate() + 1)) {
@@ -40,6 +46,15 @@ function readConstString(source, name) {
   const match = source.match(new RegExp(`(?:const|let) ${name} = "([^"]+)";`));
   if (!match) throw new Error(`Cannot find ${name}`);
   return match[1];
+}
+
+function readGhToken() {
+  try {
+    const hosts = readFileSync(join(process.env.HOME || "/Users/jun", ".config/gh/hosts.yml"), "utf8");
+    return hosts.match(/oauth_token:\s*(\S+)/)?.[1] || "";
+  } catch {
+    return "";
+  }
 }
 
 function renderRows(rows) {
@@ -87,6 +102,7 @@ function renderBenchmarkRepos(repos) {
     stars: ${repo.stars},
     forks: ${repo.forks},
     recentChange: ${repo.recentChange ?? 0},
+    yesterdayChange: ${Number.isFinite(repo.yesterdayChange) ? repo.yesterdayChange : "null"},
     color: "${repo.color}",
     note: "${repo.note}",
     points: ${renderPoints(repo.points || [])}
@@ -106,6 +122,11 @@ function replaceBenchmarkRepos(source, repos) {
   return source.replace(/const benchmarkRepos = \[[\s\S]*?\n\];\n\nconst byDateActions =/, `const benchmarkRepos = ${renderBenchmarkRepos(repos)};\n\nconst byDateActions =`);
 }
 
+function splitRepo(fullName) {
+  const [owner, name] = fullName.split("/");
+  return { owner, name };
+}
+
 async function updateBenchmarkRepos(source, currentDate) {
   const benchmarkRepos = readConstArray(source, "benchmarkRepos");
   const benchmarkSnapshots = readConstObject(source, "benchmarkSnapshots");
@@ -114,6 +135,7 @@ async function updateBenchmarkRepos(source, currentDate) {
   const previousTotals = benchmarkSnapshots[previousDate] || {};
   const nextSnapshots = { ...benchmarkSnapshots, [currentDate]: {} };
   const nextRepos = [];
+  const yesterday = addDays(currentDate, -1);
 
   for (const repo of benchmarkRepos) {
     const info = await github(`/repos/${repo.name}`);
@@ -125,11 +147,14 @@ async function updateBenchmarkRepos(source, currentDate) {
       points.set(previousDate, previousTotal);
     }
     points.set(currentDate, info.stargazers_count);
+    const recentStargazers = await recentStargazersSince(repo.name, yesterday);
+    const yesterdayChange = recentStargazers.filter((item) => item.starred_at?.slice(0, 10) === yesterday).length;
     nextRepos.push({
       ...repo,
       stars: info.stargazers_count,
       forks: info.forks_count,
       recentChange: info.stargazers_count - previousTotal,
+      yesterdayChange,
       points: [...points.entries()].sort(([a], [b]) => a.localeCompare(b))
     });
   }
@@ -142,7 +167,7 @@ async function updateBenchmarkRepos(source, currentDate) {
 }
 
 async function github(path, options = {}) {
-  const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+  const token = githubToken();
   const res = await fetch(`https://api.github.com${path}`, {
     ...options,
     headers: {
@@ -158,12 +183,63 @@ async function github(path, options = {}) {
   return res.json();
 }
 
-async function stargazersSince(totalStars, startDate) {
+function githubToken() {
+  return process.env.GH_TOKEN || process.env.GITHUB_TOKEN || readGhToken();
+}
+
+async function graphql(query, variables) {
+  const token = githubToken();
+  if (!token) throw new Error("Missing GitHub token for GraphQL stargazer query.");
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      "User-Agent": "dataflex-dashboard-updater",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ query, variables })
+  });
+  const body = await res.json();
+  if (!res.ok || body.errors?.length) {
+    throw new Error(`GitHub GraphQL failed for ${JSON.stringify(variables)}: ${JSON.stringify(body.errors || body).slice(0, 240)}`);
+  }
+  return body.data;
+}
+
+async function recentStargazersSince(targetRepo, startDate) {
+  const { owner, name } = splitRepo(targetRepo);
+  const startTimestamp = `${startDate}T00:00:00Z`;
+  const rows = [];
+  let cursor = null;
+  for (let page = 0; page < 10; page += 1) {
+    const data = await graphql(
+      `query RecentStargazers($owner: String!, $name: String!, $cursor: String) {
+        repository(owner: $owner, name: $name) {
+          stargazers(first: 100, after: $cursor, orderBy: { field: STARRED_AT, direction: DESC }) {
+            pageInfo { hasNextPage endCursor }
+            edges { starredAt }
+          }
+        }
+      }`,
+      { owner, name, cursor }
+    );
+    const connection = data.repository?.stargazers;
+    const edges = connection?.edges || [];
+    if (!edges.length) break;
+    rows.push(...edges.filter((edge) => edge.starredAt >= startTimestamp).map((edge) => ({ starred_at: edge.starredAt })));
+    const oldest = edges.map((edge) => edge.starredAt).filter(Boolean).sort()[0];
+    if (!connection.pageInfo.hasNextPage || (oldest && oldest < startTimestamp)) break;
+    cursor = connection.pageInfo.endCursor;
+  }
+  return rows;
+}
+
+async function stargazersSince(totalStars, startDate, targetRepo = repoName) {
   const maxPage = Math.ceil(totalStars / 100);
   const startTimestamp = `${startDate}T00:00:00Z`;
   const rows = [];
   for (let page = maxPage; page >= 1; page -= 1) {
-    const pageRows = await github(`/repos/${repoName}/stargazers?per_page=100&page=${page}`, {
+    const pageRows = await github(`/repos/${targetRepo}/stargazers?per_page=100&page=${page}`, {
       headers: { Accept: "application/vnd.github.star+json" }
     });
     if (!pageRows.length) break;
@@ -204,6 +280,24 @@ function sumRange(rows, start, end) {
     .reduce((sum, [, count]) => sum + count, 0);
 }
 
+function detailedOffset(snapshot, rows) {
+  return snapshot.stars - sumRange(rows, dailyCountsStartDate, snapshot.timelineEnd);
+}
+
+function assertDailyRowsReconcile(previousSnapshot, existingRows, currentSnapshot, dailyRows) {
+  const previousOffset = detailedOffset(previousSnapshot, existingRows);
+  const currentOffset = detailedOffset(currentSnapshot, dailyRows);
+  if (currentOffset > previousOffset) {
+    const missing = currentOffset - previousOffset;
+    throw new Error(
+      `Detailed stargazer rows do not reconcile with repo total. Expected offset ${previousOffset}, got ${currentOffset}; missing ${missing} stars from daily bars. Refusing to commit a total-only update.`
+    );
+  }
+  if (currentOffset < previousOffset) {
+    console.log(`Detailed stargazer rows backfilled ${previousOffset - currentOffset} previously missing stars.`);
+  }
+}
+
 function updateIndex(html, snapshot, dailyRows, cacheVersion) {
   const august = sumRange(dailyRows, "2026-08-01", snapshot.timelineEnd);
   return html
@@ -211,10 +305,7 @@ function updateIndex(html, snapshot, dailyRows, cacheVersion) {
       /GitHub 总量快照更新到 \d{4}-\d{2}-\d{2}，当前公开 star 总量 [\d,]+，逐日趋势展示从 2025-12-31 到 \d{4}-\d{2}-\d{2}。/,
       `GitHub 总量快照更新到 ${snapshot.time}，当前公开 star 总量 ${formatNumber(snapshot.stars)}，逐日趋势展示从 2025-12-31 到 ${snapshot.timelineEnd}。`
     )
-    .replace(/窗口：2026-08-01 到 \d{4}-\d{2}-\d{2}/g, `窗口：2026-08-01 到 ${snapshot.timelineEnd}`)
-    .replace(/8 月新增 stargazer：[\d,]+/g, `8 月新增 stargazer：${formatNumber(august)}`)
-    .replace(/已抓取 starred repos：0 \/ [\d,]+/g, `已抓取 starred repos：0 / ${formatNumber(august)}`)
-    .replace(/能确认 8 月窗口内新增 [\d,]+ 个用户/g, `能确认 8 月窗口内新增 ${formatNumber(august)} 个用户`)
+    .replace(/\.\/styles\.css(?:\?v=[^"]*)?/g, `./styles.css?v=${cacheVersion}`)
     .replace(/\.\/app\.js(?:\?v=[^"]*)?/g, `./app.js?v=${cacheVersion}`);
 }
 
@@ -244,9 +335,9 @@ async function main() {
     const latestStarDate = stargazers.map((item) => item.starred_at.slice(0, 10)).sort().at(-1);
     currentSnapshot.timelineEnd = [currentSnapshot.timelineEnd, latestStarDate || dailyCountsStartDate].sort().at(-1);
     dailyRows = dailyRowsFromStargazers(stargazers, dailyCountsStartDate, currentSnapshot.timelineEnd);
+    assertDailyRowsReconcile(previousSnapshot, existingRows, currentSnapshot, dailyRows);
   } catch (error) {
-    console.warn(`Detailed stargazer fetch failed; preserving daily bars: ${error.message}`);
-    dailyRows = fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot);
+    throw new Error(`Detailed stargazer update failed; refusing to commit partial snapshot: ${error.message}`);
   }
 
   const cacheVersion = process.env.VERSION || `${currentSnapshot.timelineEnd}-dashboard-update`;

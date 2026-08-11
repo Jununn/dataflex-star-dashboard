@@ -12,28 +12,6 @@ const snapshot = {
 };
 
 const nonZeroDailyCounts = [
-  ["2025-09-03", 1],
-  ["2025-09-14", 1],
-  ["2025-09-17", 1],
-  ["2025-09-18", 1],
-  ["2025-09-27", 1],
-  ["2025-09-28", 7],
-  ["2025-09-29", 7],
-  ["2025-09-30", 1],
-  ["2025-10-02", 1],
-  ["2025-10-04", 1],
-  ["2025-10-06", 1],
-  ["2025-10-13", 3],
-  ["2025-10-27", 2],
-  ["2025-11-12", 1],
-  ["2025-11-24", 1],
-  ["2025-11-25", 1],
-  ["2025-12-16", 1],
-  ["2025-12-23", 1],
-  ["2025-12-25", 6],
-  ["2025-12-26", 3],
-  ["2025-12-28", 1],
-  ["2025-12-30", 30],
   ["2025-12-31", 1],
   ["2026-01-04", 2],
   ["2026-01-05", 2],
@@ -75,7 +53,7 @@ const nonZeroDailyCounts = [
   ["2026-04-21", 50],
   ["2026-04-22", 21],
   ["2026-04-23", 14],
-  ["2026-04-24", 17],
+  ["2026-04-24", 16],
   ["2026-04-25", 12],
   ["2026-04-26", 21],
   ["2026-04-27", 17],
@@ -93,7 +71,7 @@ const nonZeroDailyCounts = [
   ["2026-05-09", 12],
   ["2026-05-10", 7],
   ["2026-05-11", 8],
-  ["2026-05-12", 10],
+  ["2026-05-12", 9],
   ["2026-05-13", 14],
   ["2026-05-14", 11],
   ["2026-05-15", 11],
@@ -137,7 +115,7 @@ const nonZeroDailyCounts = [
   ["2026-06-22", 8],
   ["2026-06-23", 15],
   ["2026-06-24", 15],
-  ["2026-06-25", 12],
+  ["2026-06-25", 11],
   ["2026-06-26", 17],
   ["2026-06-27", 16],
   ["2026-06-28", 37],
@@ -164,13 +142,14 @@ const nonZeroDailyCounts = [
   ["2026-07-19", 10],
   ["2026-07-20", 28],
   ["2026-07-21", 24],
-  ["2026-07-22", 7],
+  ["2026-07-22", 17],
+  ["2026-07-23", 27],
   ["2026-07-24", 14],
-  ["2026-07-25", 27],
+  ["2026-07-25", 28],
   ["2026-07-26", 20],
-  ["2026-07-27", 22],
+  ["2026-07-27", 21],
   ["2026-07-28", 18],
-  ["2026-07-29", 14],
+  ["2026-07-29", 15],
   ["2026-07-30", 20],
   ["2026-07-31", 30],
   ["2026-08-01", 14],
@@ -180,9 +159,10 @@ const nonZeroDailyCounts = [
   ["2026-08-05", 22],
   ["2026-08-06", 21],
   ["2026-08-07", 11],
-  ["2026-08-08", 17],
-  ["2026-08-09", 23],
-  ["2026-08-10", 3]
+  ["2026-08-08", 18],
+  ["2026-08-09", 22],
+  ["2026-08-10", 19],
+  ["2026-08-11", 1]
 ];
 
 const phases = [
@@ -240,6 +220,29 @@ const actions = [
   ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
+const trafficRows = [
+  ["2026-07-27", 31, 14, 20, 7],
+  ["2026-07-28", 11, 10, 21, 7],
+  ["2026-07-29", 33, 19, 18, 4],
+  ["2026-07-30", 29, 9, 6, 2],
+  ["2026-07-31", 12, 7, 3, 3],
+  ["2026-08-01", 7, 4, 4, 3],
+  ["2026-08-02", 4, 4, 10, 7],
+  ["2026-08-03", 29, 17, 57, 7],
+  ["2026-08-04", 28, 21, 2, 2],
+  ["2026-08-05", 48, 12, 9, 8],
+  ["2026-08-06", 17, 10, 5, 4],
+  ["2026-08-07", 12, 11, 4, 4],
+  ["2026-08-08", 14, 9, 20, 12],
+  ["2026-08-09", 30, 8, 150, 19]
+].map(([date, views, uniqueVisitors, clones, uniqueCloners]) => ({
+  date,
+  views,
+  uniqueVisitors,
+  clones,
+  uniqueCloners
+}));
+
 let benchmarkSnapshotDate = "2026-08-11";
 let benchmarkPreviousSnapshotDate = "2026-08-10";
 
@@ -248,16 +251,16 @@ const benchmarkSnapshots = {
     "hiyouga/LlamaFactory": 73760
   },
   "2026-08-10": {
-    "hiyouga/LlamaFactory": 73965,
-    "verl-project/verl": 22895,
-    "huggingface/trl": 19034,
-    "openrlhf/openrlhf": 9902,
+    "hiyouga/LlamaFactory": 73956,
+    "verl-project/verl": 22891,
+    "huggingface/trl": 19031,
+    "openrlhf/openrlhf": 9901,
     "axolotl-ai-cloud/axolotl": 12331,
-    "OpenDCAI/DataFlex": 1980
+    "OpenDCAI/DataFlex": 1978
   },
   "2026-08-11": {
-    "hiyouga/LlamaFactory": 73977,
-    "verl-project/verl": 22906,
+    "hiyouga/LlamaFactory": 73978,
+    "verl-project/verl": 22907,
     "huggingface/trl": 19043,
     "openrlhf/openrlhf": 9901,
     "axolotl-ai-cloud/axolotl": 12335,
@@ -268,9 +271,10 @@ const benchmarkSnapshots = {
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 73977,
+    stars: 73978,
     forks: 9051,
-    recentChange: 12,
+    recentChange: 22,
+    yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
     points: [
@@ -295,15 +299,16 @@ const benchmarkRepos = [
       ["2026-06-30", 72799],
       ["2026-07-31", 73651],
       ["2026-08-05", 73760],
-      ["2026-08-10", 73965],
-      ["2026-08-11", 73977]
+      ["2026-08-10", 73956],
+      ["2026-08-11", 73978]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 22906,
-    forks: 4373,
-    recentChange: 11,
+    stars: 22907,
+    forks: 4374,
+    recentChange: 16,
+    yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
     points: [
@@ -327,15 +332,16 @@ const benchmarkRepos = [
       ["2026-05-31", 21630],
       ["2026-06-30", 22230],
       ["2026-07-31", 22746],
-      ["2026-08-10", 22895],
-      ["2026-08-11", 22906]
+      ["2026-08-10", 22891],
+      ["2026-08-11", 22907]
     ]
   },
   {
     name: "huggingface/trl",
     stars: 19043,
     forks: 2901,
-    recentChange: 9,
+    recentChange: 12,
+    yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
     points: [
@@ -359,7 +365,7 @@ const benchmarkRepos = [
       ["2026-05-31", 18447],
       ["2026-06-30", 18715],
       ["2026-07-31", 18975],
-      ["2026-08-10", 19034],
+      ["2026-08-10", 19031],
       ["2026-08-11", 19043]
     ]
   },
@@ -367,7 +373,8 @@ const benchmarkRepos = [
     name: "openrlhf/openrlhf",
     stars: 9901,
     forks: 997,
-    recentChange: -1,
+    recentChange: 0,
+    yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
     points: [
@@ -391,7 +398,7 @@ const benchmarkRepos = [
       ["2026-05-31", 9550],
       ["2026-06-30", 9709],
       ["2026-07-31", 9867],
-      ["2026-08-10", 9902],
+      ["2026-08-10", 9901],
       ["2026-08-11", 9901]
     ]
   },
@@ -400,6 +407,7 @@ const benchmarkRepos = [
     stars: 12335,
     forks: 1401,
     recentChange: 4,
+    yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
     points: [
@@ -431,7 +439,8 @@ const benchmarkRepos = [
     name: "OpenDCAI/DataFlex",
     stars: 1994,
     forks: 267,
-    recentChange: 14,
+    recentChange: 16,
+    yesterdayChange: 19,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -440,7 +449,7 @@ const benchmarkRepos = [
       ["2026-05-31", 855],
       ["2026-06-30", 1285],
       ["2026-07-31", 1818],
-      ["2026-08-10", 1980],
+      ["2026-08-10", 1978],
       ["2026-08-11", 1994]
     ]
   }
@@ -675,6 +684,104 @@ function bindChartTooltip() {
   });
 }
 
+function renderTrafficChart() {
+  const trafficData = trafficRows.map((row) => ({
+    ...row,
+    stars: data.find((item) => item.date === row.date)?.stars || 0
+  }));
+  const series = [
+    { key: "uniqueVisitors", label: "独立访客", color: "#14b8a6" },
+    { key: "stars", label: "新增 stars", color: "#e0a000" },
+    { key: "clones", label: "Clones", color: "#f97316" },
+    { key: "uniqueCloners", label: "独立 cloners", color: "#8b5cf6" }
+  ];
+  const width = 1180;
+  const height = 360;
+  const margin = { top: 28, right: 34, bottom: 72, left: 66 };
+  const chartW = width - margin.left - margin.right;
+  const chartH = height - margin.top - margin.bottom;
+  const maxValue = Math.max(...trafficData.flatMap((row) => series.map((item) => row[item.key])));
+  const maxCount = Math.max(180, Math.ceil(maxValue / 60) * 60);
+  const x = (index) => margin.left + (index / (trafficData.length - 1)) * chartW;
+  const y = (value) => margin.top + chartH - (value / maxCount) * chartH;
+  const gridTicks = Array.from({ length: Math.floor(maxCount / 60) + 1 }, (_, index) => index * 60);
+  const grid = gridTicks
+    .map((tick) => `<line class="grid-line" x1="${margin.left}" y1="${y(tick)}" x2="${width - margin.right}" y2="${y(tick)}"></line><text class="chart-label" x="${margin.left - 12}" y="${y(tick) + 4}" text-anchor="end">${tick}</text>`)
+    .join("");
+  const lines = series
+    .map((item) => {
+      const points = trafficData.map((row, index) => `${x(index).toFixed(1)},${y(row[item.key]).toFixed(1)}`).join(" ");
+      const circles = trafficData
+        .map((row, index) => `<circle class="traffic-point" cx="${x(index).toFixed(1)}" cy="${y(row[item.key]).toFixed(1)}" r="4" fill="${item.color}" data-date="${row.date}"></circle>`)
+        .join("");
+      return `<polyline class="traffic-line" points="${points}" stroke="${item.color}"></polyline>${circles}`;
+    })
+    .join("");
+  const dateLabels = trafficData
+    .map((row, index) => `<text class="chart-label traffic-date-label" x="${x(index)}" y="${height - 26}" text-anchor="end" transform="rotate(-45 ${x(index)} ${height - 26})">${row.date.slice(5)}</text>`)
+    .join("");
+  const hoverZones = trafficData
+    .map((row, index) => {
+      const previousX = index === 0 ? margin.left : (x(index - 1) + x(index)) / 2;
+      const nextX = index === trafficData.length - 1 ? width - margin.right : (x(index) + x(index + 1)) / 2;
+      return `<rect class="traffic-hover-zone" x="${previousX.toFixed(1)}" y="${margin.top}" width="${Math.max(8, nextX - previousX).toFixed(1)}" height="${chartH}" data-date="${row.date}"></rect>`;
+    })
+    .join("");
+  document.getElementById("trafficChart").innerHTML = `
+    <div id="trafficTooltip" class="chart-tooltip" hidden></div>
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Traffic and daily stars comparison">
+      ${grid}
+      ${lines}
+      ${hoverZones}
+      <line x1="${margin.left}" y1="${margin.top + chartH}" x2="${width - margin.right}" y2="${margin.top + chartH}" stroke="#cbd5e1"></line>
+      <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartH}" stroke="#cbd5e1"></line>
+      ${dateLabels}
+      <text class="axis-title" x="${margin.left - 34}" y="${margin.top - 10}">Count</text>
+    </svg>`;
+  renderTrafficSummary(trafficData);
+  bindTrafficTooltip(trafficData, series);
+}
+
+function renderTrafficSummary(trafficData) {
+  const months = Array.from(new Set(trafficData.map((row) => row.date.slice(0, 7))));
+  document.getElementById("trafficSummary").innerHTML = months
+    .map((month) => {
+      const rows = trafficData.filter((row) => row.date.startsWith(month));
+      const uniqueVisitors = rows.reduce((sum, row) => sum + row.uniqueVisitors, 0);
+      const stars = rows.reduce((sum, row) => sum + row.stars, 0);
+      const clones = rows.reduce((sum, row) => sum + row.clones, 0);
+      const uniqueCloners = rows.reduce((sum, row) => sum + row.uniqueCloners, 0);
+      const average = rows.length ? uniqueVisitors / rows.length : 0;
+      return `<article class="traffic-card">
+        <span>${month.replace("-", " 年 ")} 月</span>
+        <strong>${average.toFixed(1)}/day</strong>
+        <p>${rows.length} 天样本，累计独立访客 ${formatNumber(uniqueVisitors)}，新增 stars ${formatNumber(stars)}，clones ${formatNumber(clones)}，独立 cloners ${formatNumber(uniqueCloners)}，截至 ${rows.at(-1).date.slice(5)}。</p>
+      </article>`;
+    })
+    .join("");
+}
+
+function bindTrafficTooltip(trafficData, series) {
+  const wrap = document.getElementById("trafficChart");
+  const tooltip = document.getElementById("trafficTooltip");
+  wrap.querySelectorAll(".traffic-point, .traffic-hover-zone").forEach((target) => {
+    target.addEventListener("mousemove", (event) => {
+      const row = trafficData.find((item) => item.date === target.dataset.date);
+      if (!row) return;
+      const rect = wrap.getBoundingClientRect();
+      tooltip.hidden = false;
+      tooltip.style.left = `${event.clientX - rect.left + wrap.scrollLeft}px`;
+      tooltip.style.top = `${event.clientY - rect.top + wrap.scrollTop}px`;
+      tooltip.innerHTML = `<strong>${row.date}</strong>${series
+        .map((item) => `<span class="traffic-tooltip-row"><i style="background:${item.color}"></i><b>${item.label}</b><em>${formatNumber(row[item.key])}</em></span>`)
+        .join("")}<span>总浏览：${formatNumber(row.views)}</span>`;
+    });
+    target.addEventListener("mouseleave", () => {
+      tooltip.hidden = true;
+    });
+  });
+}
+
 function renderMonthlyChart() {
   const months = data.reduce((acc, item) => {
     const month = item.date.slice(0, 7);
@@ -740,12 +847,23 @@ function renderPhaseCards() {
 
 function benchmarkMonthlyAdds(repo) {
   const points = repo.points || [];
-  return points.slice(1).map(([date, value], index) => {
-    const previousValue = points[index][1];
+  const monthGroups = [];
+  for (const [date, value] of points) {
+    const label = date.slice(0, 7);
+    const current = monthGroups.at(-1);
+    if (!current || current.label !== label) {
+      monthGroups.push({ label, firstDate: date, firstValue: value, lastDate: date, lastValue: value });
+    } else {
+      current.lastDate = date;
+      current.lastValue = value;
+    }
+  }
+  return monthGroups.map((group, index) => {
+    const previousValue = index > 0 ? monthGroups[index - 1].lastValue : group.firstValue;
     return {
-      date,
-      label: date.slice(0, 7),
-      stars: Math.max(0, value - previousValue)
+      date: group.lastDate,
+      label: group.label,
+      stars: Math.max(0, group.lastValue - previousValue)
     };
   });
 }
@@ -1046,6 +1164,7 @@ function initFilter() {
 renderLastUpdatedBadge();
 renderSummary();
 renderTrendChart();
+renderTrafficChart();
 renderMonthlyChart();
 renderMomentum();
 renderPhaseCards();

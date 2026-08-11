@@ -286,8 +286,21 @@ main > details {
   background: var(--red);
 }
 
+.legend-dot.visitors {
+  background: #14b8a6;
+}
+
+.legend-dot.clones {
+  background: #f97316;
+}
+
+.legend-dot.cloners {
+  background: #8b5cf6;
+}
+
 .chart-wrap,
 .mini-chart,
+.traffic-chart,
 .benchmark-chart {
   position: relative;
   width: 100%;
@@ -398,6 +411,101 @@ svg {
 
 .hover-zone {
   fill: transparent;
+}
+
+.traffic-panel .panel-heading {
+  padding-bottom: 8px;
+}
+
+.traffic-chart {
+  padding: 0 22px 4px;
+}
+
+.traffic-chart svg {
+  min-width: 1080px;
+}
+
+.traffic-line {
+  fill: none;
+  opacity: 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.8;
+}
+
+.traffic-point {
+  cursor: crosshair;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+}
+
+.traffic-hover-zone {
+  cursor: crosshair;
+  fill: transparent;
+  pointer-events: all;
+}
+
+.traffic-tooltip-row {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 7px;
+  min-width: 170px;
+}
+
+.traffic-tooltip-row i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.traffic-tooltip-row b,
+.traffic-tooltip-row em {
+  color: #475569;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.traffic-tooltip-row em {
+  justify-self: end;
+}
+
+.traffic-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 22px 22px;
+}
+
+.traffic-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdff;
+  padding: 13px 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.traffic-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.traffic-card strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.traffic-card p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
 }
 
 .two-col {
@@ -1160,6 +1268,7 @@ td:nth-child(3) {
   .two-col,
   .summary-grid,
   .benchmark-grid,
+  .traffic-summary,
   .momentum-grid {
     grid-template-columns: 1fr;
   }
