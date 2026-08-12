@@ -36,9 +36,18 @@ jobs:
 
       - name: Update dashboard data
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           VERSION: ${{ github.run_number }}-${{ github.sha }}
-        run: node update-dashboard.mjs
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+              echo "::warning::Missing repository secret GH_TOKEN; skipping data refresh for this push."
+              exit 0
+            fi
+            echo "::error::Missing repository secret GH_TOKEN. Add a GitHub PAT with public_repo access so the workflow can read stargazers starred_at from OpenDCAI/DataFlex and competitor repos."
+            exit 1
+          fi
+          node update-dashboard.mjs
 
       - name: Validate dashboard script
         run: node --check app.js
