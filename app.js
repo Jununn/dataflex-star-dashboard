@@ -277,11 +277,11 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2030
   },
   "2026-08-13": {
-    "hiyouga/LlamaFactory": 74039,
-    "verl-project/verl": 22935,
-    "huggingface/trl": 19062,
+    "hiyouga/LlamaFactory": 74058,
+    "verl-project/verl": 22945,
+    "huggingface/trl": 19066,
     "openrlhf/openrlhf": 9907,
-    "axolotl-ai-cloud/axolotl": 12346,
+    "axolotl-ai-cloud/axolotl": 12349,
     "OpenDCAI/DataFlex": 2035
   }
 };
@@ -289,9 +289,9 @@ const benchmarkSnapshots = {
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74039,
-    forks: 9058,
-    recentChange: 20,
+    stars: 74058,
+    forks: 9062,
+    recentChange: 39,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -320,14 +320,14 @@ const benchmarkRepos = [
       ["2026-08-10", 73956],
       ["2026-08-11", 73978],
       ["2026-08-12", 74019],
-      ["2026-08-13", 74039]
+      ["2026-08-13", 74058]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 22935,
-    forks: 4391,
-    recentChange: 10,
+    stars: 22945,
+    forks: 4396,
+    recentChange: 20,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -355,14 +355,14 @@ const benchmarkRepos = [
       ["2026-08-10", 22891],
       ["2026-08-11", 22907],
       ["2026-08-12", 22925],
-      ["2026-08-13", 22935]
+      ["2026-08-13", 22945]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19062,
-    forks: 2902,
-    recentChange: 5,
+    stars: 19066,
+    forks: 2903,
+    recentChange: 9,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -390,7 +390,7 @@ const benchmarkRepos = [
       ["2026-08-10", 19031],
       ["2026-08-11", 19043],
       ["2026-08-12", 19057],
-      ["2026-08-13", 19062]
+      ["2026-08-13", 19066]
     ]
   },
   {
@@ -430,9 +430,9 @@ const benchmarkRepos = [
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12346,
-    forks: 1401,
-    recentChange: 2,
+    stars: 12349,
+    forks: 1402,
+    recentChange: 5,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -460,7 +460,7 @@ const benchmarkRepos = [
       ["2026-08-10", 12331],
       ["2026-08-11", 12335],
       ["2026-08-12", 12344],
-      ["2026-08-13", 12346]
+      ["2026-08-13", 12349]
     ]
   },
   {
