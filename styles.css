@@ -994,6 +994,24 @@ td:nth-child(3) {
   color: #4f46e5;
 }
 
+.calendar-action.channel-xhs {
+  border-color: #fecdd3;
+  background: #fff1f2;
+}
+
+.calendar-action.channel-xhs span {
+  color: #e11d48;
+}
+
+.calendar-action.channel-offline {
+  border-color: #ddd6fe;
+  background: #f5f3ff;
+}
+
+.calendar-action.channel-offline span {
+  color: #6d5cff;
+}
+
 .calendar-action.channel-default span {
   color: #64748b;
 }

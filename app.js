@@ -218,14 +218,25 @@ const actions = [
   ["2026-03-17", "README", "支持 DeepSpeed ZeRO-3 训练与分析", "https://github.com/OpenDCAI/DataFlex#-1-news"],
   ["2026-04-03", "X", "DataFlex 论文发布", "https://x.com/PKU_DCAI/status/2040003575687131238"],
   ["2026-04-04", "Hugging Face", "技术报告登上 Daily Papers 当日 #1", "https://huggingface.co/papers/2603.26164"],
+  ["2026-04-11", "线下活动", "上交大校庆 - AI 集市 - 摆摊", "https://m.alltuu.com/album/f6733a3418cfc0dee17767d66ccdf6bc/?menu=live"],
   ["2026-04-15", "公众号", "机器之心 - DataFlex", "https://mp.weixin.qq.com/s/QoXfElsL0UL8kAk_ThfYcw"],
   ["2026-04-20", "公众号", "Datawhale - DataFlex", "https://mp.weixin.qq.com/s/tGj9PZTHhmdo_w0ChW-O4Q"],
+  ["2026-04-23", "线下活动", "WAIC FT Demo Day - 路演", "https://mp.weixin.qq.com/s/iR-blUEca-l6NcXkuQmIfw"],
+  ["2026-04-25", "线下活动", "DataFun - 上海 - 演讲", "https://www.bagevent.com/event/9108668"],
   ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"],
+  ["2026-06-16", "小红书", "df+lf教程 AI-Ready 数据准备 + LLM 动态训练实战", "http://xhslink.com/o/3sXUuMY03OQ"],
+  ["2026-06-26", "线下活动", "GIAC演讲", "https://giac.msup.com.cn/2026sz/schedule"],
+  ["2026-07-03", "线下活动", "AgenticAICon演讲", "https://agenticaicon.zhidx.com/2026/"],
+  ["2026-07-16", "线下活动", "开放麦 ppio-waic 开放麦", "#"],
+  ["2026-07-17", "线下活动", "WAIC", "#"],
+  ["2026-07-18", "线下活动", "WAIC", "#"],
+  ["2026-07-19", "线下活动", "WAIC", "#"],
+  ["2026-07-20", "线下活动", "WAIC", "#"],
   ["2026-08-11", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLMDevs/comments/1vldmfd/three_dynamic_data_strategies_when_compute_is/"],
   ["2026-08-12", "Facebook", "dataflex-data strategy", "https://www.facebook.com/groups/968349588962639/permalink/1072774705186793/"],
   ["2026-08-12", "LinkedIn", "dataflex-data strategy", "https://linkedin.com/feed/update/urn:li:groupPost:43875-7493240367803363328"],
-  ["2026-08-13", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLM/comments/1vn760h/data_selection_mixing_and_weighting_during_model/"],
-  ["2026-08-13", "LinkedIn", "dataflex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:8430025-7493619054750912513/"]
+  ["2026-08-13", "LinkedIn", "dataflex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:8430025-7493619054750912513/"],
+  ["2026-08-13", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLM/comments/1vn760h/data_selection_mixing_and_weighting_during_model/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
@@ -588,7 +599,9 @@ function getChannelClass(channel) {
   if (normalized.includes("reddit")) return "channel-reddit";
   if (normalized.includes("linkedin")) return "channel-linkedin";
   if (normalized.includes("facebook")) return "channel-facebook";
+  if (channel.includes("小红书")) return "channel-xhs";
   if (channel.includes("公众号")) return "channel-wechat";
+  if (channel.includes("线下活动")) return "channel-offline";
   if (channel.includes("Release")) return "channel-release";
   if (channel.includes("README")) return "channel-docs";
   if (channel.includes("X")) return "channel-social";
