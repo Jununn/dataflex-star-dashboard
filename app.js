@@ -221,7 +221,11 @@ const actions = [
   ["2026-04-15", "公众号", "机器之心 - DataFlex", "https://mp.weixin.qq.com/s/QoXfElsL0UL8kAk_ThfYcw"],
   ["2026-04-20", "公众号", "Datawhale - DataFlex", "https://mp.weixin.qq.com/s/tGj9PZTHhmdo_w0ChW-O4Q"],
   ["2026-05-26", "公众号", "数科星球 - 深度拆解 DataFlow 和 DataFlex", "#"],
-  ["2026-08-11", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLMDevs/comments/1vldmfd/three_dynamic_data_strategies_when_compute_is/"]
+  ["2026-08-11", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLMDevs/comments/1vldmfd/three_dynamic_data_strategies_when_compute_is/"],
+  ["2026-08-12", "Facebook", "dataflex-data strategy", "https://www.facebook.com/groups/968349588962639/permalink/1072774705186793/"],
+  ["2026-08-12", "LinkedIn", "dataflex-data strategy", "https://linkedin.com/feed/update/urn:li:groupPost:43875-7493240367803363328"],
+  ["2026-08-13", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLM/comments/1vn760h/data_selection_mixing_and_weighting_during_model/"],
+  ["2026-08-13", "LinkedIn", "dataflex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:8430025-7493619054750912513/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
