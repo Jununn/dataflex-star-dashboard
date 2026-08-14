@@ -331,7 +331,9 @@ async function main() {
   let index = readFileSync(indexPath, "utf8");
   const previousSnapshot = readConstObject(app, "snapshot");
   const existingRows = readConstArray(app, "nonZeroDailyCounts");
-  const currentUtcDate = utcDate(new Date());
+  const now = new Date();
+  const currentUtcDate = utcDate(now);
+  const currentBeijingMinute = beijingMinute(now);
 
   const repo = await github(`/repos/${repoName}`);
   const currentSnapshot = {
