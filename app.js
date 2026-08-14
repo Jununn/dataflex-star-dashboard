@@ -302,7 +302,7 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2035
   },
   "2026-08-14": {
-    "hiyouga/LlamaFactory": 74081,
+    "hiyouga/LlamaFactory": 74083,
     "verl-project/verl": 22954,
     "huggingface/trl": 19070,
     "openrlhf/openrlhf": 9909,
@@ -314,9 +314,9 @@ const benchmarkSnapshots = {
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74081,
+    stars: 74083,
     forks: 9066,
-    recentChange: 23,
+    recentChange: 25,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -346,7 +346,7 @@ const benchmarkRepos = [
       ["2026-08-11", 73978],
       ["2026-08-12", 74019],
       ["2026-08-13", 74058],
-      ["2026-08-14", 74081]
+      ["2026-08-14", 74083]
     ]
   },
   {
