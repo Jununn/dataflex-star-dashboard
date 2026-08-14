@@ -291,11 +291,11 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2035
   },
   "2026-08-14": {
-    "hiyouga/LlamaFactory": 74072,
+    "hiyouga/LlamaFactory": 74077,
     "verl-project/verl": 22953,
     "huggingface/trl": 19068,
     "openrlhf/openrlhf": 9908,
-    "axolotl-ai-cloud/axolotl": 12352,
+    "axolotl-ai-cloud/axolotl": 12353,
     "OpenDCAI/DataFlex": 2043
   }
 };
@@ -303,9 +303,9 @@ const benchmarkSnapshots = {
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74072,
+    stars: 74077,
     forks: 9064,
-    recentChange: 14,
+    recentChange: 19,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -335,7 +335,7 @@ const benchmarkRepos = [
       ["2026-08-11", 73978],
       ["2026-08-12", 74019],
       ["2026-08-13", 74058],
-      ["2026-08-14", 74072]
+      ["2026-08-14", 74077]
     ]
   },
   {
@@ -448,9 +448,9 @@ const benchmarkRepos = [
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12352,
+    stars: 12353,
     forks: 1402,
-    recentChange: 3,
+    recentChange: 4,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -479,7 +479,7 @@ const benchmarkRepos = [
       ["2026-08-11", 12335],
       ["2026-08-12", 12344],
       ["2026-08-13", 12349],
-      ["2026-08-14", 12352]
+      ["2026-08-14", 12353]
     ]
   },
   {
