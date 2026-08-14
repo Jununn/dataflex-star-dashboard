@@ -405,8 +405,9 @@ svg {
 
 .action-pin {
   fill: var(--red);
+  opacity: 0.9;
   stroke: #fff;
-  stroke-width: 1.6;
+  stroke-width: 1.2;
 }
 
 .hover-zone {

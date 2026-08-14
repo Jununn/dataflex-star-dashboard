@@ -1,6 +1,6 @@
 const snapshot = {
   date: "2026-08-14",
-  time: "2026-08-14",
+  time: "2026-08-14 15:08",
   timelineEnd: "2026-08-14",
   stars: 2045,
   forks: 272,
@@ -700,7 +700,7 @@ function renderTrendChart() {
     .filter((item) => item.actions.length)
     .map((item) => {
       const i = chartData.indexOf(item);
-      return `<circle class="action-pin" cx="${x(i)}" cy="${yStars(Math.max(item.stars, 2)) - 9}" r="4"><title>${item.date}: ${item.actions.map((a) => a.title).join(" / ")}</title></circle>`;
+      return `<circle class="action-pin" cx="${x(i)}" cy="${yStars(Math.max(item.stars, 2)) - 8}" r="3"><title>${item.date}: ${item.actions.map((a) => a.title).join(" / ")}</title></circle>`;
     })
     .join("");
   const monthLabels = chartData
