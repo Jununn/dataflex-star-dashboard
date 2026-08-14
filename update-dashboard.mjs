@@ -362,7 +362,7 @@ async function main() {
   const cacheVersion = process.env.VERSION || `${currentSnapshot.timelineEnd}-dashboard-update`;
   app = replaceSnapshot(app, currentSnapshot);
   app = replaceConstArray(app, "nonZeroDailyCounts", dailyRows);
-  app = await updateBenchmarkRepos(app, currentSnapshot.time);
+  app = await updateBenchmarkRepos(app, currentSnapshot.date);
   index = updateIndex(index, currentSnapshot, dailyRows, cacheVersion);
 
   if (process.env.DRY_RUN === "1") {
