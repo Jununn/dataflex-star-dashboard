@@ -12,6 +12,23 @@ function utcDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
+function beijingMinute(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  const hour = parts.hour === "24" ? "00" : parts.hour;
+  return `${parts.year}-${parts.month}-${parts.day} ${hour}:${parts.minute}`;
+}
+
 function addDays(date, delta) {
   const cursor = new Date(`${date}T00:00:00Z`);
   cursor.setUTCDate(cursor.getUTCDate() + delta);
@@ -320,7 +337,7 @@ async function main() {
   const currentSnapshot = {
     ...previousSnapshot,
     date: currentUtcDate,
-    time: currentUtcDate,
+    time: currentBeijingMinute,
     timelineEnd: [currentUtcDate, previousSnapshot.timelineEnd].sort().at(-1),
     stars: repo.stargazers_count,
     forks: repo.forks_count,
