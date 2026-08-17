@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,23 +11,6 @@ const dailyCountsStartDate = "2025-12-31";
 
 function utcDate(date) {
   return date.toISOString().slice(0, 10);
-}
-
-function beijingMinute(date) {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Shanghai",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  }).formatToParts(date).reduce((acc, part) => {
-    acc[part.type] = part.value;
-    return acc;
-  }, {});
-  const hour = parts.hour === "24" ? "00" : parts.hour;
-  return `${parts.year}-${parts.month}-${parts.day} ${hour}:${parts.minute}`;
 }
 
 function addDays(date, delta) {
@@ -45,6 +29,22 @@ function datesBetween(start, end) {
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(value);
+}
+
+function beijingMinute(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`;
 }
 
 function readConstArray(source, name) {
@@ -185,19 +185,58 @@ async function updateBenchmarkRepos(source, currentDate) {
 
 async function github(path, options = {}) {
   const token = githubToken();
-  const res = await fetch(`https://api.github.com${path}`, {
-    ...options,
-    headers: {
-      "User-Agent": "dataflex-dashboard-updater",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers || {})
-    }
-  });
+  const headers = {
+    "User-Agent": "dataflex-dashboard-updater",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {})
+  };
+  let res;
+  try {
+    res = await fetch(`https://api.github.com${path}`, {
+      ...options,
+      headers
+    });
+  } catch (error) {
+    return curlJson(`https://api.github.com${path}`, { method: options.method || "GET", headers, body: options.body, path });
+  }
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`GitHub API ${res.status} for ${path}: ${body.slice(0, 240)}`);
   }
   return res.json();
+}
+
+function curlJson(url, { method = "GET", headers = {}, body, path = url } = {}) {
+  const addresses = (process.env.GITHUB_API_RESOLVE || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const resolveOptions = addresses.length ? addresses : [""];
+  let lastError = "";
+  for (const address of resolveOptions) {
+    const args = ["-sS", "--retry", "3", "--retry-all-errors", "--connect-timeout", "12", "-X", method];
+    if (address) {
+      args.push("--resolve", `api.github.com:443:${address}`);
+    }
+    for (const [name, value] of Object.entries(headers)) {
+      args.push("-H", `${name}: ${value}`);
+    }
+    if (body) args.push("--data-binary", body);
+    args.push("-w", "\n%{http_code}", url);
+    try {
+      const output = execFileSync("curl", args, { encoding: "utf8" });
+      const splitAt = output.lastIndexOf("\n");
+      const text = output.slice(0, splitAt);
+      const status = Number(output.slice(splitAt + 1));
+      if (status < 200 || status >= 300) {
+        throw new Error(`GitHub API ${status} for ${path}: ${text.slice(0, 240)}`);
+      }
+      return JSON.parse(text);
+    } catch (error) {
+      lastError = String(error.stderr || error.message || "").replace(/Bearer\s+\S+/g, "Bearer ***");
+    }
+  }
+  throw new Error(`GitHub API curl failed for ${path}: ${lastError.slice(0, 240)}`);
 }
 
 function githubToken() {
@@ -207,17 +246,27 @@ function githubToken() {
 async function graphql(query, variables) {
   const token = githubToken();
   if (!token) throw new Error("Missing GitHub token for GraphQL stargazer query.");
-  const res = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      "User-Agent": "dataflex-dashboard-updater",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ query, variables })
-  });
-  const body = await res.json();
-  if (!res.ok || body.errors?.length) {
+  const requestBody = JSON.stringify({ query, variables });
+  const headers = {
+    "User-Agent": "dataflex-dashboard-updater",
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json"
+  };
+  let body;
+  let ok;
+  try {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers,
+      body: requestBody
+    });
+    body = await res.json();
+    ok = res.ok;
+  } catch (error) {
+    body = curlJson("https://api.github.com/graphql", { method: "POST", headers, body: requestBody, path: "/graphql" });
+    ok = true;
+  }
+  if (!ok || body.errors?.length) {
     throw new Error(`GitHub GraphQL failed for ${JSON.stringify(variables)}: ${JSON.stringify(body.errors || body).slice(0, 240)}`);
   }
   return body.data;
@@ -319,8 +368,12 @@ function updateIndex(html, snapshot, dailyRows, cacheVersion) {
   const august = sumRange(dailyRows, "2026-08-01", snapshot.timelineEnd);
   return html
     .replace(
-      /GitHub 总量快照更新到 \d{4}-\d{2}-\d{2}，当前公开 star 总量 [\d,]+，逐日趋势展示从 2025-12-31 到 \d{4}-\d{2}-\d{2}。/,
+      /GitHub 总量快照更新到 \d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?，当前公开 star 总量 [\d,]+，逐日趋势展示从 2025-12-31 到 \d{4}-\d{2}-\d{2}。/,
       `GitHub 总量快照更新到 ${snapshot.time}，当前公开 star 总量 ${formatNumber(snapshot.stars)}，逐日趋势展示从 2025-12-31 到 ${snapshot.timelineEnd}。`
+    )
+    .replace(
+      /<span id="lastUpdatedBadge" class="live-status">[^<]*<\/span>/,
+      `<span id="lastUpdatedBadge" class="live-status">上次更新 ${snapshot.time}</span>`
     )
     .replace(/\.\/styles\.css(?:\?v=[^"]*)?/g, `./styles.css?v=${cacheVersion}`)
     .replace(/\.\/app\.js(?:\?v=[^"]*)?/g, `./app.js?v=${cacheVersion}`);
@@ -333,13 +386,13 @@ async function main() {
   const existingRows = readConstArray(app, "nonZeroDailyCounts");
   const now = new Date();
   const currentUtcDate = utcDate(now);
-  const currentBeijingMinute = beijingMinute(now);
+  const currentUpdateTime = beijingMinute(now);
 
   const repo = await github(`/repos/${repoName}`);
   const currentSnapshot = {
     ...previousSnapshot,
     date: currentUtcDate,
-    time: currentBeijingMinute,
+    time: currentUpdateTime,
     timelineEnd: [currentUtcDate, previousSnapshot.timelineEnd].sort().at(-1),
     stars: repo.stargazers_count,
     forks: repo.forks_count,

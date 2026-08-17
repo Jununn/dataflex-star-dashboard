@@ -1,8 +1,8 @@
 const snapshot = {
   date: "2026-08-24",
-  time: "2026-08-24 10:29",
+  time: "2026-08-24 13:24",
   timelineEnd: "2026-08-24",
-  stars: 2216,
+  stars: 2220,
   forks: 300,
   watchers: 182,
   createdAt: "2025-08-09",
@@ -175,7 +175,7 @@ const nonZeroDailyCounts = [
   ["2026-08-21", 17],
   ["2026-08-22", 19],
   ["2026-08-23", 21],
-  ["2026-08-24", 2]
+  ["2026-08-24", 6]
 ];
 
 const phases = [
@@ -245,25 +245,28 @@ const actions = [
   ["2026-08-11", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLMDevs/comments/1vldmfd/three_dynamic_data_strategies_when_compute_is/"],
   ["2026-08-12", "Facebook", "dataflex-data strategy", "https://www.facebook.com/groups/968349588962639/permalink/1072774705186793/"],
   ["2026-08-12", "LinkedIn", "dataflex-data strategy", "https://linkedin.com/feed/update/urn:li:groupPost:43875-7493240367803363328"],
+  ["2026-08-13", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLM/comments/1vn760h/data_selection_mixing_and_weighting_during_model/"],
   ["2026-08-13", "LinkedIn", "dataflex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:8430025-7493619054750912513/"],
-  ["2026-08-13", "Reddit", "dataflex-oss", "https://www.reddit.com/r/LLM/comments/1vn760h/data_selection_mixing_and_weighting_during_model/"]
+  ["2026-08-14", "Facebook", "flex 模型训练", "https://www.facebook.com/groups/3670562573177653/my_pending_content"],
+  ["2026-08-18", "LinkedIn", "flex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:7036558-7495432001219383297/"],
+  ["2026-08-21", "线下活动", "AIDD", "https://www.aidd.vip/QYJDMSC-2026bj"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
-  ["2026-07-27", 31, 14, 20, 7],
-  ["2026-07-28", 11, 10, 21, 7],
-  ["2026-07-29", 33, 19, 18, 4],
-  ["2026-07-30", 29, 9, 6, 2],
-  ["2026-07-31", 12, 7, 3, 3],
-  ["2026-08-01", 7, 4, 4, 3],
-  ["2026-08-02", 4, 4, 10, 7],
-  ["2026-08-03", 29, 17, 57, 7],
-  ["2026-08-04", 28, 21, 2, 2],
-  ["2026-08-05", 48, 12, 9, 8],
-  ["2026-08-06", 17, 10, 5, 4],
-  ["2026-08-07", 12, 11, 4, 4],
-  ["2026-08-08", 14, 9, 20, 12],
-  ["2026-08-09", 30, 8, 150, 19]
+  ["2026-08-09", 30, 8, 150, 19],
+  ["2026-08-10", 43, 15, 8, 5],
+  ["2026-08-11", 34, 15, 28, 7],
+  ["2026-08-12", 25, 14, 14, 11],
+  ["2026-08-13", 52, 13, 23, 11],
+  ["2026-08-14", 24, 15, 14, 12],
+  ["2026-08-15", 5, 5, 15, 8],
+  ["2026-08-16", 13, 4, 20, 10],
+  ["2026-08-17", 31, 13, 10, 8],
+  ["2026-08-18", 46, 19, 27, 7],
+  ["2026-08-19", 14, 9, 14, 5],
+  ["2026-08-20", 11, 9, 41, 9],
+  ["2026-08-21", 11, 8, 6, 5],
+  ["2026-08-22", 5, 5, 34, 10]
 ].map(([date, views, uniqueVisitors, clones, uniqueCloners]) => ({
   date,
   views,
@@ -272,8 +275,41 @@ const trafficRows = [
   uniqueCloners
 }));
 
+const trafficWindowTotals = {
+  views: 344,
+  uniqueVisitors: 112,
+  clones: 404,
+  uniqueCloners: 106
+};
+
+const trafficReferrers = [
+  ["github.com", 132, 44],
+  ["zwt233.github.io", 28, 14],
+  ["Google", 27, 15],
+  ["Bing", 7, 3],
+  ["linkedin.com", 6, 5],
+  ["haolpku.github.io", 3, 1],
+  ["Baidu", 2, 1],
+  ["chatgpt.com", 1, 1],
+  ["doubao.com", 1, 1],
+  ["theroadqaq.github.io", 1, 1]
+].map(([site, views, uniqueVisitors]) => ({ site, views, uniqueVisitors }));
+
+const trafficPopularContent = [
+  ["Overview", 150, 92],
+  ["/blob/main/README-zh.md", 39, 26],
+  ["/pulls", 17, 4],
+  ["/commits/main", 15, 4],
+  ["/issues", 12, 8],
+  ["/pull/62", 12, 5],
+  ["/graphs/contributors", 10, 6],
+  ["/tree/main", 6, 5],
+  ["/pull/58", 6, 4],
+  ["/pull/59", 5, 2]
+].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
+
 let benchmarkSnapshotDate = "2026-08-24";
-let benchmarkPreviousSnapshotDate = "2026-08-23";
+let benchmarkPreviousSnapshotDate = "2026-08-14";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -312,101 +348,29 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2035
   },
   "2026-08-14": {
-    "hiyouga/LlamaFactory": 74092,
-    "verl-project/verl": 22957,
-    "huggingface/trl": 19069,
-    "openrlhf/openrlhf": 9910,
-    "axolotl-ai-cloud/axolotl": 12356,
-    "OpenDCAI/DataFlex": 2048
-  },
-  "2026-08-15": {
-    "hiyouga/LlamaFactory": 74108,
-    "verl-project/verl": 22967,
-    "huggingface/trl": 19074,
-    "openrlhf/openrlhf": 9913,
-    "axolotl-ai-cloud/axolotl": 12360,
-    "OpenDCAI/DataFlex": 2060
-  },
-  "2026-08-16": {
-    "hiyouga/LlamaFactory": 74137,
-    "verl-project/verl": 22978,
-    "huggingface/trl": 19083,
-    "openrlhf/openrlhf": 9919,
-    "axolotl-ai-cloud/axolotl": 12360,
-    "OpenDCAI/DataFlex": 2077
-  },
-  "2026-08-17": {
-    "hiyouga/LlamaFactory": 74159,
-    "verl-project/verl": 22997,
-    "huggingface/trl": 19087,
-    "openrlhf/openrlhf": 9922,
-    "axolotl-ai-cloud/axolotl": 12367,
-    "OpenDCAI/DataFlex": 2099
-  },
-  "2026-08-18": {
-    "hiyouga/LlamaFactory": 74193,
-    "verl-project/verl": 23016,
-    "huggingface/trl": 19095,
-    "openrlhf/openrlhf": 9930,
-    "axolotl-ai-cloud/axolotl": 12371,
-    "OpenDCAI/DataFlex": 2109
-  },
-  "2026-08-19": {
-    "hiyouga/LlamaFactory": 74225,
-    "verl-project/verl": 23034,
-    "huggingface/trl": 19107,
-    "openrlhf/openrlhf": 9933,
-    "axolotl-ai-cloud/axolotl": 12372,
-    "OpenDCAI/DataFlex": 2130
-  },
-  "2026-08-20": {
-    "hiyouga/LlamaFactory": 74250,
-    "verl-project/verl": 23042,
-    "huggingface/trl": 19109,
-    "openrlhf/openrlhf": 9936,
-    "axolotl-ai-cloud/axolotl": 12376,
-    "OpenDCAI/DataFlex": 2148
-  },
-  "2026-08-21": {
-    "hiyouga/LlamaFactory": 74275,
-    "verl-project/verl": 23059,
-    "huggingface/trl": 19116,
-    "openrlhf/openrlhf": 9938,
-    "axolotl-ai-cloud/axolotl": 12380,
-    "OpenDCAI/DataFlex": 2166
-  },
-  "2026-08-22": {
-    "hiyouga/LlamaFactory": 74289,
-    "verl-project/verl": 23073,
-    "huggingface/trl": 19122,
-    "openrlhf/openrlhf": 9943,
-    "axolotl-ai-cloud/axolotl": 12389,
-    "OpenDCAI/DataFlex": 2181
-  },
-  "2026-08-23": {
-    "hiyouga/LlamaFactory": 74294,
-    "verl-project/verl": 23085,
-    "huggingface/trl": 19134,
-    "openrlhf/openrlhf": 9945,
-    "axolotl-ai-cloud/axolotl": 12390,
-    "OpenDCAI/DataFlex": 2200
+    "hiyouga/LlamaFactory": 74072,
+    "verl-project/verl": 22953,
+    "huggingface/trl": 19068,
+    "openrlhf/openrlhf": 9908,
+    "axolotl-ai-cloud/axolotl": 12352,
+    "OpenDCAI/DataFlex": 2043
   },
   "2026-08-24": {
-    "hiyouga/LlamaFactory": 74302,
-    "verl-project/verl": 23091,
-    "huggingface/trl": 19136,
+    "hiyouga/LlamaFactory": 74303,
+    "verl-project/verl": 23093,
+    "huggingface/trl": 19137,
     "openrlhf/openrlhf": 9947,
     "axolotl-ai-cloud/axolotl": 12393,
-    "OpenDCAI/DataFlex": 2216
+    "OpenDCAI/DataFlex": 2220
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74302,
-    forks: 9091,
-    recentChange: 8,
+    stars: 74303,
+    forks: 9093,
+    recentChange: 231,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -436,24 +400,15 @@ const benchmarkRepos = [
       ["2026-08-11", 73978],
       ["2026-08-12", 74019],
       ["2026-08-13", 74058],
-      ["2026-08-14", 74092],
-      ["2026-08-15", 74108],
-      ["2026-08-16", 74137],
-      ["2026-08-17", 74159],
-      ["2026-08-18", 74193],
-      ["2026-08-19", 74225],
-      ["2026-08-20", 74250],
-      ["2026-08-21", 74275],
-      ["2026-08-22", 74289],
-      ["2026-08-23", 74294],
-      ["2026-08-24", 74302]
+      ["2026-08-14", 74072],
+      ["2026-08-24", 74303]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23091,
-    forks: 4440,
-    recentChange: 6,
+    stars: 23093,
+    forks: 4442,
+    recentChange: 140,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -482,24 +437,15 @@ const benchmarkRepos = [
       ["2026-08-11", 22907],
       ["2026-08-12", 22925],
       ["2026-08-13", 22945],
-      ["2026-08-14", 22957],
-      ["2026-08-15", 22967],
-      ["2026-08-16", 22978],
-      ["2026-08-17", 22997],
-      ["2026-08-18", 23016],
-      ["2026-08-19", 23034],
-      ["2026-08-20", 23042],
-      ["2026-08-21", 23059],
-      ["2026-08-22", 23073],
-      ["2026-08-23", 23085],
-      ["2026-08-24", 23091]
+      ["2026-08-14", 22953],
+      ["2026-08-24", 23093]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19136,
+    stars: 19137,
     forks: 2928,
-    recentChange: 2,
+    recentChange: 69,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -528,24 +474,15 @@ const benchmarkRepos = [
       ["2026-08-11", 19043],
       ["2026-08-12", 19057],
       ["2026-08-13", 19066],
-      ["2026-08-14", 19069],
-      ["2026-08-15", 19074],
-      ["2026-08-16", 19083],
-      ["2026-08-17", 19087],
-      ["2026-08-18", 19095],
-      ["2026-08-19", 19107],
-      ["2026-08-20", 19109],
-      ["2026-08-21", 19116],
-      ["2026-08-22", 19122],
-      ["2026-08-23", 19134],
-      ["2026-08-24", 19136]
+      ["2026-08-14", 19068],
+      ["2026-08-24", 19137]
     ]
   },
   {
     name: "openrlhf/openrlhf",
     stars: 9947,
     forks: 1004,
-    recentChange: 2,
+    recentChange: 39,
     yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
@@ -574,16 +511,7 @@ const benchmarkRepos = [
       ["2026-08-11", 9901],
       ["2026-08-12", 9906],
       ["2026-08-13", 9907],
-      ["2026-08-14", 9910],
-      ["2026-08-15", 9913],
-      ["2026-08-16", 9919],
-      ["2026-08-17", 9922],
-      ["2026-08-18", 9930],
-      ["2026-08-19", 9933],
-      ["2026-08-20", 9936],
-      ["2026-08-21", 9938],
-      ["2026-08-22", 9943],
-      ["2026-08-23", 9945],
+      ["2026-08-14", 9908],
       ["2026-08-24", 9947]
     ]
   },
@@ -591,7 +519,7 @@ const benchmarkRepos = [
     name: "axolotl-ai-cloud/axolotl",
     stars: 12393,
     forks: 1413,
-    recentChange: 3,
+    recentChange: 41,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -620,24 +548,15 @@ const benchmarkRepos = [
       ["2026-08-11", 12335],
       ["2026-08-12", 12344],
       ["2026-08-13", 12349],
-      ["2026-08-14", 12356],
-      ["2026-08-15", 12360],
-      ["2026-08-16", 12360],
-      ["2026-08-17", 12367],
-      ["2026-08-18", 12371],
-      ["2026-08-19", 12372],
-      ["2026-08-20", 12376],
-      ["2026-08-21", 12380],
-      ["2026-08-22", 12389],
-      ["2026-08-23", 12390],
+      ["2026-08-14", 12352],
       ["2026-08-24", 12393]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2216,
+    stars: 2220,
     forks: 300,
-    recentChange: 16,
+    recentChange: 177,
     yesterdayChange: 21,
     color: "#635bff",
     note: "当前看板目标仓库。",
@@ -651,17 +570,9 @@ const benchmarkRepos = [
       ["2026-08-11", 1994],
       ["2026-08-12", 2030],
       ["2026-08-13", 2035],
-      ["2026-08-14", 2048],
-      ["2026-08-15", 2060],
-      ["2026-08-16", 2077],
+      ["2026-08-14", 2043],
       ["2026-08-17", 2099],
-      ["2026-08-18", 2109],
-      ["2026-08-19", 2130],
-      ["2026-08-20", 2148],
-      ["2026-08-21", 2166],
-      ["2026-08-22", 2181],
-      ["2026-08-23", 2200],
-      ["2026-08-24", 2216]
+      ["2026-08-24", 2220]
     ]
   }
 ];
@@ -960,7 +871,14 @@ function renderTrafficChart() {
 
 function renderTrafficSummary(trafficData) {
   const months = Array.from(new Set(trafficData.map((row) => row.date.slice(0, 7))));
-  document.getElementById("trafficSummary").innerHTML = months
+  const dailyUniqueVisitors = trafficData.reduce((sum, row) => sum + row.uniqueVisitors, 0);
+  const dailyUniqueCloners = trafficData.reduce((sum, row) => sum + row.uniqueCloners, 0);
+  const windowCard = `<article class="traffic-card">
+    <span>${trafficData[0].date.slice(5)} 到 ${trafficData.at(-1).date.slice(5)}</span>
+    <strong>GitHub Traffic 14 天窗口</strong>
+    <p>总浏览 ${formatNumber(trafficWindowTotals.views)}，去重独立访客 ${formatNumber(trafficWindowTotals.uniqueVisitors)}；clones ${formatNumber(trafficWindowTotals.clones)}，去重独立 cloners ${formatNumber(trafficWindowTotals.uniqueCloners)}。逐日 unique 相加分别为访客 ${formatNumber(dailyUniqueVisitors)}、cloners ${formatNumber(dailyUniqueCloners)}。</p>
+  </article>`;
+  const monthCards = months
     .map((month) => {
       const rows = trafficData.filter((row) => row.date.startsWith(month));
       const uniqueVisitors = rows.reduce((sum, row) => sum + row.uniqueVisitors, 0);
@@ -975,6 +893,49 @@ function renderTrafficSummary(trafficData) {
       </article>`;
     })
     .join("");
+  document.getElementById("trafficSummary").innerHTML = `${windowCard}${monthCards}`;
+}
+
+function renderTrafficTables() {
+  const renderRows = (rows, labelKey) => rows
+    .map((row) => `<tr>
+      <td>${escapeHtml(row[labelKey])}</td>
+      <td>${formatNumber(row.views)}</td>
+      <td>${formatNumber(row.uniqueVisitors)}</td>
+    </tr>`)
+    .join("");
+
+  document.getElementById("trafficTables").innerHTML = `
+    <article class="traffic-table-card">
+      <h3>Referring sites</h3>
+      <div class="table-wrap traffic-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Views</th>
+              <th>Unique Visitors</th>
+            </tr>
+          </thead>
+          <tbody>${renderRows(trafficReferrers, "site")}</tbody>
+        </table>
+      </div>
+    </article>
+    <article class="traffic-table-card">
+      <h3>Popular content</h3>
+      <div class="table-wrap traffic-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Content</th>
+              <th>Views</th>
+              <th>Unique Visitors</th>
+            </tr>
+          </thead>
+          <tbody>${renderRows(trafficPopularContent, "content")}</tbody>
+        </table>
+      </div>
+    </article>`;
 }
 
 function bindTrafficTooltip(trafficData, series) {
@@ -1381,6 +1342,7 @@ renderLastUpdatedBadge();
 renderSummary();
 renderTrendChart();
 renderTrafficChart();
+renderTrafficTables();
 renderMonthlyChart();
 renderMomentum();
 renderPhaseCards();
