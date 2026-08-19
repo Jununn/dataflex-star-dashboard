@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-08-18",
-  time: "2026-08-18 18:21",
-  timelineEnd: "2026-08-18",
-  stars: 2109,
-  forks: 287,
-  watchers: 168,
+  date: "2026-08-19",
+  time: "2026-08-19 10:34",
+  timelineEnd: "2026-08-19",
+  stars: 2120,
+  forks: 288,
+  watchers: 169,
   createdAt: "2025-08-09",
   pushedAt: "2026-08-16",
   description:
@@ -169,7 +169,8 @@ const nonZeroDailyCounts = [
   ["2026-08-15", 8],
   ["2026-08-16", 25],
   ["2026-08-17", 15],
-  ["2026-08-18", 6]
+  ["2026-08-18", 15],
+  ["2026-08-19", 2]
 ];
 
 const phases = [
@@ -266,8 +267,8 @@ const trafficRows = [
   uniqueCloners
 }));
 
-let benchmarkSnapshotDate = "2026-08-18";
-let benchmarkPreviousSnapshotDate = "2026-08-17";
+let benchmarkSnapshotDate = "2026-08-19";
+let benchmarkPreviousSnapshotDate = "2026-08-18";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -344,15 +345,23 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 9930,
     "axolotl-ai-cloud/axolotl": 12371,
     "OpenDCAI/DataFlex": 2109
+  },
+  "2026-08-19": {
+    "hiyouga/LlamaFactory": 74205,
+    "verl-project/verl": 23025,
+    "huggingface/trl": 19104,
+    "openrlhf/openrlhf": 9932,
+    "axolotl-ai-cloud/axolotl": 12371,
+    "OpenDCAI/DataFlex": 2120
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74193,
+    stars: 74205,
     forks: 9078,
-    recentChange: 34,
+    recentChange: 12,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -386,14 +395,15 @@ const benchmarkRepos = [
       ["2026-08-15", 74108],
       ["2026-08-16", 74137],
       ["2026-08-17", 74159],
-      ["2026-08-18", 74193]
+      ["2026-08-18", 74193],
+      ["2026-08-19", 74205]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23016,
-    forks: 4426,
-    recentChange: 19,
+    stars: 23025,
+    forks: 4425,
+    recentChange: 9,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -426,14 +436,15 @@ const benchmarkRepos = [
       ["2026-08-15", 22967],
       ["2026-08-16", 22978],
       ["2026-08-17", 22997],
-      ["2026-08-18", 23016]
+      ["2026-08-18", 23016],
+      ["2026-08-19", 23025]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19095,
-    forks: 2912,
-    recentChange: 8,
+    stars: 19104,
+    forks: 2914,
+    recentChange: 9,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -466,14 +477,15 @@ const benchmarkRepos = [
       ["2026-08-15", 19074],
       ["2026-08-16", 19083],
       ["2026-08-17", 19087],
-      ["2026-08-18", 19095]
+      ["2026-08-18", 19095],
+      ["2026-08-19", 19104]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9930,
+    stars: 9932,
     forks: 1002,
-    recentChange: 8,
+    recentChange: 2,
     yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
@@ -506,14 +518,15 @@ const benchmarkRepos = [
       ["2026-08-15", 9913],
       ["2026-08-16", 9919],
       ["2026-08-17", 9922],
-      ["2026-08-18", 9930]
+      ["2026-08-18", 9930],
+      ["2026-08-19", 9932]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
     stars: 12371,
     forks: 1409,
-    recentChange: 4,
+    recentChange: 0,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -546,14 +559,15 @@ const benchmarkRepos = [
       ["2026-08-15", 12360],
       ["2026-08-16", 12360],
       ["2026-08-17", 12367],
-      ["2026-08-18", 12371]
+      ["2026-08-18", 12371],
+      ["2026-08-19", 12371]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2109,
-    forks: 287,
-    recentChange: 10,
+    stars: 2120,
+    forks: 288,
+    recentChange: 11,
     yesterdayChange: 15,
     color: "#635bff",
     note: "当前看板目标仓库。",
@@ -571,7 +585,8 @@ const benchmarkRepos = [
       ["2026-08-15", 2060],
       ["2026-08-16", 2077],
       ["2026-08-17", 2099],
-      ["2026-08-18", 2109]
+      ["2026-08-18", 2109],
+      ["2026-08-19", 2120]
     ]
   }
 ];
