@@ -1,6 +1,6 @@
 const snapshot = {
   date: "2026-08-24",
-  time: "2026-08-24 13:24",
+  time: "2026-08-24 13:37",
   timelineEnd: "2026-08-24",
   stars: 2220,
   forks: 300,
@@ -359,7 +359,7 @@ const benchmarkSnapshots = {
     "hiyouga/LlamaFactory": 74303,
     "verl-project/verl": 23093,
     "huggingface/trl": 19137,
-    "openrlhf/openrlhf": 9947,
+    "openrlhf/openrlhf": 9948,
     "axolotl-ai-cloud/axolotl": 12393,
     "OpenDCAI/DataFlex": 2220
   }
@@ -480,9 +480,9 @@ const benchmarkRepos = [
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9947,
+    stars: 9948,
     forks: 1004,
-    recentChange: 39,
+    recentChange: 40,
     yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
@@ -512,7 +512,7 @@ const benchmarkRepos = [
       ["2026-08-12", 9906],
       ["2026-08-13", 9907],
       ["2026-08-14", 9908],
-      ["2026-08-24", 9947]
+      ["2026-08-24", 9948]
     ]
   },
   {
