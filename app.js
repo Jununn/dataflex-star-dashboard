@@ -1,8 +1,8 @@
 const snapshot = {
   date: "2026-08-28",
-  time: "2026-08-28 10:51",
+  time: "2026-08-28 14:59",
   timelineEnd: "2026-08-28",
-  stars: 2295,
+  stars: 2301,
   forks: 313,
   watchers: 189,
   createdAt: "2025-08-09",
@@ -179,7 +179,7 @@ const nonZeroDailyCounts = [
   ["2026-08-25", 18],
   ["2026-08-26", 15],
   ["2026-08-27", 21],
-  ["2026-08-28", 2]
+  ["2026-08-28", 8]
 ];
 
 const phases = [
@@ -253,14 +253,14 @@ const actions = [
   ["2026-08-13", "LinkedIn", "dataflex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:8430025-7493619054750912513/"],
   ["2026-08-14", "Facebook", "flex 模型训练", "https://www.facebook.com/groups/3670562573177653/my_pending_content"],
   ["2026-08-18", "LinkedIn", "flex-oss", "https://www.linkedin.com/feed/update/urn:li:groupPost:7036558-7495432001219383297/"],
-  ["2026-08-21", "线下活动", "AIDD", "https://www.aidd.vip/QYJDMSC-2026bj"]
+  ["2026-08-21", "线下活动", "AIDD", "https://www.aidd.vip/QYJDMSC-2026bj"],
+  ["2026-08-25", "Reddit", "dataflex-数据策略", "https://www.reddit.com/r/LLMDevs/comments/1vxv5vz/can_data_strategy_become_part_of_the_finetuning/"],
+  ["2026-08-25", "Facebook", "dataflex-数据策略", "https://www.facebook.com/groups/dataannotation/permalink/1775900343545999"],
+  ["2026-08-27", "LinkedIn", "dataflow-agent知识助手", "https://www.linkedin.com/feed/update/urn:li:activity:7498687335715418112?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUUBPQBFc8EfKdyeyOBsOUABAvO12iGjao"],
+  ["2026-08-27", "Reddit", "dataflex-本地训练", "https://www.reddit.com/r/LocalLLM/comments/1vzq9bv/how_much_time_do_you_spend_cleaning_and/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
-  ["2026-08-09", 30, 8, 150, 19],
-  ["2026-08-10", 43, 15, 8, 5],
-  ["2026-08-11", 34, 15, 28, 7],
-  ["2026-08-12", 25, 14, 14, 11],
   ["2026-08-13", 52, 13, 23, 11],
   ["2026-08-14", 24, 15, 14, 12],
   ["2026-08-15", 5, 5, 15, 8],
@@ -270,7 +270,11 @@ const trafficRows = [
   ["2026-08-19", 14, 9, 14, 5],
   ["2026-08-20", 11, 9, 41, 9],
   ["2026-08-21", 11, 8, 6, 5],
-  ["2026-08-22", 5, 5, 34, 10]
+  ["2026-08-22", 5, 5, 34, 10],
+  ["2026-08-23", 14, 8, 8, 8],
+  ["2026-08-24", 29, 16, 19, 6],
+  ["2026-08-25", 11, 10, 51, 11],
+  ["2026-08-26", 36, 16, 10, 9]
 ].map(([date, views, uniqueVisitors, clones, uniqueCloners]) => ({
   date,
   views,
@@ -280,36 +284,36 @@ const trafficRows = [
 }));
 
 const trafficWindowTotals = {
-  views: 344,
-  uniqueVisitors: 112,
-  clones: 404,
-  uniqueCloners: 106
+  views: 302,
+  uniqueVisitors: 113,
+  clones: 292,
+  uniqueCloners: 102
 };
 
 const trafficReferrers = [
-  ["github.com", 132, 44],
-  ["zwt233.github.io", 28, 14],
-  ["Google", 27, 15],
-  ["Bing", 7, 3],
-  ["linkedin.com", 6, 5],
+  ["github.com", 94, 44],
+  ["zwt233.github.io", 31, 16],
+  ["Google", 29, 19],
+  ["Bing", 12, 3],
+  ["linkedin.com", 5, 4],
   ["haolpku.github.io", 3, 1],
   ["Baidu", 2, 1],
+  ["opendcai.github.io", 2, 1],
   ["chatgpt.com", 1, 1],
-  ["doubao.com", 1, 1],
-  ["theroadqaq.github.io", 1, 1]
+  ["doubao.com", 1, 1]
 ].map(([site, views, uniqueVisitors]) => ({ site, views, uniqueVisitors }));
 
 const trafficPopularContent = [
-  ["Overview", 150, 92],
-  ["/blob/main/README-zh.md", 39, 26],
-  ["/pulls", 17, 4],
-  ["/commits/main", 15, 4],
-  ["/issues", 12, 8],
+  ["Overview", 147, 93],
+  ["/blob/main/README-zh.md", 31, 20],
+  ["/issues", 15, 9],
+  ["/pulls", 14, 5],
   ["/pull/62", 12, 5],
-  ["/graphs/contributors", 10, 6],
-  ["/tree/main", 6, 5],
-  ["/pull/58", 6, 4],
-  ["/pull/59", 5, 2]
+  ["/commits/main", 11, 3],
+  ["/graphs/contributors", 7, 4],
+  ["/pull/61", 5, 2],
+  ["/issues/57", 4, 3],
+  ["/graphs/traffic", 4, 1]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
 let benchmarkSnapshotDate = "2026-08-28";
@@ -360,12 +364,12 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2043
   },
   "2026-08-24": {
-    "hiyouga/LlamaFactory": 74308,
-    "verl-project/verl": 23098,
-    "huggingface/trl": 19140,
-    "openrlhf/openrlhf": 9949,
-    "axolotl-ai-cloud/axolotl": 12394,
-    "OpenDCAI/DataFlex": 2225
+    "hiyouga/LlamaFactory": 74303,
+    "verl-project/verl": 23093,
+    "huggingface/trl": 19137,
+    "openrlhf/openrlhf": 9947,
+    "axolotl-ai-cloud/axolotl": 12393,
+    "OpenDCAI/DataFlex": 2220
   },
   "2026-08-25": {
     "hiyouga/LlamaFactory": 74345,
@@ -392,21 +396,21 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2291
   },
   "2026-08-28": {
-    "hiyouga/LlamaFactory": 74404,
-    "verl-project/verl": 23164,
-    "huggingface/trl": 19161,
-    "openrlhf/openrlhf": 9956,
-    "axolotl-ai-cloud/axolotl": 12413,
-    "OpenDCAI/DataFlex": 2295
+    "hiyouga/LlamaFactory": 74409,
+    "verl-project/verl": 23169,
+    "huggingface/trl": 19163,
+    "openrlhf/openrlhf": 9957,
+    "axolotl-ai-cloud/axolotl": 12415,
+    "OpenDCAI/DataFlex": 2301
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74404,
-    forks: 9103,
-    recentChange: 5,
+    stars: 74409,
+    forks: 9104,
+    recentChange: 10,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -437,18 +441,18 @@ const benchmarkRepos = [
       ["2026-08-12", 74019],
       ["2026-08-13", 74058],
       ["2026-08-14", 74072],
-      ["2026-08-24", 74308],
+      ["2026-08-24", 74303],
       ["2026-08-25", 74345],
       ["2026-08-26", 74371],
       ["2026-08-27", 74399],
-      ["2026-08-28", 74404]
+      ["2026-08-28", 74409]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23164,
-    forks: 4450,
-    recentChange: 4,
+    stars: 23169,
+    forks: 4452,
+    recentChange: 9,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -478,18 +482,18 @@ const benchmarkRepos = [
       ["2026-08-12", 22925],
       ["2026-08-13", 22945],
       ["2026-08-14", 22953],
-      ["2026-08-24", 23098],
+      ["2026-08-24", 23093],
       ["2026-08-25", 23125],
       ["2026-08-26", 23143],
       ["2026-08-27", 23160],
-      ["2026-08-28", 23164]
+      ["2026-08-28", 23169]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19161,
-    forks: 2936,
-    recentChange: 1,
+    stars: 19163,
+    forks: 2937,
+    recentChange: 3,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -519,18 +523,18 @@ const benchmarkRepos = [
       ["2026-08-12", 19057],
       ["2026-08-13", 19066],
       ["2026-08-14", 19068],
-      ["2026-08-24", 19140],
+      ["2026-08-24", 19137],
       ["2026-08-25", 19152],
       ["2026-08-26", 19155],
       ["2026-08-27", 19160],
-      ["2026-08-28", 19161]
+      ["2026-08-28", 19163]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9956,
-    forks: 1006,
-    recentChange: -1,
+    stars: 9957,
+    forks: 1008,
+    recentChange: 0,
     yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
@@ -560,18 +564,18 @@ const benchmarkRepos = [
       ["2026-08-12", 9906],
       ["2026-08-13", 9907],
       ["2026-08-14", 9908],
-      ["2026-08-24", 9949],
+      ["2026-08-24", 9947],
       ["2026-08-25", 9953],
       ["2026-08-26", 9956],
       ["2026-08-27", 9957],
-      ["2026-08-28", 9956]
+      ["2026-08-28", 9957]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12413,
-    forks: 1413,
-    recentChange: 0,
+    stars: 12415,
+    forks: 1414,
+    recentChange: 2,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -601,18 +605,18 @@ const benchmarkRepos = [
       ["2026-08-12", 12344],
       ["2026-08-13", 12349],
       ["2026-08-14", 12352],
-      ["2026-08-24", 12394],
+      ["2026-08-24", 12393],
       ["2026-08-25", 12404],
       ["2026-08-26", 12403],
       ["2026-08-27", 12413],
-      ["2026-08-28", 12413]
+      ["2026-08-28", 12415]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2295,
+    stars: 2301,
     forks: 313,
-    recentChange: 4,
+    recentChange: 10,
     yesterdayChange: 21,
     color: "#635bff",
     note: "当前看板目标仓库。",
@@ -628,11 +632,11 @@ const benchmarkRepos = [
       ["2026-08-13", 2035],
       ["2026-08-14", 2043],
       ["2026-08-17", 2099],
-      ["2026-08-24", 2225],
+      ["2026-08-24", 2220],
       ["2026-08-25", 2249],
       ["2026-08-26", 2264],
       ["2026-08-27", 2291],
-      ["2026-08-28", 2295]
+      ["2026-08-28", 2301]
     ]
   }
 ];
