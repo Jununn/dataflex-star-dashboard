@@ -1,8 +1,8 @@
 const snapshot = {
-  date: "2026-08-28",
-  time: "2026-08-28 18:14",
-  timelineEnd: "2026-08-28",
-  stars: 2303,
+  date: "2026-09-01",
+  time: "2026-09-01 11:09",
+  timelineEnd: "2026-09-01",
+  stars: 2370,
   forks: 313,
   watchers: 190,
   createdAt: "2025-08-09",
@@ -179,7 +179,11 @@ const nonZeroDailyCounts = [
   ["2026-08-25", 18],
   ["2026-08-26", 15],
   ["2026-08-27", 21],
-  ["2026-08-28", 10]
+  ["2026-08-28", 17],
+  ["2026-08-29", 21],
+  ["2026-08-30", 20],
+  ["2026-08-31", 16],
+  ["2026-09-01", 3]
 ];
 
 const phases = [
@@ -768,11 +772,11 @@ function buildTrendBands() {
 
 function renderSummary() {
   const maxDay = data.reduce((max, item) => (item.stars > max.stars ? item : max), data[0]);
-  const august = sumRange("2026-08-01", snapshot.timelineEnd);
+  const august = sumRange("2026-08-01", "2026-08-31");
   const lastSeven = data.slice(-7).reduce((sum, item) => sum + item.stars, 0);
   const cards = [
     ["当前 stars", formatNumber(snapshot.stars), `${snapshot.time} GitHub API 快照；forks ${snapshot.forks}，watchers ${snapshot.watchers}。`],
-    ["8 月新增", formatNumber(august), `8/1 到 ${snapshot.timelineEnd}；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
+    ["8 月新增", formatNumber(august), `8/1 到 8/31；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
     ["最高单日", `${maxDay.stars}`, `${maxDay.date}，位于 4 月内容矩阵放大阶段。`]
   ];
   document.getElementById("summary").innerHTML = cards
