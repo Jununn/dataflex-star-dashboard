@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T09:59:18.582Z",
+  "generatedAt": "2026-09-01T03:09:22.091Z",
   "repo": "OpenDCAI/DataFlex",
   "months": {
     "2026-07": {
@@ -570,16 +570,16 @@
     },
     "2026-08": {
       "month": "2026-08",
-      "users": 487,
-      "fetched": 349,
-      "failed": 138,
+      "users": 551,
+      "fetched": 391,
+      "failed": 160,
       "perUserStarLimit": 200,
       "topRepos": [
         {
           "name": "OpenDCAI/DataFlow",
           "url": "https://github.com/OpenDCAI/DataFlow",
-          "overlap": 344,
-          "share": 0.9856733524355301,
+          "overlap": 384,
+          "share": 0.9820971867007673,
           "relation": "上游搭档",
           "category": "Data selection / dataset",
           "stars": 7241,
@@ -591,8 +591,8 @@
         {
           "name": "ModelEngine-Group/nexent",
           "url": "https://github.com/ModelEngine-Group/nexent",
-          "overlap": 329,
-          "share": 0.9426934097421203,
+          "overlap": 368,
+          "share": 0.9411764705882353,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 5821,
@@ -604,8 +604,8 @@
         {
           "name": "facebookresearch/vggt",
           "url": "https://github.com/facebookresearch/vggt",
-          "overlap": 316,
-          "share": 0.9054441260744985,
+          "overlap": 354,
+          "share": 0.9053708439897699,
           "relation": "弱相关",
           "category": "Other",
           "stars": 14209,
@@ -617,8 +617,8 @@
         {
           "name": "limix-ldm-ai/LimiX",
           "url": "https://github.com/limix-ldm-ai/LimiX",
-          "overlap": 303,
-          "share": 0.8681948424068768,
+          "overlap": 340,
+          "share": 0.8695652173913043,
           "relation": "场景相邻",
           "category": "Data pipeline",
           "stars": 3919,
@@ -630,8 +630,8 @@
         {
           "name": "Hunyuan-PromptEnhancer/PromptEnhancer",
           "url": "https://github.com/Hunyuan-PromptEnhancer/PromptEnhancer",
-          "overlap": 303,
-          "share": 0.8681948424068768,
+          "overlap": 339,
+          "share": 0.8670076726342711,
           "relation": "弱相关",
           "category": "Other",
           "stars": 3751,
@@ -641,23 +641,10 @@
           "language": "Python"
         },
         {
-          "name": "iflytek/astron-agent",
-          "url": "https://github.com/iflytek/astron-agent",
-          "overlap": 293,
-          "share": 0.839541547277937,
-          "relation": "场景相邻",
-          "category": "RAG / retrieval",
-          "stars": 9242,
-          "forks": 879,
-          "description": "Enterprise-grade, commercial-friendly agentic workflow platform for building next-generation SuperAgents.",
-          "scenario": "RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。",
-          "language": "Java"
-        },
-        {
           "name": "EverMind-AI/EverOS",
           "url": "https://github.com/EverMind-AI/EverOS",
-          "overlap": 290,
-          "share": 0.830945558739255,
+          "overlap": 327,
+          "share": 0.8363171355498721,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 11945,
@@ -667,10 +654,23 @@
           "language": "Python"
         },
         {
+          "name": "iflytek/astron-agent",
+          "url": "https://github.com/iflytek/astron-agent",
+          "overlap": 325,
+          "share": 0.8312020460358056,
+          "relation": "场景相邻",
+          "category": "RAG / retrieval",
+          "stars": 9242,
+          "forks": 879,
+          "description": "Enterprise-grade, commercial-friendly agentic workflow platform for building next-generation SuperAgents.",
+          "scenario": "RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。",
+          "language": "Java"
+        },
+        {
           "name": "Klavis-AI/klavis",
           "url": "https://github.com/Klavis-AI/klavis",
-          "overlap": 288,
-          "share": 0.8252148997134671,
+          "overlap": 324,
+          "share": 0.8286445012787724,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 5786,
@@ -682,8 +682,8 @@
         {
           "name": "Oneflow-Inc/oneflow",
           "url": "https://github.com/Oneflow-Inc/oneflow",
-          "overlap": 285,
-          "share": 0.8166189111747851,
+          "overlap": 317,
+          "share": 0.8107416879795396,
           "relation": "弱相关",
           "category": "Other",
           "stars": 9422,
@@ -695,8 +695,8 @@
         {
           "name": "hyperai/tvm-cn",
           "url": "https://github.com/hyperai/tvm-cn",
-          "overlap": 276,
-          "share": 0.7908309455587392,
+          "overlap": 307,
+          "share": 0.7851662404092071,
           "relation": "弱相关",
           "category": "Other",
           "stars": 3890,
@@ -708,8 +708,8 @@
         {
           "name": "SuanmoSuanyangTechnology/MemoryBear",
           "url": "https://github.com/SuanmoSuanyangTechnology/MemoryBear",
-          "overlap": 272,
-          "share": 0.7793696275071633,
+          "overlap": 306,
+          "share": 0.782608695652174,
           "relation": "弱相关",
           "category": "Other",
           "stars": 5029,
@@ -721,8 +721,8 @@
         {
           "name": "HKUDS/LightRAG",
           "url": "https://github.com/HKUDS/LightRAG",
-          "overlap": 263,
-          "share": 0.7535816618911175,
+          "overlap": 294,
+          "share": 0.7519181585677749,
           "relation": "场景相邻",
           "category": "RAG / retrieval",
           "stars": 38705,
@@ -734,8 +734,8 @@
         {
           "name": "qualcomm/GenieX",
           "url": "https://github.com/qualcomm/GenieX",
-          "overlap": 261,
-          "share": 0.7478510028653295,
+          "overlap": 291,
+          "share": 0.7442455242966752,
           "relation": "弱相关",
           "category": "Other",
           "stars": 8312,
@@ -747,8 +747,8 @@
         {
           "name": "PKU-Alignment/align-anything",
           "url": "https://github.com/PKU-Alignment/align-anything",
-          "overlap": 249,
-          "share": 0.7134670487106017,
+          "overlap": 276,
+          "share": 0.7058823529411765,
           "relation": "典型相关",
           "category": "LLM training",
           "stars": 4664,
@@ -760,8 +760,8 @@
         {
           "name": "yikart/AiToEarn",
           "url": "https://github.com/yikart/AiToEarn",
-          "overlap": 239,
-          "share": 0.6848137535816619,
+          "overlap": 264,
+          "share": 0.6751918158567775,
           "relation": "弱相关",
           "category": "Other",
           "stars": 24960,
@@ -773,8 +773,8 @@
         {
           "name": "fudan-generative-vision/hallo",
           "url": "https://github.com/fudan-generative-vision/hallo",
-          "overlap": 233,
-          "share": 0.667621776504298,
+          "overlap": 260,
+          "share": 0.6649616368286445,
           "relation": "弱相关",
           "category": "Other",
           "stars": 8659,
@@ -786,8 +786,8 @@
         {
           "name": "microsoft/UFO",
           "url": "https://github.com/microsoft/UFO",
-          "overlap": 229,
-          "share": 0.6561604584527221,
+          "overlap": 252,
+          "share": 0.6445012787723785,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 9454,
@@ -797,23 +797,10 @@
           "language": "Python"
         },
         {
-          "name": "Everlyn-Labs/Everlyn-1",
-          "url": "https://github.com/Everlyn-Labs/Everlyn-1",
-          "overlap": 223,
-          "share": 0.6389684813753582,
-          "relation": "弱相关",
-          "category": "Other",
-          "stars": 2893,
-          "forks": 486,
-          "description": "The first open autoregressive foundational video AI model.",
-          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
-          "language": "-"
-        },
-        {
           "name": "FxPool/FXMinerProxy",
           "url": "https://github.com/FxPool/FXMinerProxy",
-          "overlap": 222,
-          "share": 0.6361031518624641,
+          "overlap": 247,
+          "share": 0.6317135549872123,
           "relation": "弱相关",
           "category": "Other",
           "stars": 3709,
@@ -823,23 +810,10 @@
           "language": "Go"
         },
         {
-          "name": "YeQing17-2026/OmniAgent",
-          "url": "https://github.com/YeQing17-2026/OmniAgent",
-          "overlap": 219,
-          "share": 0.6275071633237822,
-          "relation": "场景相邻",
-          "category": "Agent / workflow",
-          "stars": 2577,
-          "forks": 395,
-          "description": "An agent capable of self-evolving and dynamically hardening security",
-          "scenario": "Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。",
-          "language": "Python"
-        },
-        {
           "name": "OpenSenseNova/SenseNova-U1",
           "url": "https://github.com/OpenSenseNova/SenseNova-U1",
-          "overlap": 216,
-          "share": 0.6189111747851003,
+          "overlap": 245,
+          "share": 0.6265984654731458,
           "relation": "弱相关",
           "category": "Other",
           "stars": 4606,
@@ -849,23 +823,36 @@
           "language": "Python"
         },
         {
-          "name": "FlowElement-xinliuyuansu/m_flow",
-          "url": "https://github.com/FlowElement-xinliuyuansu/m_flow",
-          "overlap": 211,
-          "share": 0.6045845272206304,
+          "name": "Everlyn-Labs/Everlyn-1",
+          "url": "https://github.com/Everlyn-Labs/Everlyn-1",
+          "overlap": 245,
+          "share": 0.6265984654731458,
+          "relation": "弱相关",
+          "category": "Other",
+          "stars": 2893,
+          "forks": 486,
+          "description": "The first open autoregressive foundational video AI model.",
+          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
+          "language": "-"
+        },
+        {
+          "name": "YeQing17-2026/OmniAgent",
+          "url": "https://github.com/YeQing17-2026/OmniAgent",
+          "overlap": 243,
+          "share": 0.6214833759590793,
           "relation": "场景相邻",
-          "category": "RAG / retrieval",
-          "stars": 4487,
-          "forks": 257,
-          "description": "A bio-inspired cognitive memory engine — a new paradigm for Graph RAG.",
-          "scenario": "RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。",
+          "category": "Agent / workflow",
+          "stars": 2577,
+          "forks": 395,
+          "description": "An agent capable of self-evolving and dynamically hardening security",
+          "scenario": "Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。",
           "language": "Python"
         },
         {
           "name": "juggleim/im-server",
           "url": "https://github.com/juggleim/im-server",
-          "overlap": 211,
-          "share": 0.6045845272206304,
+          "overlap": 239,
+          "share": 0.6112531969309463,
           "relation": "弱相关",
           "category": "Other",
           "stars": 3600,
@@ -877,8 +864,8 @@
         {
           "name": "vllm-project/semantic-router",
           "url": "https://github.com/vllm-project/semantic-router",
-          "overlap": 208,
-          "share": 0.5959885386819485,
+          "overlap": 237,
+          "share": 0.6061381074168798,
           "relation": "弱相关",
           "category": "Other",
           "stars": 5131,
@@ -888,23 +875,23 @@
           "language": "Go"
         },
         {
-          "name": "nesaorg/nesa",
-          "url": "https://github.com/nesaorg/nesa",
-          "overlap": 205,
-          "share": 0.5873925501432665,
-          "relation": "弱相关",
-          "category": "Other",
-          "stars": 3167,
-          "forks": 246,
-          "description": "Run AI models end-to-end encrypted.",
-          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
+          "name": "FlowElement-xinliuyuansu/m_flow",
+          "url": "https://github.com/FlowElement-xinliuyuansu/m_flow",
+          "overlap": 234,
+          "share": 0.59846547314578,
+          "relation": "场景相邻",
+          "category": "RAG / retrieval",
+          "stars": 4487,
+          "forks": 257,
+          "description": "A bio-inspired cognitive memory engine — a new paradigm for Graph RAG.",
+          "scenario": "RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。",
           "language": "Python"
         },
         {
           "name": "dataelement/bisheng",
           "url": "https://github.com/dataelement/bisheng",
-          "overlap": 204,
-          "share": 0.5845272206303725,
+          "overlap": 225,
+          "share": 0.5754475703324808,
           "relation": "典型相关",
           "category": "Data selection / dataset",
           "stars": 11839,
@@ -914,23 +901,23 @@
           "language": "Python"
         },
         {
-          "name": "open-gigaai/giga-brain-0",
-          "url": "https://github.com/open-gigaai/giga-brain-0",
-          "overlap": 197,
-          "share": 0.5644699140401146,
+          "name": "nesaorg/nesa",
+          "url": "https://github.com/nesaorg/nesa",
+          "overlap": 225,
+          "share": 0.5754475703324808,
           "relation": "弱相关",
           "category": "Other",
-          "stars": 2560,
-          "forks": 201,
-          "description": "GigaBrain-0: A World Model-Powered Vision-Language-Action Model",
+          "stars": 3167,
+          "forks": 246,
+          "description": "Run AI models end-to-end encrypted.",
           "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
           "language": "Python"
         },
         {
           "name": "WildDataX/suppr-zotero-plugin",
           "url": "https://github.com/WildDataX/suppr-zotero-plugin",
-          "overlap": 197,
-          "share": 0.5644699140401146,
+          "overlap": 224,
+          "share": 0.5728900255754475,
           "relation": "场景相邻",
           "category": "Data pipeline",
           "stars": 2011,
@@ -942,8 +929,8 @@
         {
           "name": "Tencent-Hunyuan/HunyuanVideo-1.5",
           "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5",
-          "overlap": 196,
-          "share": 0.5616045845272206,
+          "overlap": 223,
+          "share": 0.5703324808184144,
           "relation": "弱相关",
           "category": "Other",
           "stars": 4555,
@@ -955,8 +942,8 @@
         {
           "name": "LazyAGI/LazyLLM",
           "url": "https://github.com/LazyAGI/LazyLLM",
-          "overlap": 196,
-          "share": 0.5616045845272206,
+          "overlap": 219,
+          "share": 0.5601023017902813,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 3867,
@@ -968,8 +955,8 @@
         {
           "name": "SkyworkAI/Skywork-R1V",
           "url": "https://github.com/SkyworkAI/Skywork-R1V",
-          "overlap": 196,
-          "share": 0.5616045845272206,
+          "overlap": 219,
+          "share": 0.5601023017902813,
           "relation": "弱相关",
           "category": "Other",
           "stars": 3162,
@@ -981,8 +968,8 @@
         {
           "name": "FullAgent/fulling",
           "url": "https://github.com/FullAgent/fulling",
-          "overlap": 196,
-          "share": 0.5616045845272206,
+          "overlap": 219,
+          "share": 0.5601023017902813,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 2440,
@@ -992,23 +979,23 @@
           "language": "TypeScript"
         },
         {
-          "name": "EvilGenius-dot/RustMinerSystem",
-          "url": "https://github.com/EvilGenius-dot/RustMinerSystem",
-          "overlap": 190,
-          "share": 0.5444126074498568,
+          "name": "open-gigaai/giga-brain-0",
+          "url": "https://github.com/open-gigaai/giga-brain-0",
+          "overlap": 217,
+          "share": 0.5549872122762148,
           "relation": "弱相关",
           "category": "Other",
-          "stars": 3879,
-          "forks": 246,
-          "description": "💰唯一正版💰 minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy 矿池抽水 矿池代理 矿池中转 矿池抽水 minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy",
+          "stars": 2560,
+          "forks": 201,
+          "description": "GigaBrain-0: A World Model-Powered Vision-Language-Action Model",
           "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
-          "language": "Rust"
+          "language": "Python"
         },
         {
           "name": "ZJU4HealthCare/Foundations-of-Medical-LLMs",
           "url": "https://github.com/ZJU4HealthCare/Foundations-of-Medical-LLMs",
-          "overlap": 188,
-          "share": 0.5386819484240688,
+          "overlap": 215,
+          "share": 0.5498721227621484,
           "relation": "弱相关",
           "category": "Other",
           "stars": 1908,
@@ -1020,8 +1007,8 @@
         {
           "name": "risesoft-y9/Digital-Infrastructure",
           "url": "https://github.com/risesoft-y9/Digital-Infrastructure",
-          "overlap": 186,
-          "share": 0.5329512893982808,
+          "overlap": 212,
+          "share": 0.5421994884910486,
           "relation": "弱相关",
           "category": "Other",
           "stars": 2605,
@@ -1031,10 +1018,23 @@
           "language": "Java"
         },
         {
+          "name": "EvilGenius-dot/RustMinerSystem",
+          "url": "https://github.com/EvilGenius-dot/RustMinerSystem",
+          "overlap": 210,
+          "share": 0.5370843989769821,
+          "relation": "弱相关",
+          "category": "Other",
+          "stars": 3879,
+          "forks": 246,
+          "description": "💰唯一正版💰 minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy 矿池抽水 矿池代理 矿池中转 矿池抽水 minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy minerproxy",
+          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
+          "language": "Rust"
+        },
+        {
           "name": "OpenSenseNova/SenseNova-Skills",
           "url": "https://github.com/OpenSenseNova/SenseNova-Skills",
-          "overlap": 184,
-          "share": 0.5272206303724928,
+          "overlap": 206,
+          "share": 0.5268542199488491,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 4948,
@@ -1044,23 +1044,10 @@
           "language": "JavaScript"
         },
         {
-          "name": "dindin0497/HearIt",
-          "url": "https://github.com/dindin0497/HearIt",
-          "overlap": 184,
-          "share": 0.5272206303724928,
-          "relation": "弱相关",
-          "category": "Other",
-          "stars": 1842,
-          "forks": 224,
-          "description": null,
-          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
-          "language": "Kotlin"
-        },
-        {
           "name": "tsingyuai/scientify",
           "url": "https://github.com/tsingyuai/scientify",
-          "overlap": 184,
-          "share": 0.5272206303724928,
+          "overlap": 204,
+          "share": 0.5217391304347826,
           "relation": "场景相邻",
           "category": "Agent / workflow",
           "stars": 1788,
@@ -1070,10 +1057,23 @@
           "language": "TypeScript"
         },
         {
+          "name": "dindin0497/HearIt",
+          "url": "https://github.com/dindin0497/HearIt",
+          "overlap": 202,
+          "share": 0.5166240409207161,
+          "relation": "弱相关",
+          "category": "Other",
+          "stars": 1842,
+          "forks": 224,
+          "description": null,
+          "scenario": "泛技术兴趣信号，保留观察，但不应作为主传播场景。",
+          "language": "Kotlin"
+        },
+        {
           "name": "Docta-ai/docta",
           "url": "https://github.com/Docta-ai/docta",
-          "overlap": 182,
-          "share": 0.5214899713467048,
+          "overlap": 200,
+          "share": 0.5115089514066496,
           "relation": "场景相邻",
           "category": "Data pipeline",
           "stars": 3482,
@@ -1085,8 +1085,8 @@
         {
           "name": "TaskingAI/TaskingAI",
           "url": "https://github.com/TaskingAI/TaskingAI",
-          "overlap": 180,
-          "share": 0.5157593123209169,
+          "overlap": 199,
+          "share": 0.5089514066496164,
           "relation": "弱相关",
           "category": "Other",
           "stars": 5396,
@@ -1099,38 +1099,38 @@
       "categories": [
         {
           "category": "Other",
-          "count": 38668,
-          "share": 0.5840381826969551
+          "count": 43222,
+          "share": 0.5831039879121472
         },
         {
           "category": "Agent / workflow",
-          "count": 14597,
-          "share": 0.2204718463025616
+          "count": 16421,
+          "share": 0.22153418595866387
         },
         {
           "category": "RAG / retrieval",
-          "count": 4208,
-          "share": 0.06355727404543257
+          "count": 4724,
+          "share": 0.06373104527548433
         },
         {
           "category": "Data pipeline",
-          "count": 3400,
-          "share": 0.0513533107781537
+          "count": 3812,
+          "share": 0.05142733797420539
         },
         {
           "category": "LLM training",
-          "count": 1859,
-          "share": 0.028078177863702272
+          "count": 2079,
+          "share": 0.028047595920349683
         },
         {
           "category": "Evaluation / alignment",
-          "count": 1786,
-          "share": 0.02697559207346544
+          "count": 1989,
+          "share": 0.026833414278776106
         },
         {
           "category": "Data selection / dataset",
-          "count": 1690,
-          "share": 0.025525616239729338
+          "count": 1877,
+          "share": 0.025322432680373427
         }
       ]
     }

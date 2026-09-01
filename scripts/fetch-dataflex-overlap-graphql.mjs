@@ -116,11 +116,58 @@ async function graphql(query) {
   }
 }
 
+async function githubStarJson(url) {
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const { stdout } = await execFile(
+      "curl",
+      [
+        "-sS",
+        "--connect-timeout",
+        "20",
+        "--retry",
+        "4",
+        "--retry-delay",
+        "2",
+        "--retry-all-errors",
+        "-K",
+        curlConfigPath,
+        "-H",
+        "Accept: application/vnd.github.star+json",
+        "-H",
+        "X-GitHub-Api-Version: 2022-11-28",
+        "-H",
+        "User-Agent: dataflex-star-dashboard",
+        "-w",
+        "\n%{http_code}",
+        url
+      ],
+      { maxBuffer: 50 * 1024 * 1024 }
+    );
+    const split = stdout.lastIndexOf("\n");
+    const body = stdout.slice(0, split);
+    const status = Number(stdout.slice(split + 1));
+    if (status >= 200 && status < 300) return JSON.parse(body);
+    if (attempt === 4) throw new Error(`${status} ${url}\n${body.slice(0, 500)}`);
+    await sleep(attempt * 3000);
+  }
+  throw new Error(`Failed after retries: ${url}`);
+}
+
 async function fetchStargazers() {
   const cacheFile = path.join(cacheDir, "dataflex-stargazers.json");
   const cached = await readJson(cacheFile);
-  if (cached?.length) return cached;
-  throw new Error(`Missing ${cacheFile}; run fetch-dataflex-overlap.mjs once to build stargazer cache.`);
+  if (cached?.length && process.env.REFRESH_STARGAZERS !== "1") return cached;
+
+  const rows = [];
+  for (let page = 1; ; page += 1) {
+    const pageRows = await githubStarJson(`https://api.github.com/repos/${repo}/stargazers?per_page=100&page=${page}`);
+    rows.push(...pageRows);
+    console.log(`stargazers page ${page}: +${pageRows.length}, total ${rows.length}`);
+    if (pageRows.length < 100) break;
+    await sleep(250);
+  }
+  await writeJson(cacheFile, rows);
+  return rows;
 }
 
 async function cachedStarred(login) {

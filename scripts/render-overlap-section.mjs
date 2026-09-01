@@ -6,7 +6,7 @@ const indexPath = path.join(root, "index.html");
 const dataPath = path.join(root, "data/dataflex-overlap.json");
 const month = process.env.MONTH || "2026-08";
 const monthLabel = month.slice(5).replace(/^0/, "");
-const endDate = process.env.END_DATE || "2026-08-28";
+const endDate = process.env.END_DATE || "2026-08-31";
 const overlap = JSON.parse(fs.readFileSync(dataPath, "utf8")).months[month];
 
 if (!overlap) {

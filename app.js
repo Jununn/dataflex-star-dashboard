@@ -1,8 +1,8 @@
 const snapshot = {
   date: "2026-09-01",
-  time: "2026-09-01 10:43",
+  time: "2026-09-01 11:09",
   timelineEnd: "2026-09-01",
-  stars: 2369,
+  stars: 2370,
   forks: 327,
   watchers: 200,
   createdAt: "2025-08-09",
@@ -183,7 +183,7 @@ const nonZeroDailyCounts = [
   ["2026-08-29", 21],
   ["2026-08-30", 20],
   ["2026-08-31", 16],
-  ["2026-09-01", 2]
+  ["2026-09-01", 3]
 ];
 
 const phases = [
@@ -261,7 +261,9 @@ const actions = [
   ["2026-08-25", "Reddit", "dataflex-数据策略", "https://www.reddit.com/r/LLMDevs/comments/1vxv5vz/can_data_strategy_become_part_of_the_finetuning/"],
   ["2026-08-25", "Facebook", "dataflex-数据策略", "https://www.facebook.com/groups/dataannotation/permalink/1775900343545999"],
   ["2026-08-27", "LinkedIn", "dataflow-agent知识助手", "https://www.linkedin.com/feed/update/urn:li:activity:7498687335715418112?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUUBPQBFc8EfKdyeyOBsOUABAvO12iGjao"],
-  ["2026-08-27", "Reddit", "dataflex-本地训练", "https://www.reddit.com/r/LocalLLM/comments/1vzq9bv/how_much_time_do_you_spend_cleaning_and/"]
+  ["2026-08-27", "Reddit", "dataflex-本地训练", "https://www.reddit.com/r/LocalLLM/comments/1vzq9bv/how_much_time_do_you_spend_cleaning_and/"],
+  ["2026-08-31", "Reddit", "dataflex-微调", "https://www.reddit.com/r/LargeLanguageModels/comments/1w3a4r9/data_strategy_may_matter_more_in_llm_finetuning/"],
+  ["2026-09-01", "Reddit", "dataflex-oss", "https://www.reddit.com/r/learndatascience/comments/1w3zoaj/how_much_time_do_you_spend_cleaning_and/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
@@ -828,11 +830,11 @@ function buildTrendBands() {
 
 function renderSummary() {
   const maxDay = data.reduce((max, item) => (item.stars > max.stars ? item : max), data[0]);
-  const august = sumRange("2026-08-01", snapshot.timelineEnd);
+  const august = sumRange("2026-08-01", "2026-08-31");
   const lastSeven = data.slice(-7).reduce((sum, item) => sum + item.stars, 0);
   const cards = [
     ["当前 stars", formatNumber(snapshot.stars), `${snapshot.time} GitHub API 快照；forks ${snapshot.forks}，watchers ${snapshot.watchers}。`],
-    ["8 月新增", formatNumber(august), `8/1 到 ${snapshot.timelineEnd}；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
+    ["8 月新增", formatNumber(august), `8/1 到 8/31；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
     ["最高单日", `${maxDay.stars}`, `${maxDay.date}，位于 4 月内容矩阵放大阶段。`]
   ];
   document.getElementById("summary").innerHTML = cards
