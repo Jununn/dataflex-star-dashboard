@@ -275,20 +275,20 @@ const actions = [
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
-  ["2026-08-13", 52, 13, 23, 11],
-  ["2026-08-14", 24, 15, 14, 12],
-  ["2026-08-15", 5, 5, 15, 8],
-  ["2026-08-16", 13, 4, 20, 10],
-  ["2026-08-17", 31, 13, 10, 8],
-  ["2026-08-18", 46, 19, 27, 7],
-  ["2026-08-19", 14, 9, 14, 5],
-  ["2026-08-20", 11, 9, 41, 9],
-  ["2026-08-21", 11, 8, 6, 5],
-  ["2026-08-22", 5, 5, 34, 10],
   ["2026-08-23", 14, 8, 8, 8],
   ["2026-08-24", 29, 16, 19, 6],
   ["2026-08-25", 11, 10, 51, 11],
-  ["2026-08-26", 36, 16, 10, 9]
+  ["2026-08-26", 36, 16, 10, 9],
+  ["2026-08-27", 32, 19, 43, 13],
+  ["2026-08-28", 19, 10, 11, 8],
+  ["2026-08-29", 4, 3, 2, 2],
+  ["2026-08-30", 9, 4, 173, 4],
+  ["2026-08-31", 15, 12, 10, 9],
+  ["2026-09-01", 55, 17, 14, 9],
+  ["2026-09-02", 33, 23, 11, 11],
+  ["2026-09-03", 11, 8, 6, 4],
+  ["2026-09-04", 43, 19, 18, 11],
+  ["2026-09-05", 125, 13, 19, 15]
 ].map(([date, views, uniqueVisitors, clones, uniqueCloners]) => ({
   date,
   views,
@@ -298,36 +298,36 @@ const trafficRows = [
 }));
 
 const trafficWindowTotals = {
-  views: 302,
-  uniqueVisitors: 113,
-  clones: 292,
-  uniqueCloners: 102
+  views: 436,
+  uniqueVisitors: 139,
+  clones: 395,
+  uniqueCloners: 108
 };
 
 const trafficReferrers = [
-  ["github.com", 94, 44],
-  ["zwt233.github.io", 31, 16],
-  ["Google", 29, 19],
-  ["Bing", 12, 3],
-  ["linkedin.com", 5, 4],
-  ["haolpku.github.io", 3, 1],
-  ["Baidu", 2, 1],
+  ["Google", 107, 26],
+  ["github.com", 74, 46],
+  ["Bing", 11, 4],
+  ["zwt233.github.io", 8, 7],
+  ["wcny4qa9krto.feishu.cn", 8, 4],
   ["opendcai.github.io", 2, 1],
+  ["DuckDuckGo", 1, 1],
+  ["alidocs.dingtalk.com", 1, 1],
   ["chatgpt.com", 1, 1],
-  ["doubao.com", 1, 1]
+  ["huggingface.co", 1, 1]
 ].map(([site, views, uniqueVisitors]) => ({ site, views, uniqueVisitors }));
 
 const trafficPopularContent = [
-  ["Overview", 147, 93],
-  ["/blob/main/README-zh.md", 31, 20],
-  ["/issues", 15, 9],
-  ["/pulls", 14, 5],
-  ["/pull/62", 12, 5],
-  ["/commits/main", 11, 3],
-  ["/graphs/contributors", 7, 4],
-  ["/pull/61", 5, 2],
-  ["/issues/57", 4, 3],
-  ["/graphs/traffic", 4, 1]
+  ["Overview", 194, 116],
+  ["/blob/main/README-zh.md", 33, 23],
+  ["/issues", 13, 7],
+  ["/blob/main/src/dataflex/train/re...", 13, 2],
+  ["/blob/main/src/dataflex/train/re...", 12, 2],
+  ["/blob/main/examples/train_full/r...", 11, 2],
+  ["/commits/main", 10, 1],
+  ["/pulls", 9, 5],
+  ["/tree/main/examples", 8, 4],
+  ["/tree/main/src/dataflex", 8, 4]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
 let benchmarkSnapshotDate = "2026-09-07";
