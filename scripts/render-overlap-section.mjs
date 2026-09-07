@@ -133,5 +133,13 @@ if (start === -1 || end === -1) {
   throw new Error("Cannot locate August overlap section");
 }
 
-fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${html.slice(end)}`);
+const augustSection = html.slice(start, end).trimEnd();
+const augustArchive = `      <details class="panel stargazer-overlap-panel overlap-archive">
+        <summary>8 月共同关注网络回溯（完整抓取分析）</summary>
+        <div class="overlap-archive-body">
+${augustSection}
+        </div>
+      </details>`;
+
+fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${augustArchive}\n\n${html.slice(end)}`);
 console.log(`updated ${indexPath}`);
