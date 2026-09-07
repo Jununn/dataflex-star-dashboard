@@ -269,7 +269,9 @@ const actions = [
   ["2026-08-27", "LinkedIn", "dataflow-agent知识助手", "https://www.linkedin.com/feed/update/urn:li:activity:7498687335715418112?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUUBPQBFc8EfKdyeyOBsOUABAvO12iGjao"],
   ["2026-08-27", "Reddit", "dataflex-本地训练", "https://www.reddit.com/r/LocalLLM/comments/1vzq9bv/how_much_time_do_you_spend_cleaning_and/"],
   ["2026-08-31", "Reddit", "dataflex-微调", "https://www.reddit.com/r/LargeLanguageModels/comments/1w3a4r9/data_strategy_may_matter_more_in_llm_finetuning/"],
-  ["2026-09-01", "Reddit", "dataflex-oss", "https://www.reddit.com/r/learndatascience/comments/1w3zoaj/how_much_time_do_you_spend_cleaning_and/"]
+  ["2026-09-01", "Reddit", "dataflex-oss", "https://www.reddit.com/r/learndatascience/comments/1w3zoaj/how_much_time_do_you_spend_cleaning_and/"],
+  ["2026-09-04", "Reddit", "dataflow+dataflex", "https://www.reddit.com/r/LLMDevs/comments/1w71345/llm_development_is_turning_data_into_a/"],
+  ["2026-09-04", "LinkedIn", "dataflow+dataflex", "https://www.linkedin.com/feed/update/urn:li:groupPost:7036558-7501594450029215744/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
