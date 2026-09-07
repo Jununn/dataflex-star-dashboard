@@ -1,12 +1,12 @@
 const snapshot = {
-  date: "2026-09-01",
-  time: "2026-09-01 11:09",
-  timelineEnd: "2026-09-01",
-  stars: 2370,
-  forks: 313,
-  watchers: 190,
+  date: "2026-09-07",
+  time: "2026-09-07 11:06",
+  timelineEnd: "2026-09-07",
+  stars: 2488,
+  forks: 347,
+  watchers: 211,
   createdAt: "2025-08-09",
-  pushedAt: "2026-08-27",
+  pushedAt: "2026-09-07",
   description:
     "Data-centric LLM training with dynamic sample selection, domain mixture optimization, and example reweighting inside the LLaMA-Factory training loop."
 };
@@ -50,7 +50,7 @@ const nonZeroDailyCounts = [
   ["2026-04-18", 7],
   ["2026-04-19", 3],
   ["2026-04-20", 26],
-  ["2026-04-21", 50],
+  ["2026-04-21", 49],
   ["2026-04-22", 21],
   ["2026-04-23", 14],
   ["2026-04-24", 16],
@@ -183,7 +183,13 @@ const nonZeroDailyCounts = [
   ["2026-08-29", 21],
   ["2026-08-30", 20],
   ["2026-08-31", 16],
-  ["2026-09-01", 3]
+  ["2026-09-01", 22],
+  ["2026-09-02", 26],
+  ["2026-09-03", 21],
+  ["2026-09-04", 13],
+  ["2026-09-05", 15],
+  ["2026-09-06", 20],
+  ["2026-09-07", 5]
 ];
 
 const phases = [
@@ -322,8 +328,8 @@ const trafficPopularContent = [
   ["/graphs/traffic", 4, 1]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-08-28";
-let benchmarkPreviousSnapshotDate = "2026-08-27";
+let benchmarkSnapshotDate = "2026-09-07";
+let benchmarkPreviousSnapshotDate = "2026-08-28";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -408,15 +414,23 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 9957,
     "axolotl-ai-cloud/axolotl": 12415,
     "OpenDCAI/DataFlex": 2303
+  },
+  "2026-09-07": {
+    "hiyouga/LlamaFactory": 74607,
+    "verl-project/verl": 23325,
+    "huggingface/trl": 19236,
+    "openrlhf/openrlhf": 9977,
+    "axolotl-ai-cloud/axolotl": 12445,
+    "OpenDCAI/DataFlex": 2488
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74420,
-    forks: 9107,
-    recentChange: 21,
+    stars: 74607,
+    forks: 9143,
+    recentChange: 187,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -451,14 +465,15 @@ const benchmarkRepos = [
       ["2026-08-25", 74345],
       ["2026-08-26", 74371],
       ["2026-08-27", 74399],
-      ["2026-08-28", 74420]
+      ["2026-08-28", 74420],
+      ["2026-09-07", 74607]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23173,
-    forks: 4452,
-    recentChange: 13,
+    stars: 23325,
+    forks: 4501,
+    recentChange: 152,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -492,14 +507,15 @@ const benchmarkRepos = [
       ["2026-08-25", 23125],
       ["2026-08-26", 23143],
       ["2026-08-27", 23160],
-      ["2026-08-28", 23173]
+      ["2026-08-28", 23173],
+      ["2026-09-07", 23325]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19168,
-    forks: 2938,
-    recentChange: 8,
+    stars: 19236,
+    forks: 2965,
+    recentChange: 68,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -533,14 +549,15 @@ const benchmarkRepos = [
       ["2026-08-25", 19152],
       ["2026-08-26", 19155],
       ["2026-08-27", 19160],
-      ["2026-08-28", 19168]
+      ["2026-08-28", 19168],
+      ["2026-09-07", 19236]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9957,
-    forks: 1008,
-    recentChange: 0,
+    stars: 9977,
+    forks: 1011,
+    recentChange: 20,
     yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
@@ -574,14 +591,15 @@ const benchmarkRepos = [
       ["2026-08-25", 9953],
       ["2026-08-26", 9956],
       ["2026-08-27", 9957],
-      ["2026-08-28", 9957]
+      ["2026-08-28", 9957],
+      ["2026-09-07", 9977]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12415,
-    forks: 1415,
-    recentChange: 2,
+    stars: 12445,
+    forks: 1427,
+    recentChange: 30,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -615,15 +633,16 @@ const benchmarkRepos = [
       ["2026-08-25", 12404],
       ["2026-08-26", 12403],
       ["2026-08-27", 12413],
-      ["2026-08-28", 12415]
+      ["2026-08-28", 12415],
+      ["2026-09-07", 12445]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2303,
-    forks: 313,
-    recentChange: 12,
-    yesterdayChange: 21,
+    stars: 2488,
+    forks: 347,
+    recentChange: 185,
+    yesterdayChange: 20,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -642,7 +661,8 @@ const benchmarkRepos = [
       ["2026-08-25", 2249],
       ["2026-08-26", 2264],
       ["2026-08-27", 2291],
-      ["2026-08-28", 2303]
+      ["2026-08-28", 2303],
+      ["2026-09-07", 2488]
     ]
   }
 ];
@@ -774,11 +794,12 @@ function buildTrendBands() {
 
 function renderSummary() {
   const maxDay = data.reduce((max, item) => (item.stars > max.stars ? item : max), data[0]);
-  const august = sumRange("2026-08-01", "2026-08-31");
-  const lastSeven = data.slice(-7).reduce((sum, item) => sum + item.stars, 0);
+  const september = sumRange("2026-09-01", snapshot.timelineEnd);
+  const septemberDays = data.filter((item) => item.date.startsWith("2026-09-")).length;
+  const septemberAverage = septemberDays ? september / septemberDays : 0;
   const cards = [
     ["当前 stars", formatNumber(snapshot.stars), `${snapshot.time} GitHub API 快照；forks ${snapshot.forks}，watchers ${snapshot.watchers}。`],
-    ["8 月新增", formatNumber(august), `8/1 到 8/31；最近 7 天仍有 ${formatNumber(lastSeven)} stars。`],
+    ["9 月日均", septemberAverage.toFixed(1), `9/1 到 ${snapshot.timelineEnd.slice(5)}；累计新增 ${formatNumber(september)} stars。`],
     ["最高单日", `${maxDay.stars}`, `${maxDay.date}，位于 4 月内容矩阵放大阶段。`]
   ];
   document.getElementById("summary").innerHTML = cards
@@ -838,7 +859,8 @@ function renderTrendChart() {
     .filter((item) => item.date === chartData[0].date || (item.date.endsWith("-01") && item.date !== "2026-01-01"))
     .map((item) => {
       const i = chartData.indexOf(item);
-      return `<text class="chart-label" x="${x(i) - 18}" y="${height - 24}">${item.date.slice(5)}</text>`;
+      const label = item.date === chartData[0].date ? item.date.slice(5) : `${Number(item.date.slice(5, 7))} 月`;
+      return `<text class="chart-label" x="${x(i) - 18}" y="${height - 24}">${label}</text>`;
     })
     .join("");
   const hoverZones = chartData
