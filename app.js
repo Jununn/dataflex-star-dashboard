@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-09-07",
-  time: "2026-09-07 23:27",
-  timelineEnd: "2026-09-07",
-  stars: 2500,
+  date: "2026-09-08",
+  time: "2026-09-08 10:40",
+  timelineEnd: "2026-09-08",
+  stars: 2508,
   forks: 348,
-  watchers: 216,
+  watchers: 218,
   createdAt: "2025-08-09",
   pushedAt: "2026-09-07",
   description:
@@ -189,7 +189,8 @@ const nonZeroDailyCounts = [
   ["2026-09-04", 13],
   ["2026-09-05", 15],
   ["2026-09-06", 20],
-  ["2026-09-07", 17]
+  ["2026-09-07", 23],
+  ["2026-09-08", 2]
 ];
 
 const phases = [
@@ -328,8 +329,8 @@ const trafficPopularContent = [
   ["/graphs/traffic", 4, 1]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-09-07";
-let benchmarkPreviousSnapshotDate = "2026-09-06";
+let benchmarkSnapshotDate = "2026-09-08";
+let benchmarkPreviousSnapshotDate = "2026-09-07";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -494,15 +495,23 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 9979,
     "axolotl-ai-cloud/axolotl": 12448,
     "OpenDCAI/DataFlex": 2500
+  },
+  "2026-09-08": {
+    "hiyouga/LlamaFactory": 74631,
+    "verl-project/verl": 23338,
+    "huggingface/trl": 19243,
+    "openrlhf/openrlhf": 9981,
+    "axolotl-ai-cloud/axolotl": 12451,
+    "OpenDCAI/DataFlex": 2508
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74618,
+    stars: 74631,
     forks: 9143,
-    recentChange: 15,
+    recentChange: 13,
     yesterdayChange: 0,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -547,14 +556,15 @@ const benchmarkRepos = [
       ["2026-09-04", 74575],
       ["2026-09-05", 74585],
       ["2026-09-06", 74603],
-      ["2026-09-07", 74618]
+      ["2026-09-07", 74618],
+      ["2026-09-08", 74631]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23336,
+    stars: 23338,
     forks: 4504,
-    recentChange: 20,
+    recentChange: 2,
     yesterdayChange: 0,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -598,14 +608,15 @@ const benchmarkRepos = [
       ["2026-09-04", 23295],
       ["2026-09-05", 23305],
       ["2026-09-06", 23316],
-      ["2026-09-07", 23336]
+      ["2026-09-07", 23336],
+      ["2026-09-08", 23338]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19240,
-    forks: 2966,
-    recentChange: 8,
+    stars: 19243,
+    forks: 2967,
+    recentChange: 3,
     yesterdayChange: 0,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -649,12 +660,13 @@ const benchmarkRepos = [
       ["2026-09-04", 19220],
       ["2026-09-05", 19224],
       ["2026-09-06", 19232],
-      ["2026-09-07", 19240]
+      ["2026-09-07", 19240],
+      ["2026-09-08", 19243]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 9979,
+    stars: 9981,
     forks: 1011,
     recentChange: 2,
     yesterdayChange: 0,
@@ -700,14 +712,15 @@ const benchmarkRepos = [
       ["2026-09-04", 9976],
       ["2026-09-05", 9976],
       ["2026-09-06", 9977],
-      ["2026-09-07", 9979]
+      ["2026-09-07", 9979],
+      ["2026-09-08", 9981]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12448,
-    forks: 1427,
-    recentChange: 4,
+    stars: 12451,
+    forks: 1429,
+    recentChange: 3,
     yesterdayChange: 0,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
@@ -751,15 +764,16 @@ const benchmarkRepos = [
       ["2026-09-04", 12438],
       ["2026-09-05", 12440],
       ["2026-09-06", 12444],
-      ["2026-09-07", 12448]
+      ["2026-09-07", 12448],
+      ["2026-09-08", 12451]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2500,
+    stars: 2508,
     forks: 348,
-    recentChange: 23,
-    yesterdayChange: 20,
+    recentChange: 8,
+    yesterdayChange: 23,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -788,7 +802,8 @@ const benchmarkRepos = [
       ["2026-09-04", 2444],
       ["2026-09-05", 2460],
       ["2026-09-06", 2477],
-      ["2026-09-07", 2500]
+      ["2026-09-07", 2500],
+      ["2026-09-08", 2508]
     ]
   }
 ];
