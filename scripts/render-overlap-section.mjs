@@ -130,16 +130,24 @@ const html = fs.readFileSync(indexPath, "utf8");
 const start = html.indexOf('      <section class="panel stargazer-overlap-panel">');
 const end = html.indexOf('      <details class="panel stargazer-overlap-panel overlap-archive"', start);
 if (start === -1 || end === -1) {
-  throw new Error("Cannot locate August overlap section");
+  throw new Error("Cannot locate current overlap section");
 }
 
-const augustSection = html.slice(start, end).trimEnd();
-const augustArchive = `      <details class="panel stargazer-overlap-panel overlap-archive">
-        <summary>8 月共同关注网络回溯（完整抓取分析）</summary>
+const currentSection = html.slice(start, end).trimEnd();
+const currentMonthLabel = currentSection.match(/共同关注网络：兴趣相关度与潜在场景（(\d{1,2})月）/)?.[1];
+
+if (currentMonthLabel === monthLabel) {
+  fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${html.slice(end)}`);
+  console.log(`updated ${indexPath}`);
+  process.exit(0);
+}
+
+const currentArchive = `      <details class="panel stargazer-overlap-panel overlap-archive">
+        <summary>${currentMonthLabel || "上月"} 月共同关注网络回溯（完整抓取分析）</summary>
         <div class="overlap-archive-body">
-${augustSection}
+${currentSection}
         </div>
       </details>`;
 
-fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${augustArchive}\n\n${html.slice(end)}`);
+fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${currentArchive}\n\n${html.slice(end)}`);
 console.log(`updated ${indexPath}`);

@@ -6,7 +6,7 @@
     <title>Dataflex Star Dashboard</title>
     <link rel="icon" href="./favicon.png?v=20260807-tanghulu-transparent" type="image/png" />
     <link rel="apple-touch-icon" href="./favicon.png?v=20260807-tanghulu-transparent" />
-    <link rel="stylesheet" href="./styles.css?v=20260907-local" />
+    <link rel="stylesheet" href="./styles.css?v=2026-09-17-dashboard-update" />
   </head>
   <body>
     <header class="page-header">
@@ -14,7 +14,7 @@
         <p class="eyebrow">OpenDCAI/DataFlex</p>
         <h1>Star Growth &amp; Actions Dashboard</h1>
         <p class="subhead">
-          以 GitHub stargazer 时间线为底，叠加 Trendshift 活动流、公开传播节点、阶段性趋势和外部趋势页入口；GitHub 总量快照更新到 2026-09-07 11:06，当前公开 star 总量 2,488，逐日趋势展示从 2025-12-31 到 2026-09-07。
+          以 GitHub stargazer 时间线为底，叠加 Trendshift 活动流、公开传播节点、阶段性趋势和外部趋势页入口；GitHub 总量快照更新到 2026-09-17 17:34，当前公开 star 总量 2,692，逐日趋势展示从 2025-09-03 到 2026-09-17。
         </p>
       </div>
       <div class="header-actions">
@@ -22,7 +22,7 @@
           <a href="https://github.com/OpenDCAI/DataFlex" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">Trendshift</a>
           <a href="https://www.star-history.com/#OpenDCAI/DataFlex&Date" target="_blank" rel="noreferrer">Star History</a>
-          <span id="lastUpdatedBadge" class="live-status">上次更新 2026-09-07 11:06</span>
+          <span id="lastUpdatedBadge" class="live-status">上次更新 2026-09-17 17:34</span>
         </nav>
         <nav class="source-links source-links-secondary" aria-label="Related dashboards">
           <a href="https://jununn.github.io/dataflow-star-dashboard/" target="_blank" rel="noreferrer">DataFlow Dashboard</a>
@@ -37,7 +37,7 @@
         <div class="panel-heading">
           <div>
             <h2>每日新增与累计趋势</h2>
-            <p>柱状为 UTC 日增 stars；折线为累计 stars。高亮区间对应阶段性传播判断；当前视图从 2025-12-31 开始，自动更新时按 GitHub stargazers API 的 starred_at 精细聚合。</p>
+            <p>柱状为 UTC 日增 stars；折线为累计 stars。高亮区间对应阶段性传播判断；当前视图从 2025-09-03 开始，自动更新时按 GitHub 隐私安全 star history API 的日聚合数据刷新。</p>
           </div>
           <div class="legend">
             <span><i class="legend-dot daily"></i>日增</span>
@@ -87,7 +87,7 @@
           <div class="source-stack">
             <a class="source-card" href="https://trendshift.io/repositories/25733" target="_blank" rel="noreferrer">
               <strong>Trendshift repository page</strong>
-              <span>查看第三方 last 60 days activity，补齐 GitHub API 难以稳定抓取的近期日增。</span>
+              <span>查看第三方 last 60 days activity，与 GitHub star history 的近期日增交叉校验。</span>
             </a>
             <a class="source-card" href="https://www.star-history.com/#OpenDCAI/DataFlex&Date" target="_blank" rel="noreferrer">
               <strong>Star History</strong>
@@ -114,7 +114,7 @@
         <div class="panel-heading">
           <div>
             <h2>运营动作与日增日历</h2>
-            <p>按月对齐 UTC 日增、累计和已知传播动作。6/13 后来自 Trendshift 活动流，8/5-8/7 按 GitHub 总量差补齐。</p>
+            <p>按月对齐 GitHub star history 的 UTC 日增、累计和已知传播动作；当天聚合若有短暂延迟，则以仓库当前总量校准。</p>
           </div>
           <div class="table-tools">
             <button id="calendarPrev" type="button" class="icon-button" aria-label="上一月">←</button>
@@ -474,6 +474,6 @@
       </details>
     </main>
 
-    <script src="./app.js?v=20260907-local"></script>
+    <script src="./app.js?v=2026-09-17-dashboard-update"></script>
   </body>
 </html>

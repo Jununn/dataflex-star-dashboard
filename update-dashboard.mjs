@@ -7,7 +7,7 @@ const root = dirname(fileURLToPath(import.meta.url));
 const appPath = join(root, "app.js");
 const indexPath = join(root, "index.html");
 const repoName = "OpenDCAI/DataFlex";
-const dailyCountsStartDate = "2025-12-31";
+const dailyCountsStartDate = "2025-09-03";
 
 function utcDate(date) {
   return date.toISOString().slice(0, 10);
@@ -17,14 +17,6 @@ function addDays(date, delta) {
   const cursor = new Date(`${date}T00:00:00Z`);
   cursor.setUTCDate(cursor.getUTCDate() + delta);
   return utcDate(cursor);
-}
-
-function datesBetween(start, end) {
-  const out = [];
-  for (let d = new Date(`${start}T00:00:00Z`), last = new Date(`${end}T00:00:00Z`); d <= last; d.setUTCDate(d.getUTCDate() + 1)) {
-    out.push(utcDate(d));
-  }
-  return out;
 }
 
 function formatNumber(value) {
@@ -139,11 +131,6 @@ function replaceBenchmarkRepos(source, repos) {
   return source.replace(/const benchmarkRepos = \[[\s\S]*?\n\];\n\nconst byDateActions =/, `const benchmarkRepos = ${renderBenchmarkRepos(repos)};\n\nconst byDateActions =`);
 }
 
-function splitRepo(fullName) {
-  const [owner, name] = fullName.split("/");
-  return { owner, name };
-}
-
 async function updateBenchmarkRepos(source, currentDate) {
   const benchmarkRepos = readConstArray(source, "benchmarkRepos");
   const benchmarkSnapshots = readConstObject(source, "benchmarkSnapshots");
@@ -164,8 +151,8 @@ async function updateBenchmarkRepos(source, currentDate) {
       points.set(previousDate, previousTotal);
     }
     points.set(currentDate, info.stargazers_count);
-    const recentStargazers = await recentStargazersSince(repo.name, yesterday);
-    const yesterdayChange = recentStargazers.filter((item) => item.starred_at?.slice(0, 10) === yesterday).length;
+    const recentHistory = await starHistoryRowsSince(yesterday, repo.name);
+    const yesterdayChange = recentHistory.find(([date]) => date === yesterday)?.[1] || 0;
     nextRepos.push({
       ...repo,
       stars: info.stargazers_count,
@@ -185,19 +172,36 @@ async function updateBenchmarkRepos(source, currentDate) {
 
 async function github(path, options = {}) {
   const token = githubToken();
-  const headers = {
+  const publicHeaders = {
     "User-Agent": "dataflex-dashboard-updater",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...(options.headers || {})
   };
+  const authenticatedHeaders = token
+    ? { ...publicHeaders, Authorization: `Bearer ${token}` }
+    : publicHeaders;
+  const url = `https://api.github.com${path}`;
+
+  async function request(headers) {
+    try {
+      return await fetch(url, { ...options, headers });
+    } catch {
+      return curlJson(url, { method: options.method || "GET", headers, body: options.body, path });
+    }
+  }
+
   let res;
   try {
-    res = await fetch(`https://api.github.com${path}`, {
-      ...options,
-      headers
-    });
+    res = await request(authenticatedHeaders);
   } catch (error) {
-    return curlJson(`https://api.github.com${path}`, { method: options.method || "GET", headers, body: options.body, path });
+    if (!token) throw error;
+    console.warn(`Authenticated GitHub request failed for ${path}; retrying anonymously.`);
+    res = await request(publicHeaders);
+  }
+  if (!(res instanceof Response)) return res;
+  if (res.status === 403 && token) {
+    console.warn(`Authenticated GitHub rate limit reached for ${path}; retrying anonymously.`);
+    res = await request(publicHeaders);
+    if (!(res instanceof Response)) return res;
   }
   if (!res.ok) {
     const body = await res.text();
@@ -240,104 +244,33 @@ function curlJson(url, { method = "GET", headers = {}, body, path = url } = {}) 
 }
 
 function githubToken() {
+  if (process.env.GITHUB_NO_AUTH === "1") return "";
   return process.env.GH_TOKEN || process.env.GITHUB_TOKEN || readGhToken();
 }
 
-async function graphql(query, variables) {
-  const token = githubToken();
-  if (!token) throw new Error("Missing GitHub token for GraphQL stargazer query.");
-  const requestBody = JSON.stringify({ query, variables });
-  const headers = {
-    "User-Agent": "dataflex-dashboard-updater",
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json"
-  };
-  let body;
-  let ok;
-  try {
-    const res = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers,
-      body: requestBody
+async function starHistoryRowsSince(startDate, targetRepo = repoName) {
+  const rows = new Map();
+  for (let page = 1; page <= 100; page += 1) {
+    const weeks = await github(`/repos/${targetRepo}/stargazers/history?per_page=30&page=${page}`, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2026-03-10"
+      }
     });
-    body = await res.json();
-    ok = res.ok;
-  } catch (error) {
-    body = curlJson("https://api.github.com/graphql", { method: "POST", headers, body: requestBody, path: "/graphql" });
-    ok = true;
-  }
-  if (!ok || body.errors?.length) {
-    throw new Error(`GitHub GraphQL failed for ${JSON.stringify(variables)}: ${JSON.stringify(body.errors || body).slice(0, 240)}`);
-  }
-  return body.data;
-}
+    if (!Array.isArray(weeks) || !weeks.length) break;
 
-async function recentStargazersSince(targetRepo, startDate) {
-  const { owner, name } = splitRepo(targetRepo);
-  const startTimestamp = `${startDate}T00:00:00Z`;
-  const rows = [];
-  let cursor = null;
-  for (let page = 0; page < 10; page += 1) {
-    const data = await graphql(
-      `query RecentStargazers($owner: String!, $name: String!, $cursor: String) {
-        repository(owner: $owner, name: $name) {
-          stargazers(first: 100, after: $cursor, orderBy: { field: STARRED_AT, direction: DESC }) {
-            pageInfo { hasNextPage endCursor }
-            edges { starredAt }
-          }
-        }
-      }`,
-      { owner, name, cursor }
-    );
-    const connection = data.repository?.stargazers;
-    const edges = connection?.edges || [];
-    if (!edges.length) break;
-    rows.push(...edges.filter((edge) => edge.starredAt >= startTimestamp).map((edge) => ({ starred_at: edge.starredAt })));
-    const oldest = edges.map((edge) => edge.starredAt).filter(Boolean).sort()[0];
-    if (!connection.pageInfo.hasNextPage || (oldest && oldest < startTimestamp)) break;
-    cursor = connection.pageInfo.endCursor;
+    let reachedStart = false;
+    for (const week of weeks) {
+      const weekStart = utcDate(new Date(week.week * 1000));
+      (week.days || []).forEach((count, index) => {
+        const date = addDays(weekStart, index);
+        if (date >= startDate) rows.set(date, count);
+      });
+      if (addDays(weekStart, 6) < startDate) reachedStart = true;
+    }
+    if (reachedStart || weeks.length < 30) break;
   }
-  return rows;
-}
-
-async function stargazersSince(totalStars, startDate, targetRepo = repoName) {
-  const maxPage = Math.ceil(totalStars / 100);
-  const startTimestamp = `${startDate}T00:00:00Z`;
-  const rows = [];
-  for (let page = maxPage; page >= 1; page -= 1) {
-    const pageRows = await github(`/repos/${targetRepo}/stargazers?per_page=100&page=${page}`, {
-      headers: { Accept: "application/vnd.github.star+json" }
-    });
-    if (!pageRows.length) break;
-    rows.push(...pageRows.filter((item) => item?.starred_at && item.starred_at >= startTimestamp));
-    const oldest = pageRows
-      .map((item) => item?.starred_at)
-      .filter(Boolean)
-      .sort()[0];
-    if (oldest && oldest < startTimestamp) break;
-  }
-  return rows;
-}
-
-function dailyRowsFromStargazers(stargazers, startDate, endDate) {
-  const byDay = new Map();
-  for (const item of stargazers) {
-    const day = item.starred_at.slice(0, 10);
-    byDay.set(day, (byDay.get(day) || 0) + 1);
-  }
-  return datesBetween(startDate, endDate)
-    .map((date) => [date, byDay.get(date) || 0])
-    .filter(([, count]) => count > 0);
-}
-
-function fallbackDailyCounts(existingRows, previousSnapshot, currentSnapshot) {
-  const delta = currentSnapshot.stars - previousSnapshot.stars;
-  if (delta > 0) {
-    console.warn(
-      `Leaving daily bars unchanged because detailed daily counts are unavailable; cumulative line will absorb ${delta} stars through snapshot alignment.`
-    );
-  }
-  return existingRows;
+  return [...rows.entries()].sort(([a], [b]) => a.localeCompare(b));
 }
 
 function sumRange(rows, start, end) {
@@ -364,12 +297,29 @@ function assertDailyRowsReconcile(previousSnapshot, existingRows, currentSnapsho
   }
 }
 
+function alignCurrentDayWithSnapshot(previousSnapshot, existingRows, currentSnapshot, dailyRows) {
+  const previousOffset = detailedOffset(previousSnapshot, existingRows);
+  const currentOffset = detailedOffset(currentSnapshot, dailyRows);
+  const missing = currentOffset - previousOffset;
+  if (missing <= 0) return dailyRows;
+  if (missing > 5) {
+    throw new Error(`Star history is missing ${missing} stars; refusing to assign a large API lag to the current day.`);
+  }
+
+  const rows = dailyRows.map((row) => [...row]);
+  const currentRow = rows.find(([date]) => date === currentSnapshot.timelineEnd);
+  if (currentRow) currentRow[1] += missing;
+  else rows.push([currentSnapshot.timelineEnd, missing]);
+  console.log(`Assigned ${missing} delayed star-history count to ${currentSnapshot.timelineEnd}.`);
+  return rows.sort(([a], [b]) => a.localeCompare(b));
+}
+
 function updateIndex(html, snapshot, dailyRows, cacheVersion) {
   const august = sumRange(dailyRows, "2026-08-01", snapshot.timelineEnd);
   return html
     .replace(
-      /GitHub 总量快照更新到 \d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?，当前公开 star 总量 [\d,]+，逐日趋势展示从 2025-12-31 到 \d{4}-\d{2}-\d{2}。/,
-      `GitHub 总量快照更新到 ${snapshot.time}，当前公开 star 总量 ${formatNumber(snapshot.stars)}，逐日趋势展示从 2025-12-31 到 ${snapshot.timelineEnd}。`
+      /GitHub 总量快照更新到 \d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?，当前公开 star 总量 [\d,]+，逐日趋势展示从 \d{4}-\d{2}-\d{2} 到 \d{4}-\d{2}-\d{2}。/,
+      `GitHub 总量快照更新到 ${snapshot.time}，当前公开 star 总量 ${formatNumber(snapshot.stars)}，逐日趋势展示从 ${dailyCountsStartDate} 到 ${snapshot.timelineEnd}。`
     )
     .replace(
       /<span id="lastUpdatedBadge" class="live-status">[^<]*<\/span>/,
@@ -403,10 +353,11 @@ async function main() {
 
   let dailyRows;
   try {
-    const stargazers = await stargazersSince(currentSnapshot.stars, dailyCountsStartDate);
-    const latestStarDate = stargazers.map((item) => item.starred_at.slice(0, 10)).sort().at(-1);
+    const historyRows = await starHistoryRowsSince(dailyCountsStartDate);
+    const latestStarDate = historyRows.filter(([, count]) => count > 0).map(([date]) => date).at(-1);
     currentSnapshot.timelineEnd = [currentSnapshot.timelineEnd, latestStarDate || dailyCountsStartDate].sort().at(-1);
-    dailyRows = dailyRowsFromStargazers(stargazers, dailyCountsStartDate, currentSnapshot.timelineEnd);
+    dailyRows = historyRows.filter(([date, count]) => date <= currentSnapshot.timelineEnd && count > 0);
+    dailyRows = alignCurrentDayWithSnapshot(previousSnapshot, existingRows, currentSnapshot, dailyRows);
     assertDailyRowsReconcile(previousSnapshot, existingRows, currentSnapshot, dailyRows);
   } catch (error) {
     throw new Error(`Detailed stargazer update failed; refusing to commit partial snapshot: ${error.message}`);
@@ -415,7 +366,9 @@ async function main() {
   const cacheVersion = process.env.VERSION || `${currentSnapshot.timelineEnd}-dashboard-update`;
   app = replaceSnapshot(app, currentSnapshot);
   app = replaceConstArray(app, "nonZeroDailyCounts", dailyRows);
-  app = await updateBenchmarkRepos(app, currentSnapshot.date);
+  if (process.env.SKIP_BENCHMARKS !== "1") {
+    app = await updateBenchmarkRepos(app, currentSnapshot.date);
+  }
   index = updateIndex(index, currentSnapshot, dailyRows, cacheVersion);
 
   if (process.env.DRY_RUN === "1") {
