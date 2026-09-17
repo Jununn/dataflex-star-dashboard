@@ -1,10 +1,10 @@
 const snapshot = {
   date: "2026-09-17",
-  time: "2026-09-17 17:40",
+  time: "2026-09-17 22:35",
   timelineEnd: "2026-09-17",
-  stars: 2692,
-  forks: 378,
-  watchers: 237,
+  stars: 2696,
+  forks: 379,
+  watchers: 238,
   createdAt: "2025-08-09",
   pushedAt: "2026-09-10",
   description:
@@ -224,7 +224,7 @@ const nonZeroDailyCounts = [
   ["2026-09-14", 22],
   ["2026-09-15", 29],
   ["2026-09-16", 19],
-  ["2026-09-17", 2]
+  ["2026-09-17", 6]
 ];
 
 const phases = [
@@ -463,21 +463,21 @@ const benchmarkSnapshots = {
     "OpenDCAI/DataFlex": 2488
   },
   "2026-09-17": {
-    "hiyouga/LlamaFactory": 74828,
-    "verl-project/verl": 23465,
-    "huggingface/trl": 19329,
+    "hiyouga/LlamaFactory": 74831,
+    "verl-project/verl": 23473,
+    "huggingface/trl": 19331,
     "openrlhf/openrlhf": 10013,
     "axolotl-ai-cloud/axolotl": 12481,
-    "OpenDCAI/DataFlex": 2692
+    "OpenDCAI/DataFlex": 2696
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 74828,
-    forks: 9167,
-    recentChange: 221,
+    stars: 74831,
+    forks: 9166,
+    recentChange: 224,
     yesterdayChange: 28,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
@@ -514,14 +514,14 @@ const benchmarkRepos = [
       ["2026-08-27", 74399],
       ["2026-08-28", 74420],
       ["2026-09-07", 74607],
-      ["2026-09-17", 74828]
+      ["2026-09-17", 74831]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23465,
-    forks: 4556,
-    recentChange: 140,
+    stars: 23473,
+    forks: 4557,
+    recentChange: 148,
     yesterdayChange: 14,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -557,14 +557,14 @@ const benchmarkRepos = [
       ["2026-08-27", 23160],
       ["2026-08-28", 23173],
       ["2026-09-07", 23325],
-      ["2026-09-17", 23465]
+      ["2026-09-17", 23473]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19329,
-    forks: 2992,
-    recentChange: 93,
+    stars: 19331,
+    forks: 2993,
+    recentChange: 95,
     yesterdayChange: 12,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
@@ -600,7 +600,7 @@ const benchmarkRepos = [
       ["2026-08-27", 19160],
       ["2026-08-28", 19168],
       ["2026-09-07", 19236],
-      ["2026-09-17", 19329]
+      ["2026-09-17", 19331]
     ]
   },
   {
@@ -691,9 +691,9 @@ const benchmarkRepos = [
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2692,
-    forks: 378,
-    recentChange: 204,
+    stars: 2696,
+    forks: 379,
+    recentChange: 208,
     yesterdayChange: 19,
     color: "#635bff",
     note: "当前看板目标仓库。",
@@ -715,7 +715,7 @@ const benchmarkRepos = [
       ["2026-08-27", 2291],
       ["2026-08-28", 2303],
       ["2026-09-07", 2488],
-      ["2026-09-17", 2692]
+      ["2026-09-17", 2696]
     ]
   }
 ];
