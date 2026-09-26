@@ -1,7 +1,7 @@
 const snapshot = {
-  date: "2026-09-25",
-  time: "2026-09-25 22:55",
-  timelineEnd: "2026-09-25",
+  date: "2026-09-26",
+  time: "2026-09-26 22:00",
+  timelineEnd: "2026-09-26",
   stars: 2848,
   forks: 400,
   watchers: 250,
@@ -375,8 +375,8 @@ const trafficPopularContent = [
   ["/tree/main/src/dataflex", 8, 4]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-09-25";
-let benchmarkPreviousSnapshotDate = "2026-09-24";
+let benchmarkSnapshotDate = "2026-09-26";
+let benchmarkPreviousSnapshotDate = "2026-09-25";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -541,16 +541,24 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10044,
     "axolotl-ai-cloud/axolotl": 12502,
     "OpenDCAI/DataFlex": 2848
+  },
+  "2026-09-26": {
+    "hiyouga/LlamaFactory": 75018,
+    "verl-project/verl": 23633,
+    "huggingface/trl": 19393,
+    "openrlhf/openrlhf": 10046,
+    "axolotl-ai-cloud/axolotl": 12504,
+    "OpenDCAI/DataFlex": 2848
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 75011,
-    forks: 9188,
-    recentChange: 8,
-    yesterdayChange: 13,
+    stars: 75018,
+    forks: 9189,
+    recentChange: 7,
+    yesterdayChange: 14,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
     points: [
@@ -594,15 +602,16 @@ const benchmarkRepos = [
       ["2026-09-22", 74969],
       ["2026-09-23", 74992],
       ["2026-09-24", 75003],
-      ["2026-09-25", 75011]
+      ["2026-09-25", 75011],
+      ["2026-09-26", 75018]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23608,
-    forks: 4589,
-    recentChange: 8,
-    yesterdayChange: 13,
+    stars: 23633,
+    forks: 4616,
+    recentChange: 25,
+    yesterdayChange: 16,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
     points: [
@@ -645,15 +654,16 @@ const benchmarkRepos = [
       ["2026-09-22", 23564],
       ["2026-09-23", 23582],
       ["2026-09-24", 23600],
-      ["2026-09-25", 23608]
+      ["2026-09-25", 23608],
+      ["2026-09-26", 23633]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19387,
-    forks: 3017,
-    recentChange: 8,
-    yesterdayChange: 11,
+    stars: 19393,
+    forks: 3018,
+    recentChange: 6,
+    yesterdayChange: 7,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
     points: [
@@ -696,15 +706,16 @@ const benchmarkRepos = [
       ["2026-09-22", 19360],
       ["2026-09-23", 19368],
       ["2026-09-24", 19379],
-      ["2026-09-25", 19387]
+      ["2026-09-25", 19387],
+      ["2026-09-26", 19393]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 10044,
-    forks: 1025,
+    stars: 10046,
+    forks: 1026,
     recentChange: 2,
-    yesterdayChange: 4,
+    yesterdayChange: 1,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
     points: [
@@ -747,15 +758,16 @@ const benchmarkRepos = [
       ["2026-09-22", 10034],
       ["2026-09-23", 10038],
       ["2026-09-24", 10042],
-      ["2026-09-25", 10044]
+      ["2026-09-25", 10044],
+      ["2026-09-26", 10046]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12502,
-    forks: 1444,
+    stars: 12504,
+    forks: 1446,
     recentChange: 2,
-    yesterdayChange: 3,
+    yesterdayChange: 2,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
     points: [
@@ -798,15 +810,16 @@ const benchmarkRepos = [
       ["2026-09-22", 12491],
       ["2026-09-23", 12494],
       ["2026-09-24", 12500],
-      ["2026-09-25", 12502]
+      ["2026-09-25", 12502],
+      ["2026-09-26", 12504]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
     stars: 2848,
     forks: 400,
-    recentChange: 18,
-    yesterdayChange: 16,
+    recentChange: 0,
+    yesterdayChange: 6,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -835,7 +848,8 @@ const benchmarkRepos = [
       ["2026-09-22", 2792],
       ["2026-09-23", 2815],
       ["2026-09-24", 2830],
-      ["2026-09-25", 2848]
+      ["2026-09-25", 2848],
+      ["2026-09-26", 2848]
     ]
   }
 ];
