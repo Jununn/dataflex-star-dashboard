@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-10-09",
-  time: "2026-10-10 00:45",
-  timelineEnd: "2026-10-09",
-  stars: 2996,
-  forks: 436,
-  watchers: 271,
+  date: "2026-10-10",
+  time: "2026-10-10 23:39",
+  timelineEnd: "2026-10-10",
+  stars: 3013,
+  forks: 439,
+  watchers: 274,
   createdAt: "2025-08-09",
   pushedAt: "2026-09-28",
   description:
@@ -244,7 +244,8 @@ const nonZeroDailyCounts = [
   ["2026-10-06", 17],
   ["2026-10-07", 10],
   ["2026-10-08", 14],
-  ["2026-10-09", 8]
+  ["2026-10-09", 19],
+  ["2026-10-10", 6]
 ];
 
 const phases = [
@@ -387,8 +388,8 @@ const trafficPopularContent = [
   ["/tree/main/src/dataflex", 8, 4]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-10-09";
-let benchmarkPreviousSnapshotDate = "2026-10-08";
+let benchmarkSnapshotDate = "2026-10-10";
+let benchmarkPreviousSnapshotDate = "2026-10-09";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -665,16 +666,24 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10078,
     "axolotl-ai-cloud/axolotl": 12545,
     "OpenDCAI/DataFlex": 2996
+  },
+  "2026-10-10": {
+    "hiyouga/LlamaFactory": 75401,
+    "verl-project/verl": 23822,
+    "huggingface/trl": 19483,
+    "openrlhf/openrlhf": 10078,
+    "axolotl-ai-cloud/axolotl": 12552,
+    "OpenDCAI/DataFlex": 3013
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 75389,
-    forks: 9241,
-    recentChange: 27,
-    yesterdayChange: 19,
+    stars: 75401,
+    forks: 9239,
+    recentChange: 12,
+    yesterdayChange: 31,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
     points: [
@@ -732,15 +741,16 @@ const benchmarkRepos = [
       ["2026-10-06", 75334],
       ["2026-10-07", 75347],
       ["2026-10-08", 75362],
-      ["2026-10-09", 75389]
+      ["2026-10-09", 75389],
+      ["2026-10-10", 75401]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23805,
-    forks: 4728,
-    recentChange: 10,
-    yesterdayChange: 23,
+    stars: 23822,
+    forks: 4732,
+    recentChange: 17,
+    yesterdayChange: 14,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
     points: [
@@ -797,15 +807,16 @@ const benchmarkRepos = [
       ["2026-10-06", 23760],
       ["2026-10-07", 23770],
       ["2026-10-08", 23795],
-      ["2026-10-09", 23805]
+      ["2026-10-09", 23805],
+      ["2026-10-10", 23822]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19476,
-    forks: 3048,
-    recentChange: 6,
-    yesterdayChange: 5,
+    stars: 19483,
+    forks: 3052,
+    recentChange: 7,
+    yesterdayChange: 7,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
     points: [
@@ -862,15 +873,16 @@ const benchmarkRepos = [
       ["2026-10-06", 19456],
       ["2026-10-07", 19468],
       ["2026-10-08", 19470],
-      ["2026-10-09", 19476]
+      ["2026-10-09", 19476],
+      ["2026-10-10", 19483]
     ]
   },
   {
     name: "openrlhf/openrlhf",
     stars: 10078,
-    forks: 1038,
-    recentChange: 4,
-    yesterdayChange: 4,
+    forks: 1037,
+    recentChange: 0,
+    yesterdayChange: 2,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
     points: [
@@ -927,15 +939,16 @@ const benchmarkRepos = [
       ["2026-10-06", 10069],
       ["2026-10-07", 10071],
       ["2026-10-08", 10074],
-      ["2026-10-09", 10078]
+      ["2026-10-09", 10078],
+      ["2026-10-10", 10078]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12545,
+    stars: 12552,
     forks: 1452,
-    recentChange: 8,
-    yesterdayChange: 6,
+    recentChange: 7,
+    yesterdayChange: 5,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
     points: [
@@ -992,15 +1005,16 @@ const benchmarkRepos = [
       ["2026-10-06", 12525],
       ["2026-10-07", 12532],
       ["2026-10-08", 12537],
-      ["2026-10-09", 12545]
+      ["2026-10-09", 12545],
+      ["2026-10-10", 12552]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 2996,
-    forks: 436,
-    recentChange: 15,
-    yesterdayChange: 14,
+    stars: 3013,
+    forks: 439,
+    recentChange: 17,
+    yesterdayChange: 19,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -1043,7 +1057,8 @@ const benchmarkRepos = [
       ["2026-10-06", 2952],
       ["2026-10-07", 2971],
       ["2026-10-08", 2981],
-      ["2026-10-09", 2996]
+      ["2026-10-09", 2996],
+      ["2026-10-10", 3013]
     ]
   }
 ];
