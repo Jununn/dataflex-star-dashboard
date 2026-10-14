@@ -1,12 +1,12 @@
 const snapshot = {
-  date: "2026-10-13",
-  time: "2026-10-14 01:17",
-  timelineEnd: "2026-10-13",
-  stars: 3061,
+  date: "2026-10-14",
+  time: "2026-10-14 22:50",
+  timelineEnd: "2026-10-14",
+  stars: 3074,
   forks: 449,
-  watchers: 283,
+  watchers: 282,
   createdAt: "2025-08-09",
-  pushedAt: "2026-09-28",
+  pushedAt: "2026-10-14",
   description:
     "[NeurIPS 2026] DataFlex: A Unified Benchmark and Evaluation Platform for Data-Centric Training of Large Language Models"
 };
@@ -187,7 +187,7 @@ const nonZeroDailyCounts = [
   ["2026-08-08", 18],
   ["2026-08-09", 19],
   ["2026-08-10", 17],
-  ["2026-08-11", 29],
+  ["2026-08-11", 28],
   ["2026-08-12", 10],
   ["2026-08-13", 10],
   ["2026-08-14", 14],
@@ -243,12 +243,13 @@ const nonZeroDailyCounts = [
   ["2026-10-05", 16],
   ["2026-10-06", 17],
   ["2026-10-07", 10],
-  ["2026-10-08", 14],
+  ["2026-10-08", 13],
   ["2026-10-09", 19],
   ["2026-10-10", 15],
   ["2026-10-11", 15],
   ["2026-10-12", 16],
-  ["2026-10-13", 8]
+  ["2026-10-13", 18],
+  ["2026-10-14", 5]
 ];
 
 const phases = [
@@ -391,8 +392,8 @@ const trafficPopularContent = [
   ["/tree/main/src/dataflex", 8, 4]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-10-13";
-let benchmarkPreviousSnapshotDate = "2026-10-12";
+let benchmarkSnapshotDate = "2026-10-14";
+let benchmarkPreviousSnapshotDate = "2026-10-13";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -701,16 +702,24 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10083,
     "axolotl-ai-cloud/axolotl": 12561,
     "OpenDCAI/DataFlex": 3061
+  },
+  "2026-10-14": {
+    "hiyouga/LlamaFactory": 75470,
+    "verl-project/verl": 23871,
+    "huggingface/trl": 19514,
+    "openrlhf/openrlhf": 10087,
+    "axolotl-ai-cloud/axolotl": 12568,
+    "OpenDCAI/DataFlex": 3074
   }
 };
 
 const benchmarkRepos = [
   {
     name: "hiyouga/LlamaFactory",
-    stars: 75449,
-    forks: 9246,
-    recentChange: 22,
-    yesterdayChange: 19,
+    stars: 75470,
+    forks: 9251,
+    recentChange: 21,
+    yesterdayChange: 34,
     color: "#5b8def",
     note: "DataFlex 的训练底座生态参照。",
     points: [
@@ -772,14 +781,15 @@ const benchmarkRepos = [
       ["2026-10-10", 75401],
       ["2026-10-11", 75409],
       ["2026-10-12", 75427],
-      ["2026-10-13", 75449]
+      ["2026-10-13", 75449],
+      ["2026-10-14", 75470]
     ]
   },
   {
     name: "verl-project/verl",
-    stars: 23854,
-    forks: 4742,
-    recentChange: 16,
+    stars: 23871,
+    forks: 4751,
+    recentChange: 17,
     yesterdayChange: 14,
     color: "#2a9d8f",
     note: "RLHF / post-training 工程生态参照。",
@@ -841,15 +851,16 @@ const benchmarkRepos = [
       ["2026-10-10", 23822],
       ["2026-10-11", 23825],
       ["2026-10-12", 23838],
-      ["2026-10-13", 23854]
+      ["2026-10-13", 23854],
+      ["2026-10-14", 23871]
     ]
   },
   {
     name: "huggingface/trl",
-    stars: 19508,
+    stars: 19514,
     forks: 3062,
-    recentChange: 10,
-    yesterdayChange: 9,
+    recentChange: 6,
+    yesterdayChange: 10,
     color: "#d94f70",
     note: "Hugging Face 训练与 RLHF 工具链参照。",
     points: [
@@ -910,15 +921,16 @@ const benchmarkRepos = [
       ["2026-10-10", 19483],
       ["2026-10-11", 19489],
       ["2026-10-12", 19498],
-      ["2026-10-13", 19508]
+      ["2026-10-13", 19508],
+      ["2026-10-14", 19514]
     ]
   },
   {
     name: "openrlhf/openrlhf",
-    stars: 10083,
-    forks: 1042,
-    recentChange: 2,
-    yesterdayChange: 2,
+    stars: 10087,
+    forks: 1044,
+    recentChange: 4,
+    yesterdayChange: 0,
     color: "#6b7280",
     note: "开源 RLHF 训练框架参照。",
     points: [
@@ -979,15 +991,16 @@ const benchmarkRepos = [
       ["2026-10-10", 10078],
       ["2026-10-11", 10079],
       ["2026-10-12", 10081],
-      ["2026-10-13", 10083]
+      ["2026-10-13", 10083],
+      ["2026-10-14", 10087]
     ]
   },
   {
     name: "axolotl-ai-cloud/axolotl",
-    stars: 12561,
-    forks: 1454,
-    recentChange: 4,
-    yesterdayChange: 2,
+    stars: 12568,
+    forks: 1457,
+    recentChange: 7,
+    yesterdayChange: 5,
     color: "#d58a2a",
     note: "LLM fine-tuning / post-training 工具链参照。",
     points: [
@@ -1048,15 +1061,16 @@ const benchmarkRepos = [
       ["2026-10-10", 12552],
       ["2026-10-11", 12556],
       ["2026-10-12", 12557],
-      ["2026-10-13", 12561]
+      ["2026-10-13", 12561],
+      ["2026-10-14", 12568]
     ]
   },
   {
     name: "OpenDCAI/DataFlex",
-    stars: 3061,
+    stars: 3074,
     forks: 449,
-    recentChange: 11,
-    yesterdayChange: 16,
+    recentChange: 13,
+    yesterdayChange: 18,
     color: "#635bff",
     note: "当前看板目标仓库。",
     points: [
@@ -1103,7 +1117,8 @@ const benchmarkRepos = [
       ["2026-10-10", 3013],
       ["2026-10-11", 3024],
       ["2026-10-12", 3050],
-      ["2026-10-13", 3061]
+      ["2026-10-13", 3061],
+      ["2026-10-14", 3074]
     ]
   }
 ];
