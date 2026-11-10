@@ -52,7 +52,7 @@
         <div class="panel-heading">
           <div>
             <h2>独立访客与新增 Star 对照</h2>
-            <p>把 GitHub Traffic 的每日访客、clone 与 UTC 日增 stars 对齐，观察流量规模和 star 转化是否同步。</p>
+            <p>截图窗口：2026-10-26 至 2026-11-08。总量及来源、热门内容按截图录入；逐日流量为曲线估读值，仅供趋势参考。截断的名称按截图保留。</p>
           </div>
           <div class="legend">
             <span><i class="legend-dot visitors"></i>独立访客</span>
@@ -126,6 +126,240 @@
       </section>
 
 
+      <section class="panel stargazer-overlap-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>共同关注网络：兴趣相关度与潜在场景（11月）</h2>
+            <p>基于 11 月新增 DataFlex stargazer 的公开 starred repos 抓取结果，观察共同关注项目和潜在使用场景。</p>
+          </div>
+        </div>
+
+        <div class="overlap-meta">
+          <span>窗口：2026-11-01 到 2026-11-10</span>
+          <span>11 月新增 stargazer：179</span>
+          <span>有效 starred repos：150 / 179</span>
+          <span>空列表/不可读：29</span>
+          <span>每人最多读取最近 200 个 starred repos</span>
+        </div>
+
+        <div class="overlap-insights">
+          <article>
+            <strong>DataFlow 共同关注情况</strong>
+            <span>11 月有效样本中，OpenDCAI/DataFlow 被 130 个用户共同关注，占 87%，说明 DataFlex 的新增兴趣仍高度贴近 OpenDCAI 数据工程生态。</span>
+          </article>
+          <article>
+            <strong>Agent / Workflow 场景继续高频出现</strong>
+            <span>HanyuanWang/LiveStream-Agent-Studio、AgnesAI-Labs/agnes-harness、hypit-ai/hypit 等项目靠前，暗示 DataFlex 的潜在叙事可以连接 Agent/RAG 场景中的训练数据、评测数据和任务样本治理。</span>
+          </article>
+        </div>
+
+        <div class="overlap-table-grid">
+          <div class="overlap-table-intro">
+            <div>
+              <h3>共同关注项目 Top 30：11 月真实抓取样本</h3>
+              <p>按 11 月已读取公开 starred repos 的用户聚合。共同用户数表示同一批 DataFlex 新增 stargazer 中也 star 了该项目的人数。</p>
+            </div>
+            <div class="overlap-scroll-actions" aria-label="横向滚动表格">
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: -640, behavior: 'smooth' })">←</button>
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: 640, behavior: 'smooth' })">→</button>
+            </div>
+          </div>
+          <div class="table-wrap overlap-table-wrap">
+            <table class="overlap-table">
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>共同用户</th>
+                  <th>样本占比</th>
+                  <th>关系</th>
+                  <th>分类</th>
+                  <th>Stars</th>
+                  <th>描述</th>
+                  <th>具体关系 / 可设计场景</th>
+                  <th>语言</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr><td><a href="https://github.com/HanyuanWang/LiveStream-Agent-Studio" target="_blank" rel="noreferrer">HanyuanWang/LiveStream-Agent-Studio</a></td><td>136</td><td>91%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,040</td><td>面向抖音直播电商的 Windows 本地 AI Agent Studio，贯通主播发现、直播洞察、直播复盘与短视频内容编导的统一智能工作流。</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/AgnesAI-Labs/agnes-harness" target="_blank" rel="noreferrer">AgnesAI-Labs/agnes-harness</a></td><td>134</td><td>89%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,063</td><td>Agnes Harness: A pluggable agent harness for Forward Deployed Engineering (FDE). Built for trust. Made for the real world.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/OpenDCAI/DataFlow" target="_blank" rel="noreferrer">OpenDCAI/DataFlow</a></td><td>130</td><td>87%</td><td><span class="relation-pill complement">上游搭档</span></td><td>Data selection / dataset</td><td>8,518</td><td>[SIGMOD&#39;27] Easy Data Preparation with latest LLMs-based Operators and Pipelines.</td><td>DataFlow 准备和清洗数据，DataFlex 承接训练阶段的数据选择、混合比例和 reweighting。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/cookiy-ai/sell-sessions-skill" target="_blank" rel="noreferrer">cookiy-ai/sell-sessions-skill</a></td><td>125</td><td>83%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,916</td><td></td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>-</td></tr>
+                  <tr><td><a href="https://github.com/hypit-ai/hypit" target="_blank" rel="noreferrer">hypit-ai/hypit</a></td><td>124</td><td>83%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>28,834</td><td>Clone any viral video with AI agents. Not just a script, the whole workflow: swap the face, the words, the B-roll, ship 100 variants in one command, and get your 100M views.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/ApodexAI/FrontierAgent" target="_blank" rel="noreferrer">ApodexAI/FrontierAgent</a></td><td>121</td><td>81%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>5,437</td><td>🧩 FrontierAgent, our agent framework, open-sourced alongside it — native command-line TUI, ReAct and Agent Team modes, one command on macOS and Linux, no preinstall, no hard Docker dependency.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/dexmal/opendm" target="_blank" rel="noreferrer">dexmal/opendm</a></td><td>119</td><td>79%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,451</td><td>An Open-World Foundation Model for General-Purpose Embodied Intelligence.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/elliothux/open-compute" target="_blank" rel="noreferrer">elliothux/open-compute</a></td><td>115</td><td>77%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>3,475</td><td>Self-hosted Cloudflare Workers-compatible platform with Workers、KV、D1、R2、DO、Queues、Workflows、Cron、Cache、Images、Vectorize、AI Search、Artifacts、Static Assets、Service Bindings、Dynamic Workers、LogTail、Gateway in one Rust binary.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Rust</td></tr>
+                  <tr><td><a href="https://github.com/TokenRhythm/NeoHorse" target="_blank" rel="noreferrer">TokenRhythm/NeoHorse</a></td><td>115</td><td>77%</td><td><span class="relation-pill downstream">典型相关</span></td><td>LLM training</td><td>1,697</td><td>NeoHorse-1: Towards Recursive Self-Improvement via Agentic Post-Training with Routing Harness.</td><td>训练框架用户需要把选好的样本接入 SFT、pretrain 或 alignment 流程，是 DataFlex 最直接的下游入口。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/Pinvou/pinvou-agent" target="_blank" rel="noreferrer">Pinvou/pinvou-agent</a></td><td>113</td><td>75%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>2,941</td><td>Open-source desktop AI agent for tools, files, knowledge, workflows, and real deliverables.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Rust</td></tr>
+                  <tr><td><a href="https://github.com/ant-research/AntOmniEvo" target="_blank" rel="noreferrer">ant-research/AntOmniEvo</a></td><td>111</td><td>74%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,228</td><td>An auto-evolution framework that optimizes anything — your 7×24 team of algorithm engineers.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/xinxuxin/keystone-bench" target="_blank" rel="noreferrer">xinxuxin/keystone-bench</a></td><td>109</td><td>73%</td><td><span class="relation-pill downstream">典型相关</span></td><td>Evaluation / alignment</td><td>1,131</td><td>A clinical decision-evidence benchmark: pull the one fact an answer rests on, and see whether the assistant&#39;s action moves with the evidence. Built on HealthBench.</td><td>偏好数据、reward 数据和评测集都依赖样本分布控制，可作为 DataFlex 后续案例。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/cline/cline" target="_blank" rel="noreferrer">cline/cline</a></td><td>108</td><td>72%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>71,467</td><td>Autonomous coding agent as an SDK, IDE extension, or CLI assistant.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/phronesis-io/eigenflux" target="_blank" rel="noreferrer">phronesis-io/eigenflux</a></td><td>107</td><td>71%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,348</td><td>Official repository for EigenFlux — the open-source communication and broadcast network for AI agents.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Go</td></tr>
+                  <tr><td><a href="https://github.com/kyky2347/ALTA" target="_blank" rel="noreferrer">kyky2347/ALTA</a></td><td>107</td><td>71%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>1,077</td><td>Autonomous LLM Trading Asterism — a research-only multi-agent trading platform with evidence-first research, an auditable console, Shadow simulation and explicitly authorized broker execution.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/dexmal/dexbotic" target="_blank" rel="noreferrer">dexmal/dexbotic</a></td><td>104</td><td>69%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,234</td><td>Dexbotic: Open-Source Vision-Language-Action Toolbox</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/hanzohanzhe/Grandet" target="_blank" rel="noreferrer">hanzohanzhe/Grandet</a></td><td>103</td><td>69%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>1,234</td><td>Find the cheapest API for any model and connect it from your AI agent: Grandet Skill and an anonymous MCP server, backed by listed prices from 1,800+ official, inference and relay providers on grandet.ai.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>JavaScript</td></tr>
+                  <tr><td><a href="https://github.com/Superior-Trade/trading-terminal" target="_blank" rel="noreferrer">Superior-Trade/trading-terminal</a></td><td>103</td><td>69%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,083</td><td>Self-hosted AI trading terminal for Hyperliquid: chart read in, validated Freqtrade/Nautilus-Trader strategy out, deployed live.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/ChenlizheMe/Infernux" target="_blank" rel="noreferrer">ChenlizheMe/Infernux</a></td><td>101</td><td>67%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,451</td><td>Building a Neural Network-Native Engine (3N). Python authoring, C++ runtime, Vulkan/WebGPU. Windows, Linux, Android and Web.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/lingxuanqjc-alt/note-bridge-desktop" target="_blank" rel="noreferrer">lingxuanqjc-alt/note-bridge-desktop</a></td><td>101</td><td>67%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,032</td><td>Windows 笔记导出与迁移工具：七平台适配、四格式导出、离线阅读，明确验证范围与失败状态。</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/chat-archive-guard" target="_blank" rel="noreferrer">MaxHu-xuan/chat-archive-guard</a></td><td>100</td><td>67%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Data pipeline</td><td>986</td><td>Audit AI chat exports locally before sharing or migration. Find possible secrets, personal-data patterns, broken JSON/JSONL, SQLite issues, and scan gaps—without uploading the archive.</td><td>偏数据准备前置链路，适合讲 DataFlow/DataFlex 串联，而不是直接竞品叙事。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/kuafuai/andee" target="_blank" rel="noreferrer">kuafuai/andee</a></td><td>99</td><td>66%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>4,087</td><td>Andee lives on your phone or Mac and uses any app like you do—no integrations, no root, any model; memory and passwords never leave your device | Andee 住进你的手机或 Mac，像你一样操作任何 App——无需集成、无需 Root、支持任意模型，记忆和密码绝不离开设备。</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Kotlin</td></tr>
+                  <tr><td><a href="https://github.com/tigerless-labs/seo-ops" target="_blank" rel="noreferrer">tigerless-labs/seo-ops</a></td><td>98</td><td>65%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>989</td><td>SEO foundation checks as an Agent Skill: give it a URL, get a crawler&#39;s-eye pass/fail report with evidence. 26 structural checks, zero LLM, deterministic.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/yvetteYSY/creator-agent" target="_blank" rel="noreferrer">yvetteYSY/creator-agent</a></td><td>97</td><td>65%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>974</td><td>Build AI agents grounded in a creator&#39;s documents, audio, and video.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/lexmount/moli" target="_blank" rel="noreferrer">lexmount/moli</a></td><td>96</td><td>64%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>23,175</td><td>Best headless browser for AI agents. Lite, Fast, High-Compatibility. Built in Rust</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Rust</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/task-state-guard" target="_blank" rel="noreferrer">MaxHu-xuan/task-state-guard</a></td><td>96</td><td>64%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>982</td><td>Reconcile stuck AI-agent tasks after restarts and timeouts. Preview SQLite changes, close stale delivery states, and never guess success.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/WuKongOpenSource/Wukong-AICRM" target="_blank" rel="noreferrer">WuKongOpenSource/Wukong-AICRM</a></td><td>95</td><td>63%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,258</td><td>开源 AI CRM，Salesforce 开源替代 + ChatGPT 式 AI 助手：客户管理、知识库查询、任务执行，全程对话完成。Open-source AI CRM and Salesforce alternative powered by conversational AI.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Java</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/artifactproof" target="_blank" rel="noreferrer">MaxHu-xuan/artifactproof</a></td><td>95</td><td>63%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>982</td><td>Verify that the PowerPoint you are about to deliver is exactly the PPTX that passed QA—locally, offline, and with tamper-evident evidence.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/proinsight-io/crewmeld" target="_blank" rel="noreferrer">proinsight-io/crewmeld</a></td><td>94</td><td>63%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>1,111</td><td>CrewMeld — Enterprise AI Digital Workforce Platform. Manage AI employees like real team members. Visual SOP orchestration, 13 LLM providers (including China-native models), 8+ messaging channels(WeCom/DingTalk/Feishu/Telegram), knowledge base with RAG, and full private deployment support. Built with Next.js, React, TypeScript &amp; Bun.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/Orkas-AI/Orkas" target="_blank" rel="noreferrer">Orkas-AI/Orkas</a></td><td>93</td><td>62%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>9,156</td><td>Orkas is an open-source (MIT), local-first AI team for your desktop: a Commander turns your goal into to-dos and coordinates 16 built-in specialist agents plus Claude Code, Codex, OpenCode, OpenClaw and Hermes, with projects, scheduled automations and connectors. Free app for macOS &amp; Windows; built-in models or your own keys.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>JavaScript</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-wrap overlap-category-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>兴趣分类</th>
+                  <th>共现次数</th>
+                  <th>占比</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Other</td><td>14,673</td><td>52.8%</td></tr>
+                <tr><td>Agent / workflow</td><td>8,626</td><td>31.1%</td></tr>
+                <tr><td>RAG / retrieval</td><td>1,755</td><td>6.3%</td></tr>
+                <tr><td>LLM training</td><td>843</td><td>3.0%</td></tr>
+                <tr><td>Evaluation / alignment</td><td>801</td><td>2.9%</td></tr>
+                <tr><td>Data pipeline</td><td>715</td><td>2.6%</td></tr>
+                <tr><td>Data selection / dataset</td><td>364</td><td>1.3%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="overlap-note">口径：分析 2026-11-01 到 2026-11-10 给 OpenDCAI/DataFlex 点 star 的新增用户；当前已读取 150 / 179 个用户的非空公开 starred repos，29 个用户为空列表或不可读。每人最多最近 200 个公开 starred repos。GitHub 不提供共同 star 图谱接口，本分析由公开 stargazer 和用户 starred repos 聚合而来，适合判断兴趣相关度，不等同于真实使用关系。</p>
+      </section>
+
+      <details class="panel stargazer-overlap-panel overlap-archive" data-overlap-month="2026-10">
+        <summary>10 月共同关注网络回溯（历史快照）</summary>
+        <div class="overlap-archive-body">
+      <section class="panel stargazer-overlap-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>共同关注网络：兴趣相关度与潜在场景（10月）</h2>
+            <p>基于 10 月新增 DataFlex stargazer 的公开 starred repos 抓取结果，观察共同关注项目和潜在使用场景。</p>
+          </div>
+        </div>
+
+        <div class="overlap-meta">
+          <span>窗口：2026-10-01 到 2026-10-31</span>
+          <span>10 月新增 stargazer：466</span>
+          <span>有效 starred repos：406 / 466</span>
+          <span>空列表/不可读：60</span>
+          <span>每人最多读取最近 200 个 starred repos</span>
+        </div>
+
+        <div class="overlap-insights">
+          <article>
+            <strong>DataFlow 共同关注情况</strong>
+            <span>10 月有效样本中，OpenDCAI/DataFlow 被 359 个用户共同关注，占 88%，说明 DataFlex 的新增兴趣仍高度贴近 OpenDCAI 数据工程生态。</span>
+          </article>
+          <article>
+            <strong>Agent / Workflow 场景继续高频出现</strong>
+            <span>kyky2347/ALTA、hypit-ai/hypit、hanzohanzhe/Grandet 等项目靠前，暗示 DataFlex 的潜在叙事可以连接 Agent/RAG 场景中的训练数据、评测数据和任务样本治理。</span>
+          </article>
+        </div>
+
+        <div class="overlap-table-grid">
+          <div class="overlap-table-intro">
+            <div>
+              <h3>共同关注项目 Top 30：10 月真实抓取样本</h3>
+              <p>按 10 月已读取公开 starred repos 的用户聚合。共同用户数表示同一批 DataFlex 新增 stargazer 中也 star 了该项目的人数。</p>
+            </div>
+            <div class="overlap-scroll-actions" aria-label="横向滚动表格">
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: -640, behavior: 'smooth' })">←</button>
+              <button type="button" onclick="this.closest('.overlap-table-grid').querySelector('.overlap-table-wrap').scrollBy({ left: 640, behavior: 'smooth' })">→</button>
+            </div>
+          </div>
+          <div class="table-wrap overlap-table-wrap">
+            <table class="overlap-table">
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>共同用户</th>
+                  <th>样本占比</th>
+                  <th>关系</th>
+                  <th>分类</th>
+                  <th>Stars</th>
+                  <th>描述</th>
+                  <th>具体关系 / 可设计场景</th>
+                  <th>语言</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr><td><a href="https://github.com/xinxuxin/keystone-bench" target="_blank" rel="noreferrer">xinxuxin/keystone-bench</a></td><td>386</td><td>95%</td><td><span class="relation-pill downstream">典型相关</span></td><td>Evaluation / alignment</td><td>1,131</td><td>A clinical decision-evidence benchmark: pull the one fact an answer rests on, and see whether the assistant&#39;s action moves with the evidence. Built on HealthBench.</td><td>偏好数据、reward 数据和评测集都依赖样本分布控制，可作为 DataFlex 后续案例。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/kyky2347/ALTA" target="_blank" rel="noreferrer">kyky2347/ALTA</a></td><td>385</td><td>95%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>1,077</td><td>Autonomous LLM Trading Asterism — a research-only multi-agent trading platform with evidence-first research, an auditable console, Shadow simulation and explicitly authorized broker execution.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/hypit-ai/hypit" target="_blank" rel="noreferrer">hypit-ai/hypit</a></td><td>379</td><td>93%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>28,835</td><td>Clone any viral video with AI agents. Not just a script, the whole workflow: swap the face, the words, the B-roll, ship 100 variants in one command, and get your 100M views.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/hanzohanzhe/Grandet" target="_blank" rel="noreferrer">hanzohanzhe/Grandet</a></td><td>373</td><td>92%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>1,234</td><td>Find the cheapest API for any model and connect it from your AI agent: Grandet Skill and an anonymous MCP server, backed by listed prices from 1,800+ official, inference and relay providers on grandet.ai.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>JavaScript</td></tr>
+                  <tr><td><a href="https://github.com/kuafuai/andee" target="_blank" rel="noreferrer">kuafuai/andee</a></td><td>366</td><td>90%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>4,088</td><td>Andee lives on your phone or Mac and uses any app like you do—no integrations, no root, any model; memory and passwords never leave your device | Andee 住进你的手机或 Mac，像你一样操作任何 App——无需集成、无需 Root、支持任意模型，记忆和密码绝不离开设备。</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Kotlin</td></tr>
+                  <tr><td><a href="https://github.com/Superior-Trade/trading-terminal" target="_blank" rel="noreferrer">Superior-Trade/trading-terminal</a></td><td>365</td><td>90%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,083</td><td>Self-hosted AI trading terminal for Hyperliquid: chart read in, validated Freqtrade/Nautilus-Trader strategy out, deployed live.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/chat-archive-guard" target="_blank" rel="noreferrer">MaxHu-xuan/chat-archive-guard</a></td><td>363</td><td>89%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Data pipeline</td><td>986</td><td>Audit AI chat exports locally before sharing or migration. Find possible secrets, personal-data patterns, broken JSON/JSONL, SQLite issues, and scan gaps—without uploading the archive.</td><td>偏数据准备前置链路，适合讲 DataFlow/DataFlex 串联，而不是直接竞品叙事。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/artifactproof" target="_blank" rel="noreferrer">MaxHu-xuan/artifactproof</a></td><td>361</td><td>89%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>982</td><td>Verify that the PowerPoint you are about to deliver is exactly the PPTX that passed QA—locally, offline, and with tamper-evident evidence.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/MaxHu-xuan/task-state-guard" target="_blank" rel="noreferrer">MaxHu-xuan/task-state-guard</a></td><td>361</td><td>89%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>982</td><td>Reconcile stuck AI-agent tasks after restarts and timeouts. Preview SQLite changes, close stale delivery states, and never guess success.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/AgnesAI-Labs/agnes-harness" target="_blank" rel="noreferrer">AgnesAI-Labs/agnes-harness</a></td><td>360</td><td>89%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,064</td><td>Agnes Harness: A pluggable agent harness for Forward Deployed Engineering (FDE). Built for trust. Made for the real world.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/OpenDCAI/DataFlow" target="_blank" rel="noreferrer">OpenDCAI/DataFlow</a></td><td>359</td><td>88%</td><td><span class="relation-pill complement">上游搭档</span></td><td>Data selection / dataset</td><td>8,518</td><td>[SIGMOD&#39;27] Easy Data Preparation with latest LLMs-based Operators and Pipelines.</td><td>DataFlow 准备和清洗数据，DataFlex 承接训练阶段的数据选择、混合比例和 reweighting。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/cookiy-ai/sell-sessions-skill" target="_blank" rel="noreferrer">cookiy-ai/sell-sessions-skill</a></td><td>359</td><td>88%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,916</td><td></td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>-</td></tr>
+                  <tr><td><a href="https://github.com/dexmal/opendm" target="_blank" rel="noreferrer">dexmal/opendm</a></td><td>357</td><td>88%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,451</td><td>An Open-World Foundation Model for General-Purpose Embodied Intelligence.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/tigerless-labs/seo-ops" target="_blank" rel="noreferrer">tigerless-labs/seo-ops</a></td><td>357</td><td>88%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>989</td><td>SEO foundation checks as an Agent Skill: give it a URL, get a crawler&#39;s-eye pass/fail report with evidence. 26 structural checks, zero LLM, deterministic.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/HanyuanWang/LiveStream-Agent-Studio" target="_blank" rel="noreferrer">HanyuanWang/LiveStream-Agent-Studio</a></td><td>353</td><td>87%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,040</td><td>面向抖音直播电商的 Windows 本地 AI Agent Studio，贯通主播发现、直播洞察、直播复盘与短视频内容编导的统一智能工作流。</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/yvetteYSY/creator-agent" target="_blank" rel="noreferrer">yvetteYSY/creator-agent</a></td><td>348</td><td>86%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>974</td><td>Build AI agents grounded in a creator&#39;s documents, audio, and video.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/TokenRhythm/NeoHorse" target="_blank" rel="noreferrer">TokenRhythm/NeoHorse</a></td><td>347</td><td>85%</td><td><span class="relation-pill downstream">典型相关</span></td><td>LLM training</td><td>1,697</td><td>NeoHorse-1: Towards Recursive Self-Improvement via Agentic Post-Training with Routing Harness.</td><td>训练框架用户需要把选好的样本接入 SFT、pretrain 或 alignment 流程，是 DataFlex 最直接的下游入口。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/ApodexAI/FrontierAgent" target="_blank" rel="noreferrer">ApodexAI/FrontierAgent</a></td><td>346</td><td>85%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>5,437</td><td>🧩 FrontierAgent, our agent framework, open-sourced alongside it — native command-line TUI, ReAct and Agent Team modes, one command on macOS and Linux, no preinstall, no hard Docker dependency.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/lingxuanqjc-alt/note-bridge-desktop" target="_blank" rel="noreferrer">lingxuanqjc-alt/note-bridge-desktop</a></td><td>345</td><td>85%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,032</td><td>Windows 笔记导出与迁移工具：七平台适配、四格式导出、离线阅读，明确验证范围与失败状态。</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/Pinvou/pinvou-agent" target="_blank" rel="noreferrer">Pinvou/pinvou-agent</a></td><td>343</td><td>84%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>2,942</td><td>Open-source desktop AI agent for tools, files, knowledge, workflows, and real deliverables.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>Rust</td></tr>
+                  <tr><td><a href="https://github.com/cline/cline" target="_blank" rel="noreferrer">cline/cline</a></td><td>337</td><td>83%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>71,467</td><td>Autonomous coding agent as an SDK, IDE extension, or CLI assistant.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/WuKongOpenSource/Wukong-AICRM" target="_blank" rel="noreferrer">WuKongOpenSource/Wukong-AICRM</a></td><td>332</td><td>82%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>2,258</td><td>开源 AI CRM，Salesforce 开源替代 + ChatGPT 式 AI 助手：客户管理、知识库查询、任务执行，全程对话完成。Open-source AI CRM and Salesforce alternative powered by conversational AI.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Java</td></tr>
+                  <tr><td><a href="https://github.com/dexmal/dexbotic" target="_blank" rel="noreferrer">dexmal/dexbotic</a></td><td>331</td><td>82%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>3,234</td><td>Dexbotic: Open-Source Vision-Language-Action Toolbox</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/PhyAgentOS/PhyAgentOS-core" target="_blank" rel="noreferrer">PhyAgentOS/PhyAgentOS-core</a></td><td>328</td><td>81%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,999</td><td>PhyAgentOS is a Recursive Self-Improving (RSI)  physical agent operating system that enables agents to recursively self-improve through agentic workflows.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/zts212653/clowder-ai" target="_blank" rel="noreferrer">zts212653/clowder-ai</a></td><td>327</td><td>81%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>3,774</td><td>Build AI teams, not just agents. Hard rails, soft power, shared mission.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/ant-research/AntOmniEvo" target="_blank" rel="noreferrer">ant-research/AntOmniEvo</a></td><td>326</td><td>80%</td><td><span class="relation-pill weak">弱相关</span></td><td>Other</td><td>1,228</td><td>An auto-evolution framework that optimizes anything — your 7×24 team of algorithm engineers.</td><td>泛技术兴趣信号，保留观察，但不应作为主传播场景。</td><td>Python</td></tr>
+                  <tr><td><a href="https://github.com/phronesis-io/eigenflux" target="_blank" rel="noreferrer">phronesis-io/eigenflux</a></td><td>323</td><td>80%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>2,348</td><td>Official repository for EigenFlux — the open-source communication and broadcast network for AI agents.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Go</td></tr>
+                  <tr><td><a href="https://github.com/proinsight-io/crewmeld" target="_blank" rel="noreferrer">proinsight-io/crewmeld</a></td><td>315</td><td>78%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>RAG / retrieval</td><td>1,111</td><td>CrewMeld — Enterprise AI Digital Workforce Platform. Manage AI employees like real team members. Visual SOP orchestration, 13 LLM providers (including China-native models), 8+ messaging channels(WeCom/DingTalk/Feishu/Telegram), knowledge base with RAG, and full private deployment support. Built with Next.js, React, TypeScript &amp; Bun.</td><td>RAG 场景关注数据质量和文档选择，可作为 DataFlex 方法向检索数据治理扩展的观察信号。</td><td>TypeScript</td></tr>
+                  <tr><td><a href="https://github.com/Orkas-AI/Orkas" target="_blank" rel="noreferrer">Orkas-AI/Orkas</a></td><td>311</td><td>77%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>9,156</td><td>Orkas is an open-source (MIT), local-first AI team for your desktop: a Commander turns your goal into to-dos and coordinates 16 built-in specialist agents plus Claude Code, Codex, OpenCode, OpenClaw and Hermes, with projects, scheduled automations and connectors. Free app for macOS &amp; Windows; built-in models or your own keys.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>JavaScript</td></tr>
+                  <tr><td><a href="https://github.com/RISE-X-Lab/OpenCollab" target="_blank" rel="noreferrer">RISE-X-Lab/OpenCollab</a></td><td>303</td><td>75%</td><td><span class="relation-pill adjacent">场景相邻</span></td><td>Agent / workflow</td><td>1,356</td><td>A research-friendly, high-performance multi-agent collaboration coding framework.</td><td>Agent/workflow 需要高质量任务数据和评测数据，DataFlex 可作为实验数据策略层。</td><td>Python</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-wrap overlap-category-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>兴趣分类</th>
+                  <th>共现次数</th>
+                  <th>占比</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Other</td><td>38,211</td><td>52.1%</td></tr>
+                <tr><td>Agent / workflow</td><td>23,195</td><td>31.6%</td></tr>
+                <tr><td>RAG / retrieval</td><td>4,829</td><td>6.6%</td></tr>
+                <tr><td>LLM training</td><td>2,091</td><td>2.9%</td></tr>
+                <tr><td>Evaluation / alignment</td><td>2,064</td><td>2.8%</td></tr>
+                <tr><td>Data pipeline</td><td>1,984</td><td>2.7%</td></tr>
+                <tr><td>Data selection / dataset</td><td>971</td><td>1.3%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="overlap-note">口径：分析 2026-10-01 到 2026-10-31 给 OpenDCAI/DataFlex 点 star 的新增用户；当前已读取 406 / 466 个用户的非空公开 starred repos，60 个用户为空列表或不可读。每人最多最近 200 个公开 starred repos。GitHub 不提供共同 star 图谱接口，本分析由公开 stargazer 和用户 starred repos 聚合而来，适合判断兴趣相关度，不等同于真实使用关系。</p>
+      </section>
+        </div>
+      </details>
+
+      <details class="panel stargazer-overlap-panel overlap-archive">
+        <summary>9 月共同关注网络回溯（完整抓取分析）</summary>
+        <div class="overlap-archive-body">
       <section class="panel stargazer-overlap-panel">
         <div class="panel-heading">
           <div>
@@ -238,6 +472,8 @@
 
         <p class="overlap-note">口径：分析 2026-09-01 到 2026-09-07 给 OpenDCAI/DataFlex 点 star 的新增用户；当前已读取 91 / 123 个用户的非空公开 starred repos，32 个用户为空列表或不可读。每人最多最近 200 个公开 starred repos。GitHub 不提供共同 star 图谱接口，本分析由公开 stargazer 和用户 starred repos 聚合而来，适合判断兴趣相关度，不等同于真实使用关系。</p>
       </section>
+        </div>
+      </details>
 
       <details class="panel stargazer-overlap-panel overlap-archive">
         <summary>8 月共同关注网络回溯（完整抓取分析）</summary>
@@ -474,6 +710,6 @@
       </details>
     </main>
 
-    <script src="./app.js?v=148-4814515db52ef85fd4993eba5963a0420b2c4fbd"></script>
+    <script src="./app.js?v=20261110-traffic-local"></script>
   </body>
 </html>

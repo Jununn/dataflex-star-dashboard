@@ -363,21 +363,22 @@ const actions = [
   ["2026-10-15","Reddit","dataflex-oss","https://www.reddit.com/r/LLMDevs/comments/1x6ign1/data_strategy_is_becoming_a_bigger_part_of_llm/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
+// Source: user screenshot, 2026-10-26 to 2026-11-08. Daily values are visual estimates; Nov 4 visitors=14 is explicit.
 const trafficRows = [
-  ["2026-08-23", 14, 8, 8, 8],
-  ["2026-08-24", 29, 16, 19, 6],
-  ["2026-08-25", 11, 10, 51, 11],
-  ["2026-08-26", 36, 16, 10, 9],
-  ["2026-08-27", 32, 19, 43, 13],
-  ["2026-08-28", 19, 10, 11, 8],
-  ["2026-08-29", 4, 3, 2, 2],
-  ["2026-08-30", 9, 4, 173, 4],
-  ["2026-08-31", 15, 12, 10, 9],
-  ["2026-09-01", 55, 17, 14, 9],
-  ["2026-09-02", 33, 23, 11, 11],
-  ["2026-09-03", 11, 8, 6, 4],
-  ["2026-09-04", 43, 19, 18, 11],
-  ["2026-09-05", 125, 13, 19, 15]
+  ["2026-10-26",106,93,30,20],
+  ["2026-10-27",14,7,35,30],
+  ["2026-10-28",21,12,47,41],
+  ["2026-10-29",24,14,42,15],
+  ["2026-10-30",22,17,15,10],
+  ["2026-10-31",15,9,15,12],
+  ["2026-11-01",35,22,24,13],
+  ["2026-11-02",15,9,14,13],
+  ["2026-11-03",27,14,20,17],
+  ["2026-11-04",16,14,9,8],
+  ["2026-11-05",23,14,39,32],
+  ["2026-11-06",42,15,13,11],
+  ["2026-11-07",14,9,8,7],
+  ["2026-11-08",14,9,17,13]
 ].map(([date, views, uniqueVisitors, clones, uniqueCloners]) => ({
   date,
   views,
@@ -387,36 +388,36 @@ const trafficRows = [
 }));
 
 const trafficWindowTotals = {
-  views: 436,
-  uniqueVisitors: 139,
-  clones: 395,
-  uniqueCloners: 108
+  views: 388,
+  uniqueVisitors: 219,
+  clones: 328,
+  uniqueCloners: 230
 };
 
 const trafficReferrers = [
-  ["Google", 107, 26],
-  ["github.com", 74, 46],
-  ["Bing", 11, 4],
-  ["zwt233.github.io", 8, 7],
-  ["wcny4qa9krto.feishu.cn", 8, 4],
-  ["opendcai.github.io", 2, 1],
-  ["DuckDuckGo", 1, 1],
-  ["alidocs.dingtalk.com", 1, 1],
-  ["chatgpt.com", 1, 1],
-  ["huggingface.co", 1, 1]
+  ["aocr.org",80,80],
+  ["github.com",31,25],
+  ["Google",27,16],
+  ["Bing",7,4],
+  ["zwt233.github.io",4,3],
+  ["discuss.pytorch.kr",2,2],
+  ["qaxb95n3g50.feishu.cn",2,2],
+  ["dsw-gateway-us-southeast-1.data...",1,1],
+  ["haolpku.github.io",1,1],
+  ["link.zhihu.com",1,1]
 ].map(([site, views, uniqueVisitors]) => ({ site, views, uniqueVisitors }));
 
 const trafficPopularContent = [
-  ["Overview", 194, 116],
-  ["/blob/main/README-zh.md", 33, 23],
-  ["/issues", 13, 7],
-  ["/blob/main/src/dataflex/train/re...", 13, 2],
-  ["/blob/main/src/dataflex/train/re...", 12, 2],
-  ["/blob/main/examples/train_full/r...", 11, 2],
-  ["/commits/main", 10, 1],
-  ["/pulls", 9, 5],
-  ["/tree/main/examples", 8, 4],
-  ["/tree/main/src/dataflex", 8, 4]
+  ["Overview",143,103],
+  ["/blob/main/README-zh.md",40,24],
+  ["/pulls",24,9],
+  ["/issues",14,8],
+  ["/blob/4475d6d4/.github/workflow...",12,12],
+  ["/tree/main",10,7],
+  ["/blob/main/skills/how_to_use.md",7,4],
+  ["/blob/4475d6d4/.github/workflow...",6,6],
+  ["/blob/4475d6d4/src/dataflex/vers...",6,6],
+  ["/blob/4475d6d4/.MANIFEST.in",5,5]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
 let benchmarkSnapshotDate = "2026-11-10";
@@ -1800,7 +1801,7 @@ function renderTrafficSummary(trafficData) {
   const dailyUniqueCloners = trafficData.reduce((sum, row) => sum + row.uniqueCloners, 0);
   const windowCard = `<article class="traffic-card">
     <span>${trafficData[0].date.slice(5)} 到 ${trafficData.at(-1).date.slice(5)}</span>
-    <strong>GitHub Traffic 14 天窗口</strong>
+    <strong>GitHub Traffic 14 天窗口</strong><p>窗口总量按截图录入；逐日曲线及其汇总为截图估读，11/04 独立访客 14 为明确值。</p>
     <p>总浏览 ${formatNumber(trafficWindowTotals.views)}，去重独立访客 ${formatNumber(trafficWindowTotals.uniqueVisitors)}；clones ${formatNumber(trafficWindowTotals.clones)}，去重独立 cloners ${formatNumber(trafficWindowTotals.uniqueCloners)}。逐日 unique 相加分别为访客 ${formatNumber(dailyUniqueVisitors)}、cloners ${formatNumber(dailyUniqueCloners)}。</p>
   </article>`;
   const monthCards = months

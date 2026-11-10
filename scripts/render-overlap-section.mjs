@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = path.resolve(new URL("..", import.meta.url).pathname);
+const root = fileURLToPath(new URL("..", import.meta.url));
 const indexPath = path.join(root, "index.html");
 const dataPath = path.join(root, "data/dataflex-overlap.json");
 const month = process.env.MONTH || "2026-08";
@@ -66,7 +67,7 @@ const section = `      <section class="panel stargazer-overlap-panel">
 
         <div class="overlap-insights">
           <article>
-            <strong>DataFlow 仍是最强共同兴趣锚点</strong>
+            <strong>DataFlow 共同关注情况</strong>
             <span>${monthLabel} 月有效样本中，OpenDCAI/DataFlow 被 ${fmt(dataflow?.overlap || 0)} 个用户共同关注，占 ${pct(dataflow?.share || 0)}，说明 DataFlex 的新增兴趣仍高度贴近 OpenDCAI 数据工程生态。</span>
           </article>
           <article>
@@ -136,6 +137,19 @@ if (start === -1 || end === -1) {
 const currentSection = html.slice(start, end).trimEnd();
 const currentMonthLabel = currentSection.match(/共同关注网络：兴趣相关度与潜在场景（(\d{1,2})月）/)?.[1];
 
+if (process.env.ARCHIVE_ONLY === "1") {
+  const archive = '      <details class="panel stargazer-overlap-panel overlap-archive" data-overlap-month="' + month + '">\n        <summary>' + monthLabel + ' 月共同关注网络回溯（历史快照）</summary>\n        <div class="overlap-archive-body">\n' + section + '\n        </div>\n      </details>\n\n';
+  const archiveStart = html.indexOf('      <details class="panel stargazer-overlap-panel overlap-archive" data-overlap-month="' + month + '"');
+  if (archiveStart >= 0) {
+    const archiveEnd = html.indexOf('</details>', archiveStart) + '</details>'.length;
+    fs.writeFileSync(indexPath, html.slice(0, archiveStart) + archive.trimEnd() + html.slice(archiveEnd));
+  } else {
+    fs.writeFileSync(indexPath, html.slice(0, end) + archive + html.slice(end));
+  }
+  console.log('updated archive ' + month);
+  process.exit(0);
+}
+
 if (currentMonthLabel === monthLabel) {
   fs.writeFileSync(indexPath, `${html.slice(0, start)}${section}\n\n${html.slice(end)}`);
   console.log(`updated ${indexPath}`);
@@ -143,7 +157,7 @@ if (currentMonthLabel === monthLabel) {
 }
 
 const currentArchive = `      <details class="panel stargazer-overlap-panel overlap-archive">
-        <summary>${currentMonthLabel || "上月"} 月共同关注网络回溯（完整抓取分析）</summary>
+        <summary>${currentMonthLabel || "上月"} 月共同关注网络回溯（历史快照）</summary>
         <div class="overlap-archive-body">
 ${currentSection}
         </div>

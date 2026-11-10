@@ -1,14 +1,15 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
-const root = path.resolve(new URL("..", import.meta.url).pathname);
+const root = fileURLToPath(new URL("..", import.meta.url));
 const dataDir = path.join(root, "data");
-const cacheDir = path.join(dataDir, "github-cache");
+const cacheDir = path.join(dataDir, process.env.CACHE_NAMESPACE || "github-cache");
 const outputPath = path.join(dataDir, "dataflex-overlap.json");
-const curlConfigPath = path.join(dataDir, ".curl-gh-config");
+
 const repo = "OpenDCAI/DataFlex";
 const months = (process.env.MONTHS || "2026-08,2026-07").split(",").map((month) => month.trim()).filter(Boolean);
 const perUserStarLimit = 200;
@@ -20,8 +21,7 @@ if (!token) {
 }
 
 await fs.mkdir(cacheDir, { recursive: true });
-await fs.writeFile(curlConfigPath, `header = "Authorization: Bearer ${token}"\n`);
-await fs.chmod(curlConfigPath, 0o600);
+
 
 async function readGhToken() {
   try {
@@ -63,94 +63,30 @@ function normalizeRepo(node) {
   };
 }
 
-async function graphql(query) {
-  const queryFile = path.join(dataDir, `.graphql-${Date.now()}-${Math.random().toString(16).slice(2)}.json`);
-  await writeJson(queryFile, { query });
-  try {
-    for (let attempt = 1; attempt <= 4; attempt += 1) {
-      try {
-        const { stdout } = await execFile(
-            "curl",
-            [
-                "-sS",
-                "--connect-timeout",
-                "20",
-                "--retry",
-                "4",
-            "--retry-delay",
-            "2",
-            "--retry-all-errors",
-            "-K",
-            curlConfigPath,
-            "-H",
-            "Accept: application/vnd.github+json",
-            "-H",
-            "Content-Type: application/json",
-            "-w",
-            "\n%{http_code}",
-            "--data-binary",
-            `@${queryFile}`,
-            "https://api.github.com/graphql"
-          ],
-          { maxBuffer: 50 * 1024 * 1024 }
-        );
-        const split = stdout.lastIndexOf("\n");
-        const body = stdout.slice(0, split);
-        const status = Number(stdout.slice(split + 1));
-        if (status >= 200 && status < 300) {
-          const parsed = JSON.parse(body);
-          if (parsed.errors?.length) {
-            throw new Error(JSON.stringify(parsed.errors).slice(0, 1000));
-          }
-          return parsed.data;
-        }
-        throw new Error(`${status} ${body.slice(0, 500)}`);
-      } catch (error) {
-        if (attempt === 4) throw error;
-        console.log(`graphql failed, retry ${attempt}: ${String(error).split("\n")[0]}`);
-        await sleep(attempt * 3000);
-      }
+async function requestJson(url, options = {}) {
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const response = await fetch(url, { ...options, signal: AbortSignal.timeout(60000), headers: {
+        Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json', 'X-GitHub-Api-Version': '2022-11-28',
+        ...options.headers
+      }});
+      if (!response.ok) throw new Error('GitHub HTTP ' + response.status);
+      return await response.json();
+    } catch (error) {
+      if (attempt === 4) throw error;
+      console.log('Request retry ' + attempt + ': ' + error.message);
+      await sleep(attempt * 3000);
     }
-  } finally {
-    await fs.rm(queryFile, { force: true });
   }
 }
-
+async function graphql(query) {
+  const parsed = await requestJson('https://api.github.com/graphql', {method:'POST', body:JSON.stringify({query})});
+  if (parsed.errors?.length) throw new Error(JSON.stringify(parsed.errors));
+  return parsed.data;
+}
 async function githubStarJson(url) {
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
-    const { stdout } = await execFile(
-      "curl",
-      [
-        "-sS",
-        "--connect-timeout",
-        "20",
-        "--retry",
-        "4",
-        "--retry-delay",
-        "2",
-        "--retry-all-errors",
-        "-K",
-        curlConfigPath,
-        "-H",
-        "Accept: application/vnd.github.star+json",
-        "-H",
-        "X-GitHub-Api-Version: 2022-11-28",
-        "-H",
-        "User-Agent: dataflex-star-dashboard",
-        "-w",
-        "\n%{http_code}",
-        url
-      ],
-      { maxBuffer: 50 * 1024 * 1024 }
-    );
-    const split = stdout.lastIndexOf("\n");
-    const body = stdout.slice(0, split);
-    const status = Number(stdout.slice(split + 1));
-    if (status >= 200 && status < 300) return JSON.parse(body);
-    if (attempt === 4) throw new Error(`${status} ${url}\n${body.slice(0, 500)}`);
-    await sleep(attempt * 3000);
-  }
-  throw new Error(`Failed after retries: ${url}`);
+  return requestJson(url, {headers:{Accept:'application/vnd.github.star+json'}});
 }
 
 async function fetchStargazers() {
@@ -342,7 +278,7 @@ for (const item of stargazers) {
 
 const allUsers = [...new Map(months.flatMap((month) => usersByMonth.get(month).map((user) => [user.login, user]))).values()];
 console.log(`target users: ${allUsers.length}`);
-await fetchStarredForUsers(allUsers);
+if (process.env.CACHE_ONLY !== "1") await fetchStarredForUsers(allUsers);
 
 const previousOutput = (await readJson(outputPath)) || {};
 const output = {
