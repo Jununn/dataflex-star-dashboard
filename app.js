@@ -359,7 +359,8 @@ const actions = [
   ["2026-09-04", "Reddit", "dataflow+dataflex", "https://www.reddit.com/r/LLMDevs/comments/1w71345/llm_development_is_turning_data_into_a/"],
   ["2026-09-04", "LinkedIn", "dataflow+dataflex", "https://www.linkedin.com/feed/update/urn:li:groupPost:7036558-7501594450029215744/"],
   ["2026-09-11", "Reddit", "dataflex-reorder", "https://www.reddit.com/r/deeplearning/comments/1wde27f/the_choice_and_order_of_training_samples_can/"],
-  ["2026-09-11", "Reddit", "dataflex-reorder", "https://www.reddit.com/r/LLMDevs/comments/1wde241/the_choice_and_order_of_training_samples_can/"]
+  ["2026-09-11", "Reddit", "dataflex-reorder", "https://www.reddit.com/r/LLMDevs/comments/1wde241/the_choice_and_order_of_training_samples_can/"],
+  ["2026-10-15","Reddit","dataflex-oss","https://www.reddit.com/r/LLMDevs/comments/1x6ign1/data_strategy_is_becoming_a_bigger_part_of_llm/"]
 ].map(([date, channel, title, url]) => ({ date, channel, title, url }));
 
 const trafficRows = [
