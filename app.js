@@ -1,8 +1,8 @@
 const snapshot = {
   date: "2026-11-10",
-  time: "2026-11-10 09:44",
+  time: "2026-11-10 10:32",
   timelineEnd: "2026-11-10",
-  stars: 3517,
+  stars: 3518,
   forks: 531,
   watchers: 335,
   createdAt: "2025-08-09",
@@ -275,7 +275,7 @@ const nonZeroDailyCounts = [
   ["2026-11-06", 13],
   ["2026-11-07", 41],
   ["2026-11-08", 21],
-  ["2026-11-09", 14]
+  ["2026-11-09", 15]
 ];
 
 const phases = [
@@ -933,10 +933,10 @@ const benchmarkSnapshots = {
   "2026-11-10": {
     "hiyouga/LlamaFactory": 75965,
     "verl-project/verl": 24177,
-    "huggingface/trl": 19697,
+    "huggingface/trl": 19698,
     "openrlhf/openrlhf": 10147,
     "axolotl-ai-cloud/axolotl": 12675,
-    "OpenDCAI/DataFlex": 3517
+    "OpenDCAI/DataFlex": 3518
   }
 };
 
