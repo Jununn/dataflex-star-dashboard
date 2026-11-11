@@ -1,12 +1,12 @@
 const snapshot = {
-  date: "2026-11-10",
-  time: "2026-11-11 01:25",
-  timelineEnd: "2026-11-10",
-  stars: 3523,
-  forks: 531,
-  watchers: 335,
+  date: "2026-11-11",
+  time: "2026-11-12 01:38",
+  timelineEnd: "2026-11-11",
+  stars: 3540,
+  forks: 533,
+  watchers: 337,
   createdAt: "2025-08-09",
-  pushedAt: "2026-10-21",
+  pushedAt: "2026-11-11",
   description:
     "[NeurIPS 2026] DataFlex: A Unified Benchmark and Evaluation Platform for Data-Centric Training of Large Language Models"
 };
@@ -276,7 +276,8 @@ const nonZeroDailyCounts = [
   ["2026-11-07", 41],
   ["2026-11-08", 21],
   ["2026-11-09", 17],
-  ["2026-11-10", 3]
+  ["2026-11-10", 12],
+  ["2026-11-11", 8]
 ];
 
 const phases = [
@@ -421,8 +422,8 @@ const trafficPopularContent = [
   ["/blob/4475d6d4/.MANIFEST.in",5,5]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-11-10";
-let benchmarkPreviousSnapshotDate = "2026-11-07";
+let benchmarkSnapshotDate = "2026-11-11";
+let benchmarkPreviousSnapshotDate = "2026-11-10";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -939,6 +940,14 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10147,
     "axolotl-ai-cloud/axolotl": 12681,
     "OpenDCAI/DataFlex": 3523
+  },
+  "2026-11-11": {
+    "hiyouga/LlamaFactory": 76001,
+    "verl-project/verl": 24199,
+    "huggingface/trl": 19722,
+    "openrlhf/openrlhf": 10149,
+    "axolotl-ai-cloud/axolotl": 12684,
+    "OpenDCAI/DataFlex": 3540
   }
 };
 
