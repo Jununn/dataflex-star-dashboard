@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-11-13",
-  time: "2026-11-14 01:27",
-  timelineEnd: "2026-11-13",
-  stars: 3568,
-  forks: 541,
-  watchers: 342,
+  date: "2026-11-14",
+  time: "2026-11-15 00:18",
+  timelineEnd: "2026-11-14",
+  stars: 3586,
+  forks: 544,
+  watchers: 344,
   createdAt: "2025-08-09",
   pushedAt: "2026-11-11",
   description:
@@ -164,7 +164,7 @@ const nonZeroDailyCounts = [
   ["2026-07-16", 16],
   ["2026-07-17", 22],
   ["2026-07-18", 17],
-  ["2026-07-19", 14],
+  ["2026-07-19", 15],
   ["2026-07-20", 31],
   ["2026-07-21", 20],
   ["2026-07-22", 27],
@@ -279,7 +279,8 @@ const nonZeroDailyCounts = [
   ["2026-11-10", 12],
   ["2026-11-11", 12],
   ["2026-11-12", 16],
-  ["2026-11-13", 8]
+  ["2026-11-13", 19],
+  ["2026-11-14", 6]
 ];
 
 const phases = [
@@ -424,8 +425,8 @@ const trafficPopularContent = [
   ["/blob/4475d6d4/.MANIFEST.in",5,5]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-11-13";
-let benchmarkPreviousSnapshotDate = "2026-11-12";
+let benchmarkSnapshotDate = "2026-11-14";
+let benchmarkPreviousSnapshotDate = "2026-11-13";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -966,6 +967,14 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10151,
     "axolotl-ai-cloud/axolotl": 12691,
     "OpenDCAI/DataFlex": 3568
+  },
+  "2026-11-14": {
+    "hiyouga/LlamaFactory": 76041,
+    "verl-project/verl": 24229,
+    "huggingface/trl": 19734,
+    "openrlhf/openrlhf": 10152,
+    "axolotl-ai-cloud/axolotl": 12695,
+    "OpenDCAI/DataFlex": 3586
   }
 };
 
