@@ -1,10 +1,10 @@
 const snapshot = {
-  date: "2026-11-14",
-  time: "2026-11-15 00:18",
-  timelineEnd: "2026-11-14",
-  stars: 3586,
-  forks: 544,
-  watchers: 344,
+  date: "2026-11-15",
+  time: "2026-11-16 00:44",
+  timelineEnd: "2026-11-15",
+  stars: 3604,
+  forks: 546,
+  watchers: 346,
   createdAt: "2025-08-09",
   pushedAt: "2026-11-11",
   description:
@@ -280,7 +280,8 @@ const nonZeroDailyCounts = [
   ["2026-11-11", 12],
   ["2026-11-12", 16],
   ["2026-11-13", 19],
-  ["2026-11-14", 6]
+  ["2026-11-14", 20],
+  ["2026-11-15", 4]
 ];
 
 const phases = [
@@ -425,8 +426,8 @@ const trafficPopularContent = [
   ["/blob/4475d6d4/.MANIFEST.in",5,5]
 ].map(([content, views, uniqueVisitors]) => ({ content, views, uniqueVisitors }));
 
-let benchmarkSnapshotDate = "2026-11-14";
-let benchmarkPreviousSnapshotDate = "2026-11-13";
+let benchmarkSnapshotDate = "2026-11-15";
+let benchmarkPreviousSnapshotDate = "2026-11-14";
 
 const benchmarkSnapshots = {
   "2026-08-05": {
@@ -975,6 +976,14 @@ const benchmarkSnapshots = {
     "openrlhf/openrlhf": 10152,
     "axolotl-ai-cloud/axolotl": 12695,
     "OpenDCAI/DataFlex": 3586
+  },
+  "2026-11-15": {
+    "hiyouga/LlamaFactory": 76050,
+    "verl-project/verl": 24236,
+    "huggingface/trl": 19740,
+    "openrlhf/openrlhf": 10155,
+    "axolotl-ai-cloud/axolotl": 12715,
+    "OpenDCAI/DataFlex": 3604
   }
 };
 
