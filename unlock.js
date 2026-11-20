@@ -6,6 +6,8 @@
   const button = document.getElementById("decryptButton");
   const remember = document.getElementById("rememberUnlock");
   const message = document.getElementById("decryptError");
+  const status = document.getElementById("unlockStatus");
+  const statusText = document.getElementById("unlockStatusText");
   const relock = document.getElementById("relockButton");
   const envelope = JSON.parse(document.getElementById("encryptedDashboard").textContent);
   const header = { version: envelope.version, cipher: envelope.cipher, compression: envelope.compression, kdf: envelope.kdf };
@@ -69,7 +71,8 @@
     document.body.append(script);
     script.remove();
     gate.hidden = true;
-    relock.hidden = false;
+    status.hidden = false;
+    statusText.textContent = "已解锁 · 可随时重新锁定";
   }
   async function unlock(key) {
     const bundle = await decode(key);
@@ -88,14 +91,17 @@
       await unlock(key);
       await forget();
       if (remember.checked) {
-        try { await storage("readwrite", (store) => store.put(key, keyId)); }
+        try {
+          await storage("readwrite", (store) => store.put(key, keyId));
+          statusText.textContent = "已解锁 · 此浏览器已记住";
+        }
         catch { relock.title = "浏览器未允许保存解锁状态；关闭页面后需要重新输入口令。"; }
       }
     } catch {
       nodes.forEach((node) => node.remove());
       nodes = [];
       gate.hidden = false;
-      relock.hidden = true;
+      status.hidden = true;
       message.textContent = "无法解密：口令不正确或密文已损坏。";
       input.focus();
     } finally { busy = false; button.disabled = false; }
@@ -106,7 +112,7 @@
     nodes.forEach((node) => node.remove());
     nodes = [];
     gate.hidden = false;
-    relock.hidden = true;
+    status.hidden = true;
     await forget();
     // Reload clears decrypted application closures and event handlers from memory.
     location.reload();
@@ -124,6 +130,7 @@
       if (key) {
         if (key.extractable || key.algorithm.name !== "AES-GCM") throw new Error("Invalid stored key");
         await unlock(key);
+        statusText.textContent = "已解锁 · 此浏览器已记住";
       }
     } catch { await forget(); }
     finally { busy = false; button.disabled = false; }

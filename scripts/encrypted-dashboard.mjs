@@ -116,9 +116,12 @@ function gateMarkup() {
         </form>
         <noscript>此页面需要启用 JavaScript 才能解密。</noscript>
       </section>
+      <section id="unlockStatus" class="unlock-status" aria-label="解锁状态" hidden>
+        <span id="unlockStatusText" role="status">已解锁</span>
+        <button id="relockButton" class="relock-button" type="button">重新锁定</button>
+      </section>
       <template id="protectedMount"></template>
-    </main>
-    <button id="relockButton" class="relock-button" type="button" hidden>重新锁定</button>`;
+    </main>`;
 }
 
 export async function build() {

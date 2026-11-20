@@ -7,6 +7,6 @@
 .decrypt-controls button, .relock-button { border: 0; border-radius: var(--radius); background: var(--blue); padding: 9px 18px; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
 #decryptForm > .decrypt-remember { margin-top: 12px; font-weight: 400; }
 #decryptError { margin-top: 8px; color: var(--red); font-size: 13px; }
-.relock-button { position: fixed; right: 20px; bottom: 20px; z-index: 100; box-shadow: var(--shadow); }
-.relock-button[hidden] { display: none; }
-@media print { .relock-button { display: none; } }
+.unlock-status { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0; min-height: 56px; font-size: 13px; }
+.unlock-status[hidden] { display: none; }
+@media print { .unlock-status { display: none; } }
