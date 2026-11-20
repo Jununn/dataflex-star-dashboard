@@ -25,8 +25,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      DASHBOARD_SOURCE_DIR: ${{ runner.temp }}/dataflex-private-source
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -34,6 +32,9 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "22"
+      - name: Prepare private temporary directory
+        shell: bash
+        run: echo "DASHBOARD_SOURCE_DIR=$RUNNER_TEMP/dataflex-private-source" >> "$GITHUB_ENV"
       - name: Decrypt, update, re-encrypt and verify
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -76,5 +77,5 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$DASHBOARD_SOURCE_DIR" = "$RUNNER_TEMP/dataflex-private-source"
+          test "${DASHBOARD_SOURCE_DIR:-}" = "$RUNNER_TEMP/dataflex-private-source"
           rm -rf -- "$DASHBOARD_SOURCE_DIR"
