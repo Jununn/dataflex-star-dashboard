@@ -4,8 +4,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const appPath = join(root, "app.js");
-const indexPath = join(root, "index.html");
+// Only decrypted private source is updated; public files are produced by the encryption build.
+const sourceRoot = process.env.DASHBOARD_SOURCE_DIR || join(root, ".private/source");
+const appPath = join(sourceRoot, "app.js");
+const indexPath = join(sourceRoot, "index.html");
 const repoName = "OpenDCAI/DataFlex";
 const dailyCountsStartDate = "2025-09-03";
 

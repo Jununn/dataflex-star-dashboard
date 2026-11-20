@@ -5,7 +5,7 @@ import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
-const root = fileURLToPath(new URL("..", import.meta.url));
+const root = process.env.DASHBOARD_SOURCE_DIR || path.join(fileURLToPath(new URL("..", import.meta.url)), ".private/source");
 const dataDir = path.join(root, "data");
 const cacheDir = path.join(dataDir, process.env.CACHE_NAMESPACE || "github-cache");
 const outputPath = path.join(dataDir, "dataflex-overlap.json");

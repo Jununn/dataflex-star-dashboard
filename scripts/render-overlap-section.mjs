@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = fileURLToPath(new URL("..", import.meta.url));
+const root = process.env.DASHBOARD_SOURCE_DIR || path.join(fileURLToPath(new URL("..", import.meta.url)), ".private/source");
 const indexPath = path.join(root, "index.html");
 const dataPath = path.join(root, "data/dataflex-overlap.json");
 const month = process.env.MONTH || "2026-08";

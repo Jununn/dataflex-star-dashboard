@@ -1,0 +1,12 @@
+.decrypt-gate { padding: 24px; }
+.decrypt-gate > p { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+#decryptForm { margin-top: 18px; }
+#decryptForm > label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
+.decrypt-controls { display: flex; flex-wrap: wrap; gap: 10px; }
+.decrypt-controls input { min-width: min(100%, 240px); border: 1px solid var(--line); border-radius: var(--radius); padding: 9px 12px; font: inherit; }
+.decrypt-controls button, .relock-button { border: 0; border-radius: var(--radius); background: var(--blue); padding: 9px 18px; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+#decryptForm > .decrypt-remember { margin-top: 12px; font-weight: 400; }
+#decryptError { margin-top: 8px; color: var(--red); font-size: 13px; }
+.relock-button { position: fixed; right: 20px; bottom: 20px; z-index: 100; box-shadow: var(--shadow); }
+.relock-button[hidden] { display: none; }
+@media print { .relock-button { display: none; } }

@@ -1,0 +1,80 @@
+name: Update and deploy encrypted dashboard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # 18:00 Beijing time.
+    - cron: "0 10 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dataflex-encrypted-pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      DASHBOARD_SOURCE_DIR: ${{ runner.temp }}/dataflex-private-source
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Decrypt, update, re-encrypt and verify
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          VERSION: ${{ github.run_number }}-${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$DASHBOARD_PASSWORD" || { echo "Missing DASHBOARD_PASSWORD"; exit 1; }
+          test -n "$GH_TOKEN" || { echo "Missing GH_TOKEN"; exit 1; }
+          node --test tests/encrypted-dashboard.test.mjs
+          node scripts/encrypted-dashboard.mjs decrypt
+          node update-dashboard.mjs
+          node --check "$DASHBOARD_SOURCE_DIR/app.js"
+          node scripts/encrypted-dashboard.mjs build
+          node scripts/encrypted-dashboard.mjs stage
+      - name: Commit only encrypted source and public outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- dashboard.enc.json index.html styles.css
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update encrypted dashboard snapshot"
+            git push origin HEAD:main
+          fi
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload public files and ciphertext only
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+          retention-days: 1
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Remove temporary plaintext
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$DASHBOARD_SOURCE_DIR" = "$RUNNER_TEMP/dataflex-private-source"
+          rm -rf -- "$DASHBOARD_SOURCE_DIR"

@@ -5,3 +5,17 @@ favicon-original.png
 favicon-before-transparent.png
 favicon.svg
 .DS_Store
+
+# Decrypted source, reports, browser test artifacts and local backups never belong in Git.
+.private/
+dist/
+node_modules/
+playwright-report/
+test-results/
+*.bak
+*.backup
+.env
+.env.*
+app.js
+access-gate.js
+data/dataflex-overlap.json
